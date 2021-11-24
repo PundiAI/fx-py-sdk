@@ -1,0 +1,12 @@
+[submodule "fx-core"]
+	path = fx-core
+	url = https://github.com/functionx/fx-core.git
+	branch = release/v2.2.x
+[submodule "cosmos-sdk"]
+	path = cosmos-sdk
+	url = https://github.com/cosmos/cosmos-sdk.git
+	branch = release/v0.45.x
+[submodule "ibc-go"]
+	path = ibc-go
+	url = https://github.com/cosmos/ibc-go.git
+	branch = release/v3.1.x
