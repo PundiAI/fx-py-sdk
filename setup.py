@@ -17,7 +17,7 @@ setup(
     author='zakir',
     packages=find_packages(),
     url='https://github.com/functionx/fx-py-sdk',
-    keywords=["functionx" "fxCore", "blockchain"],
+    keywords=["functionx", "fxCore", "blockchain"],
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",
