@@ -12,7 +12,7 @@ def clean_balance(cli: GRPCClient, from_private_key: wallet.PrivateKey, to_addr:
     from_addr = from_private_key.to_address()
 
     gas_price = Coin(amount='4000000000000', denom='FX')
-    gas_limit = 100000
+    gas_limit = 200000
     fee_amount = gas_limit * int(gas_price.amount)
 
     balance = cli.query_balance(from_addr, "FX")

@@ -111,7 +111,7 @@ class QueryServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def ClientParams(self, request, context):
-        """ClientParams queries all parameters of the ibc client.
+        """ClientParams queries all parameters of the ibc client submodule.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')

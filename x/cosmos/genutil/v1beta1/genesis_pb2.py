@@ -15,7 +15,7 @@ _sym_db = _symbol_database.Default()
 from x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n$cosmos/genutil/v1beta1/genesis.proto\x12\x16\x63osmos.genutil.v1beta1\x1a\x14gogoproto/gogo.proto\"X\n\x0cGenesisState\x12H\n\x07gen_txs\x18\x01 \x03(\x0c\x42\x37\xfa\xde\x1f\x18\x65ncoding/json.RawMessage\xea\xde\x1f\x06gentxs\xf2\xde\x1f\ryaml:\"gentxs\"B.Z,github.com/cosmos/cosmos-sdk/x/genutil/typesb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n$cosmos/genutil/v1beta1/genesis.proto\x12\x16\x63osmos.genutil.v1beta1\x1a\x14gogoproto/gogo.proto\"G\n\x0cGenesisState\x12\x37\n\x07gen_txs\x18\x01 \x03(\x0c\x42&\xfa\xde\x1f\x18\x65ncoding/json.RawMessage\xea\xde\x1f\x06gentxsB.Z,github.com/cosmos/cosmos-sdk/x/genutil/typesb\x06proto3')
 
 
 
@@ -32,7 +32,7 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'Z,github.com/cosmos/cosmos-sdk/x/genutil/types'
   _GENESISSTATE.fields_by_name['gen_txs']._options = None
-  _GENESISSTATE.fields_by_name['gen_txs']._serialized_options = b'\372\336\037\030encoding/json.RawMessage\352\336\037\006gentxs\362\336\037\ryaml:\"gentxs\"'
+  _GENESISSTATE.fields_by_name['gen_txs']._serialized_options = b'\372\336\037\030encoding/json.RawMessage\352\336\037\006gentxs'
   _GENESISSTATE._serialized_start=86
-  _GENESISSTATE._serialized_end=174
+  _GENESISSTATE._serialized_end=157
 # @@protoc_insertion_point(module_scope)

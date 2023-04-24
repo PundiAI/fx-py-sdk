@@ -40,6 +40,11 @@ class MsgStub(object):
                 request_serializer=cosmos_dot_staking_dot_v1beta1_dot_tx__pb2.MsgUndelegate.SerializeToString,
                 response_deserializer=cosmos_dot_staking_dot_v1beta1_dot_tx__pb2.MsgUndelegateResponse.FromString,
                 )
+        self.CancelUnbondingDelegation = channel.unary_unary(
+                '/cosmos.staking.v1beta1.Msg/CancelUnbondingDelegation',
+                request_serializer=cosmos_dot_staking_dot_v1beta1_dot_tx__pb2.MsgCancelUnbondingDelegation.SerializeToString,
+                response_deserializer=cosmos_dot_staking_dot_v1beta1_dot_tx__pb2.MsgCancelUnbondingDelegationResponse.FromString,
+                )
 
 
 class MsgServicer(object):
@@ -84,6 +89,16 @@ class MsgServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def CancelUnbondingDelegation(self, request, context):
+        """CancelUnbondingDelegation defines a method for performing canceling the unbonding delegation
+        and delegate back to previous validator.
+
+        Since: cosmos-sdk 0.46
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_MsgServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -111,6 +126,11 @@ def add_MsgServicer_to_server(servicer, server):
                     servicer.Undelegate,
                     request_deserializer=cosmos_dot_staking_dot_v1beta1_dot_tx__pb2.MsgUndelegate.FromString,
                     response_serializer=cosmos_dot_staking_dot_v1beta1_dot_tx__pb2.MsgUndelegateResponse.SerializeToString,
+            ),
+            'CancelUnbondingDelegation': grpc.unary_unary_rpc_method_handler(
+                    servicer.CancelUnbondingDelegation,
+                    request_deserializer=cosmos_dot_staking_dot_v1beta1_dot_tx__pb2.MsgCancelUnbondingDelegation.FromString,
+                    response_serializer=cosmos_dot_staking_dot_v1beta1_dot_tx__pb2.MsgCancelUnbondingDelegationResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -205,5 +225,22 @@ class Msg(object):
         return grpc.experimental.unary_unary(request, target, '/cosmos.staking.v1beta1.Msg/Undelegate',
             cosmos_dot_staking_dot_v1beta1_dot_tx__pb2.MsgUndelegate.SerializeToString,
             cosmos_dot_staking_dot_v1beta1_dot_tx__pb2.MsgUndelegateResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def CancelUnbondingDelegation(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/cosmos.staking.v1beta1.Msg/CancelUnbondingDelegation',
+            cosmos_dot_staking_dot_v1beta1_dot_tx__pb2.MsgCancelUnbondingDelegation.SerializeToString,
+            cosmos_dot_staking_dot_v1beta1_dot_tx__pb2.MsgCancelUnbondingDelegationResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

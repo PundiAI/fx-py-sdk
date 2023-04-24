@@ -140,6 +140,16 @@ class QueryStub(object):
                 request_serializer=fx_dot_crosschain_dot_v1_dot_query__pb2.QueryBridgeTokensRequest.SerializeToString,
                 response_deserializer=fx_dot_crosschain_dot_v1_dot_query__pb2.QueryBridgeTokensResponse.FromString,
                 )
+        self.BridgeCoinByDenom = channel.unary_unary(
+                '/fx.gravity.crosschain.v1.Query/BridgeCoinByDenom',
+                request_serializer=fx_dot_crosschain_dot_v1_dot_query__pb2.QueryBridgeCoinByDenomRequest.SerializeToString,
+                response_deserializer=fx_dot_crosschain_dot_v1_dot_query__pb2.QueryBridgeCoinByDenomResponse.FromString,
+                )
+        self.BridgeChainList = channel.unary_unary(
+                '/fx.gravity.crosschain.v1.Query/BridgeChainList',
+                request_serializer=fx_dot_crosschain_dot_v1_dot_query__pb2.QueryBridgeChainListRequest.SerializeToString,
+                response_deserializer=fx_dot_crosschain_dot_v1_dot_query__pb2.QueryBridgeChainListResponse.FromString,
+                )
 
 
 class QueryServicer(object):
@@ -298,6 +308,18 @@ class QueryServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def BridgeCoinByDenom(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def BridgeChainList(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_QueryServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -425,6 +447,16 @@ def add_QueryServicer_to_server(servicer, server):
                     servicer.BridgeTokens,
                     request_deserializer=fx_dot_crosschain_dot_v1_dot_query__pb2.QueryBridgeTokensRequest.FromString,
                     response_serializer=fx_dot_crosschain_dot_v1_dot_query__pb2.QueryBridgeTokensResponse.SerializeToString,
+            ),
+            'BridgeCoinByDenom': grpc.unary_unary_rpc_method_handler(
+                    servicer.BridgeCoinByDenom,
+                    request_deserializer=fx_dot_crosschain_dot_v1_dot_query__pb2.QueryBridgeCoinByDenomRequest.FromString,
+                    response_serializer=fx_dot_crosschain_dot_v1_dot_query__pb2.QueryBridgeCoinByDenomResponse.SerializeToString,
+            ),
+            'BridgeChainList': grpc.unary_unary_rpc_method_handler(
+                    servicer.BridgeChainList,
+                    request_deserializer=fx_dot_crosschain_dot_v1_dot_query__pb2.QueryBridgeChainListRequest.FromString,
+                    response_serializer=fx_dot_crosschain_dot_v1_dot_query__pb2.QueryBridgeChainListResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -859,5 +891,39 @@ class Query(object):
         return grpc.experimental.unary_unary(request, target, '/fx.gravity.crosschain.v1.Query/BridgeTokens',
             fx_dot_crosschain_dot_v1_dot_query__pb2.QueryBridgeTokensRequest.SerializeToString,
             fx_dot_crosschain_dot_v1_dot_query__pb2.QueryBridgeTokensResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def BridgeCoinByDenom(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/fx.gravity.crosschain.v1.Query/BridgeCoinByDenom',
+            fx_dot_crosschain_dot_v1_dot_query__pb2.QueryBridgeCoinByDenomRequest.SerializeToString,
+            fx_dot_crosschain_dot_v1_dot_query__pb2.QueryBridgeCoinByDenomResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def BridgeChainList(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/fx.gravity.crosschain.v1.Query/BridgeChainList',
+            fx_dot_crosschain_dot_v1_dot_query__pb2.QueryBridgeChainListRequest.SerializeToString,
+            fx_dot_crosschain_dot_v1_dot_query__pb2.QueryBridgeChainListResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

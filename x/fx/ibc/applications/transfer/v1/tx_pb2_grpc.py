@@ -3,6 +3,7 @@
 import grpc
 
 from x.fx.ibc.applications.transfer.v1 import tx_pb2 as fx_dot_ibc_dot_applications_dot_transfer_dot_v1_dot_tx__pb2
+from ibc.applications.transfer.v1 import tx_pb2 as ibc_dot_applications_dot_transfer_dot_v1_dot_tx__pb2
 
 
 class MsgStub(object):
@@ -18,7 +19,7 @@ class MsgStub(object):
         self.Transfer = channel.unary_unary(
                 '/fx.ibc.applications.transfer.v1.Msg/Transfer',
                 request_serializer=fx_dot_ibc_dot_applications_dot_transfer_dot_v1_dot_tx__pb2.MsgTransfer.SerializeToString,
-                response_deserializer=fx_dot_ibc_dot_applications_dot_transfer_dot_v1_dot_tx__pb2.MsgTransferResponse.FromString,
+                response_deserializer=ibc_dot_applications_dot_transfer_dot_v1_dot_tx__pb2.MsgTransferResponse.FromString,
                 )
 
 
@@ -39,7 +40,7 @@ def add_MsgServicer_to_server(servicer, server):
             'Transfer': grpc.unary_unary_rpc_method_handler(
                     servicer.Transfer,
                     request_deserializer=fx_dot_ibc_dot_applications_dot_transfer_dot_v1_dot_tx__pb2.MsgTransfer.FromString,
-                    response_serializer=fx_dot_ibc_dot_applications_dot_transfer_dot_v1_dot_tx__pb2.MsgTransferResponse.SerializeToString,
+                    response_serializer=ibc_dot_applications_dot_transfer_dot_v1_dot_tx__pb2.MsgTransferResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -65,6 +66,6 @@ class Msg(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/fx.ibc.applications.transfer.v1.Msg/Transfer',
             fx_dot_ibc_dot_applications_dot_transfer_dot_v1_dot_tx__pb2.MsgTransfer.SerializeToString,
-            fx_dot_ibc_dot_applications_dot_transfer_dot_v1_dot_tx__pb2.MsgTransferResponse.FromString,
+            ibc_dot_applications_dot_transfer_dot_v1_dot_tx__pb2.MsgTransferResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

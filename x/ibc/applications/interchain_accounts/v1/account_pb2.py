@@ -17,7 +17,7 @@ from x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 from x.cosmos.auth.v1beta1 import auth_pb2 as cosmos_dot_auth_dot_v1beta1_dot_auth__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n5ibc/applications/interchain_accounts/v1/account.proto\x12\'ibc.applications.interchain_accounts.v1\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x14gogoproto/gogo.proto\x1a\x1e\x63osmos/auth/v1beta1/auth.proto\"\xb9\x01\n\x11InterchainAccount\x12S\n\x0c\x62\x61se_account\x18\x01 \x01(\x0b\x32 .cosmos.auth.v1beta1.BaseAccountB\x1b\xd0\xde\x1f\x01\xf2\xde\x1f\x13yaml:\"base_account\"\x12/\n\raccount_owner\x18\x02 \x01(\tB\x18\xf2\xde\x1f\x14yaml:\"account_owner\":\x1e\x88\xa0\x1f\x00\x98\xa0\x1f\x00\xd2\xb4-\x12InterchainAccountIBGZEgithub.com/cosmos/ibc-go/v3/modules/apps/27-interchain-accounts/typesb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n5ibc/applications/interchain_accounts/v1/account.proto\x12\'ibc.applications.interchain_accounts.v1\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x14gogoproto/gogo.proto\x1a\x1e\x63osmos/auth/v1beta1/auth.proto\"\xb9\x01\n\x11InterchainAccount\x12S\n\x0c\x62\x61se_account\x18\x01 \x01(\x0b\x32 .cosmos.auth.v1beta1.BaseAccountB\x1b\xd0\xde\x1f\x01\xf2\xde\x1f\x13yaml:\"base_account\"\x12/\n\raccount_owner\x18\x02 \x01(\tB\x18\xf2\xde\x1f\x14yaml:\"account_owner\":\x1e\x88\xa0\x1f\x00\x98\xa0\x1f\x00\xd2\xb4-\x12InterchainAccountIBGZEgithub.com/cosmos/ibc-go/v6/modules/apps/27-interchain-accounts/typesb\x06proto3')
 
 
 
@@ -32,7 +32,7 @@ _sym_db.RegisterMessage(InterchainAccount)
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
-  DESCRIPTOR._serialized_options = b'ZEgithub.com/cosmos/ibc-go/v3/modules/apps/27-interchain-accounts/types'
+  DESCRIPTOR._serialized_options = b'ZEgithub.com/cosmos/ibc-go/v6/modules/apps/27-interchain-accounts/types'
   _INTERCHAINACCOUNT.fields_by_name['base_account']._options = None
   _INTERCHAINACCOUNT.fields_by_name['base_account']._serialized_options = b'\320\336\037\001\362\336\037\023yaml:\"base_account\"'
   _INTERCHAINACCOUNT.fields_by_name['account_owner']._options = None

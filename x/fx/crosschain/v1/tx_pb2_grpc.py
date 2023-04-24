@@ -25,10 +25,15 @@ class MsgStub(object):
                 request_serializer=fx_dot_crosschain_dot_v1_dot_tx__pb2.MsgAddDelegate.SerializeToString,
                 response_deserializer=fx_dot_crosschain_dot_v1_dot_tx__pb2.MsgAddDelegateResponse.FromString,
                 )
-        self.EditOracle = channel.unary_unary(
-                '/fx.gravity.crosschain.v1.Msg/EditOracle',
-                request_serializer=fx_dot_crosschain_dot_v1_dot_tx__pb2.MsgEditOracle.SerializeToString,
-                response_deserializer=fx_dot_crosschain_dot_v1_dot_tx__pb2.MsgEditOracleResponse.FromString,
+        self.ReDelegate = channel.unary_unary(
+                '/fx.gravity.crosschain.v1.Msg/ReDelegate',
+                request_serializer=fx_dot_crosschain_dot_v1_dot_tx__pb2.MsgReDelegate.SerializeToString,
+                response_deserializer=fx_dot_crosschain_dot_v1_dot_tx__pb2.MsgReDelegateResponse.FromString,
+                )
+        self.EditBridger = channel.unary_unary(
+                '/fx.gravity.crosschain.v1.Msg/EditBridger',
+                request_serializer=fx_dot_crosschain_dot_v1_dot_tx__pb2.MsgEditBridger.SerializeToString,
+                response_deserializer=fx_dot_crosschain_dot_v1_dot_tx__pb2.MsgEditBridgerResponse.FromString,
                 )
         self.WithdrawReward = channel.unary_unary(
                 '/fx.gravity.crosschain.v1.Msg/WithdrawReward',
@@ -85,6 +90,21 @@ class MsgStub(object):
                 request_serializer=fx_dot_crosschain_dot_v1_dot_tx__pb2.MsgConfirmBatch.SerializeToString,
                 response_deserializer=fx_dot_crosschain_dot_v1_dot_tx__pb2.MsgConfirmBatchResponse.FromString,
                 )
+        self.UpdateParams = channel.unary_unary(
+                '/fx.gravity.crosschain.v1.Msg/UpdateParams',
+                request_serializer=fx_dot_crosschain_dot_v1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
+                response_deserializer=fx_dot_crosschain_dot_v1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
+                )
+        self.IncreaseBridgeFee = channel.unary_unary(
+                '/fx.gravity.crosschain.v1.Msg/IncreaseBridgeFee',
+                request_serializer=fx_dot_crosschain_dot_v1_dot_tx__pb2.MsgIncreaseBridgeFee.SerializeToString,
+                response_deserializer=fx_dot_crosschain_dot_v1_dot_tx__pb2.MsgIncreaseBridgeFeeResponse.FromString,
+                )
+        self.UpdateChainOracles = channel.unary_unary(
+                '/fx.gravity.crosschain.v1.Msg/UpdateChainOracles',
+                request_serializer=fx_dot_crosschain_dot_v1_dot_tx__pb2.MsgUpdateChainOracles.SerializeToString,
+                response_deserializer=fx_dot_crosschain_dot_v1_dot_tx__pb2.MsgUpdateChainOraclesResponse.FromString,
+                )
 
 
 class MsgServicer(object):
@@ -103,7 +123,13 @@ class MsgServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def EditOracle(self, request, context):
+    def ReDelegate(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def EditBridger(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -175,6 +201,26 @@ class MsgServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def UpdateParams(self, request, context):
+        """UpdateParams defines a governance operation for updating the x/crosschain module
+        parameters. The authority is hard-coded to the x/gov module account.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def IncreaseBridgeFee(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdateChainOracles(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_MsgServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -188,10 +234,15 @@ def add_MsgServicer_to_server(servicer, server):
                     request_deserializer=fx_dot_crosschain_dot_v1_dot_tx__pb2.MsgAddDelegate.FromString,
                     response_serializer=fx_dot_crosschain_dot_v1_dot_tx__pb2.MsgAddDelegateResponse.SerializeToString,
             ),
-            'EditOracle': grpc.unary_unary_rpc_method_handler(
-                    servicer.EditOracle,
-                    request_deserializer=fx_dot_crosschain_dot_v1_dot_tx__pb2.MsgEditOracle.FromString,
-                    response_serializer=fx_dot_crosschain_dot_v1_dot_tx__pb2.MsgEditOracleResponse.SerializeToString,
+            'ReDelegate': grpc.unary_unary_rpc_method_handler(
+                    servicer.ReDelegate,
+                    request_deserializer=fx_dot_crosschain_dot_v1_dot_tx__pb2.MsgReDelegate.FromString,
+                    response_serializer=fx_dot_crosschain_dot_v1_dot_tx__pb2.MsgReDelegateResponse.SerializeToString,
+            ),
+            'EditBridger': grpc.unary_unary_rpc_method_handler(
+                    servicer.EditBridger,
+                    request_deserializer=fx_dot_crosschain_dot_v1_dot_tx__pb2.MsgEditBridger.FromString,
+                    response_serializer=fx_dot_crosschain_dot_v1_dot_tx__pb2.MsgEditBridgerResponse.SerializeToString,
             ),
             'WithdrawReward': grpc.unary_unary_rpc_method_handler(
                     servicer.WithdrawReward,
@@ -248,6 +299,21 @@ def add_MsgServicer_to_server(servicer, server):
                     request_deserializer=fx_dot_crosschain_dot_v1_dot_tx__pb2.MsgConfirmBatch.FromString,
                     response_serializer=fx_dot_crosschain_dot_v1_dot_tx__pb2.MsgConfirmBatchResponse.SerializeToString,
             ),
+            'UpdateParams': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateParams,
+                    request_deserializer=fx_dot_crosschain_dot_v1_dot_tx__pb2.MsgUpdateParams.FromString,
+                    response_serializer=fx_dot_crosschain_dot_v1_dot_tx__pb2.MsgUpdateParamsResponse.SerializeToString,
+            ),
+            'IncreaseBridgeFee': grpc.unary_unary_rpc_method_handler(
+                    servicer.IncreaseBridgeFee,
+                    request_deserializer=fx_dot_crosschain_dot_v1_dot_tx__pb2.MsgIncreaseBridgeFee.FromString,
+                    response_serializer=fx_dot_crosschain_dot_v1_dot_tx__pb2.MsgIncreaseBridgeFeeResponse.SerializeToString,
+            ),
+            'UpdateChainOracles': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateChainOracles,
+                    request_deserializer=fx_dot_crosschain_dot_v1_dot_tx__pb2.MsgUpdateChainOracles.FromString,
+                    response_serializer=fx_dot_crosschain_dot_v1_dot_tx__pb2.MsgUpdateChainOraclesResponse.SerializeToString,
+            ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
             'fx.gravity.crosschain.v1.Msg', rpc_method_handlers)
@@ -294,7 +360,7 @@ class Msg(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def EditOracle(request,
+    def ReDelegate(request,
             target,
             options=(),
             channel_credentials=None,
@@ -304,9 +370,26 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/fx.gravity.crosschain.v1.Msg/EditOracle',
-            fx_dot_crosschain_dot_v1_dot_tx__pb2.MsgEditOracle.SerializeToString,
-            fx_dot_crosschain_dot_v1_dot_tx__pb2.MsgEditOracleResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/fx.gravity.crosschain.v1.Msg/ReDelegate',
+            fx_dot_crosschain_dot_v1_dot_tx__pb2.MsgReDelegate.SerializeToString,
+            fx_dot_crosschain_dot_v1_dot_tx__pb2.MsgReDelegateResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def EditBridger(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/fx.gravity.crosschain.v1.Msg/EditBridger',
+            fx_dot_crosschain_dot_v1_dot_tx__pb2.MsgEditBridger.SerializeToString,
+            fx_dot_crosschain_dot_v1_dot_tx__pb2.MsgEditBridgerResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -494,5 +577,56 @@ class Msg(object):
         return grpc.experimental.unary_unary(request, target, '/fx.gravity.crosschain.v1.Msg/ConfirmBatch',
             fx_dot_crosschain_dot_v1_dot_tx__pb2.MsgConfirmBatch.SerializeToString,
             fx_dot_crosschain_dot_v1_dot_tx__pb2.MsgConfirmBatchResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def UpdateParams(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/fx.gravity.crosschain.v1.Msg/UpdateParams',
+            fx_dot_crosschain_dot_v1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
+            fx_dot_crosschain_dot_v1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def IncreaseBridgeFee(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/fx.gravity.crosschain.v1.Msg/IncreaseBridgeFee',
+            fx_dot_crosschain_dot_v1_dot_tx__pb2.MsgIncreaseBridgeFee.SerializeToString,
+            fx_dot_crosschain_dot_v1_dot_tx__pb2.MsgIncreaseBridgeFeeResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def UpdateChainOracles(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/fx.gravity.crosschain.v1.Msg/UpdateChainOracles',
+            fx_dot_crosschain_dot_v1_dot_tx__pb2.MsgUpdateChainOracles.SerializeToString,
+            fx_dot_crosschain_dot_v1_dot_tx__pb2.MsgUpdateChainOraclesResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

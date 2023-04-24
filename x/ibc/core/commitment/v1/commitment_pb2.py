@@ -16,7 +16,7 @@ from x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 import proofs_pb2 as proofs__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\'ibc/core/commitment/v1/commitment.proto\x12\x16ibc.core.commitment.v1\x1a\x14gogoproto/gogo.proto\x1a\x0cproofs.proto\" \n\nMerkleRoot\x12\x0c\n\x04hash\x18\x01 \x01(\x0c:\x04\x88\xa0\x1f\x00\"9\n\x0cMerklePrefix\x12)\n\nkey_prefix\x18\x01 \x01(\x0c\x42\x15\xf2\xde\x1f\x11yaml:\"key_prefix\"\"9\n\nMerklePath\x12%\n\x08key_path\x18\x01 \x03(\tB\x13\xf2\xde\x1f\x0fyaml:\"key_path\":\x04\x98\xa0\x1f\x00\"5\n\x0bMerkleProof\x12&\n\x06proofs\x18\x01 \x03(\x0b\x32\x16.ics23.CommitmentProofB>Z<github.com/cosmos/ibc-go/v3/modules/core/23-commitment/typesb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\'ibc/core/commitment/v1/commitment.proto\x12\x16ibc.core.commitment.v1\x1a\x14gogoproto/gogo.proto\x1a\x0cproofs.proto\" \n\nMerkleRoot\x12\x0c\n\x04hash\x18\x01 \x01(\x0c:\x04\x88\xa0\x1f\x00\"9\n\x0cMerklePrefix\x12)\n\nkey_prefix\x18\x01 \x01(\x0c\x42\x15\xf2\xde\x1f\x11yaml:\"key_prefix\"\"9\n\nMerklePath\x12%\n\x08key_path\x18\x01 \x03(\tB\x13\xf2\xde\x1f\x0fyaml:\"key_path\":\x04\x98\xa0\x1f\x00\"5\n\x0bMerkleProof\x12&\n\x06proofs\x18\x01 \x03(\x0b\x32\x16.ics23.CommitmentProofB>Z<github.com/cosmos/ibc-go/v6/modules/core/23-commitment/typesb\x06proto3')
 
 
 
@@ -55,7 +55,7 @@ _sym_db.RegisterMessage(MerkleProof)
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
-  DESCRIPTOR._serialized_options = b'Z<github.com/cosmos/ibc-go/v3/modules/core/23-commitment/types'
+  DESCRIPTOR._serialized_options = b'Z<github.com/cosmos/ibc-go/v6/modules/core/23-commitment/types'
   _MERKLEROOT._options = None
   _MERKLEROOT._serialized_options = b'\210\240\037\000'
   _MERKLEPREFIX.fields_by_name['key_prefix']._options = None

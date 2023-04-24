@@ -12,11 +12,11 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
-from x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 from x.fx.migrate.v1 import migrate_pb2 as fx_dot_migrate_dot_v1_dot_migrate__pb2
+from x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1b\x66x/migrate/v1/genesis.proto\x12\rfx.migrate.v1\x1a\x14gogoproto/gogo.proto\x1a\x1b\x66x/migrate/v1/migrate.proto\"K\n\x0cGenesisState\x12;\n\x0fmigrate_records\x18\x01 \x03(\x0b\x32\x1c.fx.migrate.v1.MigrateRecordB\x04\xc8\xde\x1f\x00\x42.Z,github.com/functionx/fx-core/x/migrate/typesb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1b\x66x/migrate/v1/genesis.proto\x12\rfx.migrate.v1\x1a\x1b\x66x/migrate/v1/migrate.proto\x1a\x14gogoproto/gogo.proto\"K\n\x0cGenesisState\x12;\n\x0fmigrate_records\x18\x01 \x03(\x0b\x32\x1c.fx.migrate.v1.MigrateRecordB\x04\xc8\xde\x1f\x00\x42.Z,github.com/functionx/fx-core/x/migrate/typesb\x06proto3')
 
 
 

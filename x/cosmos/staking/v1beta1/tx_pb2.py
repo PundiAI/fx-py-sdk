@@ -18,9 +18,10 @@ from x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 from x.cosmos_proto import cosmos_pb2 as cosmos__proto_dot_cosmos__pb2
 from x.cosmos.base.v1beta1 import coin_pb2 as cosmos_dot_base_dot_v1beta1_dot_coin__pb2
 from x.cosmos.staking.v1beta1 import staking_pb2 as cosmos_dot_staking_dot_v1beta1_dot_staking__pb2
+from x.cosmos.msg.v1 import msg_pb2 as cosmos_dot_msg_dot_v1_dot_msg__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1f\x63osmos/staking/v1beta1/tx.proto\x12\x16\x63osmos.staking.v1beta1\x1a\x19google/protobuf/any.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x14gogoproto/gogo.proto\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\x1a$cosmos/staking/v1beta1/staking.proto\"\xee\x03\n\x12MsgCreateValidator\x12>\n\x0b\x64\x65scription\x18\x01 \x01(\x0b\x32#.cosmos.staking.v1beta1.DescriptionB\x04\xc8\xde\x1f\x00\x12\x41\n\ncommission\x18\x02 \x01(\x0b\x32\'.cosmos.staking.v1beta1.CommissionRatesB\x04\xc8\xde\x1f\x00\x12i\n\x13min_self_delegation\x18\x03 \x01(\tBL\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Int\xf2\xde\x1f\x1ayaml:\"min_self_delegation\"\xc8\xde\x1f\x00\x12\x37\n\x11\x64\x65legator_address\x18\x04 \x01(\tB\x1c\xf2\xde\x1f\x18yaml:\"delegator_address\"\x12\x37\n\x11validator_address\x18\x05 \x01(\tB\x1c\xf2\xde\x1f\x18yaml:\"validator_address\"\x12>\n\x06pubkey\x18\x06 \x01(\x0b\x32\x14.google.protobuf.AnyB\x18\xca\xb4-\x14\x63osmos.crypto.PubKey\x12.\n\x05value\x18\x07 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x1c\n\x1aMsgCreateValidatorResponse\"\xd1\x02\n\x10MsgEditValidator\x12>\n\x0b\x64\x65scription\x18\x01 \x01(\x0b\x32#.cosmos.staking.v1beta1.DescriptionB\x04\xc8\xde\x1f\x00\x12-\n\x11validator_address\x18\x02 \x01(\tB\x12\xf2\xde\x1f\x0eyaml:\"address\"\x12]\n\x0f\x63ommission_rate\x18\x03 \x01(\tBD\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xf2\xde\x1f\x16yaml:\"commission_rate\"\x12\x65\n\x13min_self_delegation\x18\x04 \x01(\tBH\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Int\xf2\xde\x1f\x1ayaml:\"min_self_delegation\":\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x1a\n\x18MsgEditValidatorResponse\"\xba\x01\n\x0bMsgDelegate\x12\x37\n\x11\x64\x65legator_address\x18\x01 \x01(\tB\x1c\xf2\xde\x1f\x18yaml:\"delegator_address\"\x12\x37\n\x11validator_address\x18\x02 \x01(\tB\x1c\xf2\xde\x1f\x18yaml:\"validator_address\"\x12/\n\x06\x61mount\x18\x03 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x15\n\x13MsgDelegateResponse\"\x8a\x02\n\x12MsgBeginRedelegate\x12\x37\n\x11\x64\x65legator_address\x18\x01 \x01(\tB\x1c\xf2\xde\x1f\x18yaml:\"delegator_address\"\x12?\n\x15validator_src_address\x18\x02 \x01(\tB \xf2\xde\x1f\x1cyaml:\"validator_src_address\"\x12?\n\x15validator_dst_address\x18\x03 \x01(\tB \xf2\xde\x1f\x1cyaml:\"validator_dst_address\"\x12/\n\x06\x61mount\x18\x04 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"[\n\x1aMsgBeginRedelegateResponse\x12=\n\x0f\x63ompletion_time\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.TimestampB\x08\xc8\xde\x1f\x00\x90\xdf\x1f\x01\"\xbc\x01\n\rMsgUndelegate\x12\x37\n\x11\x64\x65legator_address\x18\x01 \x01(\tB\x1c\xf2\xde\x1f\x18yaml:\"delegator_address\"\x12\x37\n\x11validator_address\x18\x02 \x01(\tB\x1c\xf2\xde\x1f\x18yaml:\"validator_address\"\x12/\n\x06\x61mount\x18\x03 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"V\n\x15MsgUndelegateResponse\x12=\n\x0f\x63ompletion_time\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.TimestampB\x08\xc8\xde\x1f\x00\x90\xdf\x1f\x01\x32\x9a\x04\n\x03Msg\x12q\n\x0f\x43reateValidator\x12*.cosmos.staking.v1beta1.MsgCreateValidator\x1a\x32.cosmos.staking.v1beta1.MsgCreateValidatorResponse\x12k\n\rEditValidator\x12(.cosmos.staking.v1beta1.MsgEditValidator\x1a\x30.cosmos.staking.v1beta1.MsgEditValidatorResponse\x12\\\n\x08\x44\x65legate\x12#.cosmos.staking.v1beta1.MsgDelegate\x1a+.cosmos.staking.v1beta1.MsgDelegateResponse\x12q\n\x0f\x42\x65ginRedelegate\x12*.cosmos.staking.v1beta1.MsgBeginRedelegate\x1a\x32.cosmos.staking.v1beta1.MsgBeginRedelegateResponse\x12\x62\n\nUndelegate\x12%.cosmos.staking.v1beta1.MsgUndelegate\x1a-.cosmos.staking.v1beta1.MsgUndelegateResponseB.Z,github.com/cosmos/cosmos-sdk/x/staking/typesb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1f\x63osmos/staking/v1beta1/tx.proto\x12\x16\x63osmos.staking.v1beta1\x1a\x19google/protobuf/any.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x14gogoproto/gogo.proto\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\x1a$cosmos/staking/v1beta1/staking.proto\x1a\x17\x63osmos/msg/v1/msg.proto\"\x82\x04\n\x12MsgCreateValidator\x12>\n\x0b\x64\x65scription\x18\x01 \x01(\x0b\x32#.cosmos.staking.v1beta1.DescriptionB\x04\xc8\xde\x1f\x00\x12\x41\n\ncommission\x18\x02 \x01(\x0b\x32\'.cosmos.staking.v1beta1.CommissionRatesB\x04\xc8\xde\x1f\x00\x12Y\n\x13min_self_delegation\x18\x03 \x01(\tB<\xd2\xb4-\ncosmos.Int\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Int\xc8\xde\x1f\x00\x12\x33\n\x11\x64\x65legator_address\x18\x04 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12\x33\n\x11validator_address\x18\x05 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12>\n\x06pubkey\x18\x06 \x01(\x0b\x32\x14.google.protobuf.AnyB\x18\xca\xb4-\x14\x63osmos.crypto.PubKey\x12.\n\x05value\x18\x07 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00:4\x82\xe7\xb0*\x11\x64\x65legator_address\x82\xe7\xb0*\x11validator_address\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x1c\n\x1aMsgCreateValidatorResponse\"\xd1\x02\n\x10MsgEditValidator\x12>\n\x0b\x64\x65scription\x18\x01 \x01(\x0b\x32#.cosmos.staking.v1beta1.DescriptionB\x04\xc8\xde\x1f\x00\x12\x33\n\x11validator_address\x18\x02 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12Q\n\x0f\x63ommission_rate\x18\x03 \x01(\tB8\xd2\xb4-\ncosmos.Dec\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\x12U\n\x13min_self_delegation\x18\x04 \x01(\tB8\xd2\xb4-\ncosmos.Int\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Int:\x1e\x82\xe7\xb0*\x11validator_address\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x1a\n\x18MsgEditValidatorResponse\"\xc4\x01\n\x0bMsgDelegate\x12\x33\n\x11\x64\x65legator_address\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12\x33\n\x11validator_address\x18\x02 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12/\n\x06\x61mount\x18\x03 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00:\x1a\x82\xe7\xb0*\x11\x64\x65legator_address\xe8\xa0\x1f\x00\"\x15\n\x13MsgDelegateResponse\"\x88\x02\n\x12MsgBeginRedelegate\x12\x33\n\x11\x64\x65legator_address\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12\x37\n\x15validator_src_address\x18\x02 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12\x37\n\x15validator_dst_address\x18\x03 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12/\n\x06\x61mount\x18\x04 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00:\x1a\x82\xe7\xb0*\x11\x64\x65legator_address\xe8\xa0\x1f\x00\"[\n\x1aMsgBeginRedelegateResponse\x12=\n\x0f\x63ompletion_time\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.TimestampB\x08\xc8\xde\x1f\x00\x90\xdf\x1f\x01\"\xc6\x01\n\rMsgUndelegate\x12\x33\n\x11\x64\x65legator_address\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12\x33\n\x11validator_address\x18\x02 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12/\n\x06\x61mount\x18\x03 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00:\x1a\x82\xe7\xb0*\x11\x64\x65legator_address\xe8\xa0\x1f\x00\"V\n\x15MsgUndelegateResponse\x12=\n\x0f\x63ompletion_time\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.TimestampB\x08\xc8\xde\x1f\x00\x90\xdf\x1f\x01\"\xee\x01\n\x1cMsgCancelUnbondingDelegation\x12\x33\n\x11\x64\x65legator_address\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12\x33\n\x11validator_address\x18\x02 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12/\n\x06\x61mount\x18\x03 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00\x12\x17\n\x0f\x63reation_height\x18\x04 \x01(\x03:\x1a\x82\xe7\xb0*\x11\x64\x65legator_address\xe8\xa0\x1f\x00\"&\n$MsgCancelUnbondingDelegationResponse2\xac\x05\n\x03Msg\x12q\n\x0f\x43reateValidator\x12*.cosmos.staking.v1beta1.MsgCreateValidator\x1a\x32.cosmos.staking.v1beta1.MsgCreateValidatorResponse\x12k\n\rEditValidator\x12(.cosmos.staking.v1beta1.MsgEditValidator\x1a\x30.cosmos.staking.v1beta1.MsgEditValidatorResponse\x12\\\n\x08\x44\x65legate\x12#.cosmos.staking.v1beta1.MsgDelegate\x1a+.cosmos.staking.v1beta1.MsgDelegateResponse\x12q\n\x0f\x42\x65ginRedelegate\x12*.cosmos.staking.v1beta1.MsgBeginRedelegate\x1a\x32.cosmos.staking.v1beta1.MsgBeginRedelegateResponse\x12\x62\n\nUndelegate\x12%.cosmos.staking.v1beta1.MsgUndelegate\x1a-.cosmos.staking.v1beta1.MsgUndelegateResponse\x12\x8f\x01\n\x19\x43\x61ncelUnbondingDelegation\x12\x34.cosmos.staking.v1beta1.MsgCancelUnbondingDelegation\x1a<.cosmos.staking.v1beta1.MsgCancelUnbondingDelegationResponseB.Z,github.com/cosmos/cosmos-sdk/x/staking/typesb\x06proto3')
 
 
 
@@ -34,6 +35,8 @@ _MSGBEGINREDELEGATE = DESCRIPTOR.message_types_by_name['MsgBeginRedelegate']
 _MSGBEGINREDELEGATERESPONSE = DESCRIPTOR.message_types_by_name['MsgBeginRedelegateResponse']
 _MSGUNDELEGATE = DESCRIPTOR.message_types_by_name['MsgUndelegate']
 _MSGUNDELEGATERESPONSE = DESCRIPTOR.message_types_by_name['MsgUndelegateResponse']
+_MSGCANCELUNBONDINGDELEGATION = DESCRIPTOR.message_types_by_name['MsgCancelUnbondingDelegation']
+_MSGCANCELUNBONDINGDELEGATIONRESPONSE = DESCRIPTOR.message_types_by_name['MsgCancelUnbondingDelegationResponse']
 MsgCreateValidator = _reflection.GeneratedProtocolMessageType('MsgCreateValidator', (_message.Message,), {
   'DESCRIPTOR' : _MSGCREATEVALIDATOR,
   '__module__' : 'cosmos.staking.v1beta1.tx_pb2'
@@ -104,6 +107,20 @@ MsgUndelegateResponse = _reflection.GeneratedProtocolMessageType('MsgUndelegateR
   })
 _sym_db.RegisterMessage(MsgUndelegateResponse)
 
+MsgCancelUnbondingDelegation = _reflection.GeneratedProtocolMessageType('MsgCancelUnbondingDelegation', (_message.Message,), {
+  'DESCRIPTOR' : _MSGCANCELUNBONDINGDELEGATION,
+  '__module__' : 'cosmos.staking.v1beta1.tx_pb2'
+  # @@protoc_insertion_point(class_scope:cosmos.staking.v1beta1.MsgCancelUnbondingDelegation)
+  })
+_sym_db.RegisterMessage(MsgCancelUnbondingDelegation)
+
+MsgCancelUnbondingDelegationResponse = _reflection.GeneratedProtocolMessageType('MsgCancelUnbondingDelegationResponse', (_message.Message,), {
+  'DESCRIPTOR' : _MSGCANCELUNBONDINGDELEGATIONRESPONSE,
+  '__module__' : 'cosmos.staking.v1beta1.tx_pb2'
+  # @@protoc_insertion_point(class_scope:cosmos.staking.v1beta1.MsgCancelUnbondingDelegationResponse)
+  })
+_sym_db.RegisterMessage(MsgCancelUnbondingDelegationResponse)
+
 _MSG = DESCRIPTOR.services_by_name['Msg']
 if _descriptor._USE_C_DESCRIPTORS == False:
 
@@ -114,77 +131,89 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _MSGCREATEVALIDATOR.fields_by_name['commission']._options = None
   _MSGCREATEVALIDATOR.fields_by_name['commission']._serialized_options = b'\310\336\037\000'
   _MSGCREATEVALIDATOR.fields_by_name['min_self_delegation']._options = None
-  _MSGCREATEVALIDATOR.fields_by_name['min_self_delegation']._serialized_options = b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Int\362\336\037\032yaml:\"min_self_delegation\"\310\336\037\000'
+  _MSGCREATEVALIDATOR.fields_by_name['min_self_delegation']._serialized_options = b'\322\264-\ncosmos.Int\332\336\037&github.com/cosmos/cosmos-sdk/types.Int\310\336\037\000'
   _MSGCREATEVALIDATOR.fields_by_name['delegator_address']._options = None
-  _MSGCREATEVALIDATOR.fields_by_name['delegator_address']._serialized_options = b'\362\336\037\030yaml:\"delegator_address\"'
+  _MSGCREATEVALIDATOR.fields_by_name['delegator_address']._serialized_options = b'\322\264-\024cosmos.AddressString'
   _MSGCREATEVALIDATOR.fields_by_name['validator_address']._options = None
-  _MSGCREATEVALIDATOR.fields_by_name['validator_address']._serialized_options = b'\362\336\037\030yaml:\"validator_address\"'
+  _MSGCREATEVALIDATOR.fields_by_name['validator_address']._serialized_options = b'\322\264-\024cosmos.AddressString'
   _MSGCREATEVALIDATOR.fields_by_name['pubkey']._options = None
   _MSGCREATEVALIDATOR.fields_by_name['pubkey']._serialized_options = b'\312\264-\024cosmos.crypto.PubKey'
   _MSGCREATEVALIDATOR.fields_by_name['value']._options = None
   _MSGCREATEVALIDATOR.fields_by_name['value']._serialized_options = b'\310\336\037\000'
   _MSGCREATEVALIDATOR._options = None
-  _MSGCREATEVALIDATOR._serialized_options = b'\350\240\037\000\210\240\037\000'
+  _MSGCREATEVALIDATOR._serialized_options = b'\202\347\260*\021delegator_address\202\347\260*\021validator_address\350\240\037\000\210\240\037\000'
   _MSGEDITVALIDATOR.fields_by_name['description']._options = None
   _MSGEDITVALIDATOR.fields_by_name['description']._serialized_options = b'\310\336\037\000'
   _MSGEDITVALIDATOR.fields_by_name['validator_address']._options = None
-  _MSGEDITVALIDATOR.fields_by_name['validator_address']._serialized_options = b'\362\336\037\016yaml:\"address\"'
+  _MSGEDITVALIDATOR.fields_by_name['validator_address']._serialized_options = b'\322\264-\024cosmos.AddressString'
   _MSGEDITVALIDATOR.fields_by_name['commission_rate']._options = None
-  _MSGEDITVALIDATOR.fields_by_name['commission_rate']._serialized_options = b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Dec\362\336\037\026yaml:\"commission_rate\"'
+  _MSGEDITVALIDATOR.fields_by_name['commission_rate']._serialized_options = b'\322\264-\ncosmos.Dec\332\336\037&github.com/cosmos/cosmos-sdk/types.Dec'
   _MSGEDITVALIDATOR.fields_by_name['min_self_delegation']._options = None
-  _MSGEDITVALIDATOR.fields_by_name['min_self_delegation']._serialized_options = b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Int\362\336\037\032yaml:\"min_self_delegation\"'
+  _MSGEDITVALIDATOR.fields_by_name['min_self_delegation']._serialized_options = b'\322\264-\ncosmos.Int\332\336\037&github.com/cosmos/cosmos-sdk/types.Int'
   _MSGEDITVALIDATOR._options = None
-  _MSGEDITVALIDATOR._serialized_options = b'\350\240\037\000\210\240\037\000'
+  _MSGEDITVALIDATOR._serialized_options = b'\202\347\260*\021validator_address\350\240\037\000\210\240\037\000'
   _MSGDELEGATE.fields_by_name['delegator_address']._options = None
-  _MSGDELEGATE.fields_by_name['delegator_address']._serialized_options = b'\362\336\037\030yaml:\"delegator_address\"'
+  _MSGDELEGATE.fields_by_name['delegator_address']._serialized_options = b'\322\264-\024cosmos.AddressString'
   _MSGDELEGATE.fields_by_name['validator_address']._options = None
-  _MSGDELEGATE.fields_by_name['validator_address']._serialized_options = b'\362\336\037\030yaml:\"validator_address\"'
+  _MSGDELEGATE.fields_by_name['validator_address']._serialized_options = b'\322\264-\024cosmos.AddressString'
   _MSGDELEGATE.fields_by_name['amount']._options = None
   _MSGDELEGATE.fields_by_name['amount']._serialized_options = b'\310\336\037\000'
   _MSGDELEGATE._options = None
-  _MSGDELEGATE._serialized_options = b'\350\240\037\000\210\240\037\000'
+  _MSGDELEGATE._serialized_options = b'\202\347\260*\021delegator_address\350\240\037\000'
   _MSGBEGINREDELEGATE.fields_by_name['delegator_address']._options = None
-  _MSGBEGINREDELEGATE.fields_by_name['delegator_address']._serialized_options = b'\362\336\037\030yaml:\"delegator_address\"'
+  _MSGBEGINREDELEGATE.fields_by_name['delegator_address']._serialized_options = b'\322\264-\024cosmos.AddressString'
   _MSGBEGINREDELEGATE.fields_by_name['validator_src_address']._options = None
-  _MSGBEGINREDELEGATE.fields_by_name['validator_src_address']._serialized_options = b'\362\336\037\034yaml:\"validator_src_address\"'
+  _MSGBEGINREDELEGATE.fields_by_name['validator_src_address']._serialized_options = b'\322\264-\024cosmos.AddressString'
   _MSGBEGINREDELEGATE.fields_by_name['validator_dst_address']._options = None
-  _MSGBEGINREDELEGATE.fields_by_name['validator_dst_address']._serialized_options = b'\362\336\037\034yaml:\"validator_dst_address\"'
+  _MSGBEGINREDELEGATE.fields_by_name['validator_dst_address']._serialized_options = b'\322\264-\024cosmos.AddressString'
   _MSGBEGINREDELEGATE.fields_by_name['amount']._options = None
   _MSGBEGINREDELEGATE.fields_by_name['amount']._serialized_options = b'\310\336\037\000'
   _MSGBEGINREDELEGATE._options = None
-  _MSGBEGINREDELEGATE._serialized_options = b'\350\240\037\000\210\240\037\000'
+  _MSGBEGINREDELEGATE._serialized_options = b'\202\347\260*\021delegator_address\350\240\037\000'
   _MSGBEGINREDELEGATERESPONSE.fields_by_name['completion_time']._options = None
   _MSGBEGINREDELEGATERESPONSE.fields_by_name['completion_time']._serialized_options = b'\310\336\037\000\220\337\037\001'
   _MSGUNDELEGATE.fields_by_name['delegator_address']._options = None
-  _MSGUNDELEGATE.fields_by_name['delegator_address']._serialized_options = b'\362\336\037\030yaml:\"delegator_address\"'
+  _MSGUNDELEGATE.fields_by_name['delegator_address']._serialized_options = b'\322\264-\024cosmos.AddressString'
   _MSGUNDELEGATE.fields_by_name['validator_address']._options = None
-  _MSGUNDELEGATE.fields_by_name['validator_address']._serialized_options = b'\362\336\037\030yaml:\"validator_address\"'
+  _MSGUNDELEGATE.fields_by_name['validator_address']._serialized_options = b'\322\264-\024cosmos.AddressString'
   _MSGUNDELEGATE.fields_by_name['amount']._options = None
   _MSGUNDELEGATE.fields_by_name['amount']._serialized_options = b'\310\336\037\000'
   _MSGUNDELEGATE._options = None
-  _MSGUNDELEGATE._serialized_options = b'\350\240\037\000\210\240\037\000'
+  _MSGUNDELEGATE._serialized_options = b'\202\347\260*\021delegator_address\350\240\037\000'
   _MSGUNDELEGATERESPONSE.fields_by_name['completion_time']._options = None
   _MSGUNDELEGATERESPONSE.fields_by_name['completion_time']._serialized_options = b'\310\336\037\000\220\337\037\001'
-  _MSGCREATEVALIDATOR._serialized_start=239
-  _MSGCREATEVALIDATOR._serialized_end=733
-  _MSGCREATEVALIDATORRESPONSE._serialized_start=735
-  _MSGCREATEVALIDATORRESPONSE._serialized_end=763
-  _MSGEDITVALIDATOR._serialized_start=766
-  _MSGEDITVALIDATOR._serialized_end=1103
-  _MSGEDITVALIDATORRESPONSE._serialized_start=1105
-  _MSGEDITVALIDATORRESPONSE._serialized_end=1131
-  _MSGDELEGATE._serialized_start=1134
-  _MSGDELEGATE._serialized_end=1320
-  _MSGDELEGATERESPONSE._serialized_start=1322
-  _MSGDELEGATERESPONSE._serialized_end=1343
-  _MSGBEGINREDELEGATE._serialized_start=1346
-  _MSGBEGINREDELEGATE._serialized_end=1612
-  _MSGBEGINREDELEGATERESPONSE._serialized_start=1614
-  _MSGBEGINREDELEGATERESPONSE._serialized_end=1705
-  _MSGUNDELEGATE._serialized_start=1708
-  _MSGUNDELEGATE._serialized_end=1896
-  _MSGUNDELEGATERESPONSE._serialized_start=1898
-  _MSGUNDELEGATERESPONSE._serialized_end=1984
-  _MSG._serialized_start=1987
-  _MSG._serialized_end=2525
+  _MSGCANCELUNBONDINGDELEGATION.fields_by_name['delegator_address']._options = None
+  _MSGCANCELUNBONDINGDELEGATION.fields_by_name['delegator_address']._serialized_options = b'\322\264-\024cosmos.AddressString'
+  _MSGCANCELUNBONDINGDELEGATION.fields_by_name['validator_address']._options = None
+  _MSGCANCELUNBONDINGDELEGATION.fields_by_name['validator_address']._serialized_options = b'\322\264-\024cosmos.AddressString'
+  _MSGCANCELUNBONDINGDELEGATION.fields_by_name['amount']._options = None
+  _MSGCANCELUNBONDINGDELEGATION.fields_by_name['amount']._serialized_options = b'\310\336\037\000'
+  _MSGCANCELUNBONDINGDELEGATION._options = None
+  _MSGCANCELUNBONDINGDELEGATION._serialized_options = b'\202\347\260*\021delegator_address\350\240\037\000'
+  _MSGCREATEVALIDATOR._serialized_start=264
+  _MSGCREATEVALIDATOR._serialized_end=778
+  _MSGCREATEVALIDATORRESPONSE._serialized_start=780
+  _MSGCREATEVALIDATORRESPONSE._serialized_end=808
+  _MSGEDITVALIDATOR._serialized_start=811
+  _MSGEDITVALIDATOR._serialized_end=1148
+  _MSGEDITVALIDATORRESPONSE._serialized_start=1150
+  _MSGEDITVALIDATORRESPONSE._serialized_end=1176
+  _MSGDELEGATE._serialized_start=1179
+  _MSGDELEGATE._serialized_end=1375
+  _MSGDELEGATERESPONSE._serialized_start=1377
+  _MSGDELEGATERESPONSE._serialized_end=1398
+  _MSGBEGINREDELEGATE._serialized_start=1401
+  _MSGBEGINREDELEGATE._serialized_end=1665
+  _MSGBEGINREDELEGATERESPONSE._serialized_start=1667
+  _MSGBEGINREDELEGATERESPONSE._serialized_end=1758
+  _MSGUNDELEGATE._serialized_start=1761
+  _MSGUNDELEGATE._serialized_end=1959
+  _MSGUNDELEGATERESPONSE._serialized_start=1961
+  _MSGUNDELEGATERESPONSE._serialized_end=2047
+  _MSGCANCELUNBONDINGDELEGATION._serialized_start=2050
+  _MSGCANCELUNBONDINGDELEGATION._serialized_end=2288
+  _MSGCANCELUNBONDINGDELEGATIONRESPONSE._serialized_start=2290
+  _MSGCANCELUNBONDINGDELEGATIONRESPONSE._serialized_end=2328
+  _MSG._serialized_start=2331
+  _MSG._serialized_end=3015
 # @@protoc_insertion_point(module_scope)

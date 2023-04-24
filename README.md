@@ -1,4 +1,14 @@
-## How to use
+# f(x)Core Python SDK
+
+[![PyPI version](https://badge.fury.io/py/fx-py-sdk.svg)](https://badge.fury.io/py/fx-py-sdk)
+
+## Install
+
+```shell
+pip install fx-py-sdk
+```
+
+## Development
 
 ### 1. Clone the code to local
 
@@ -29,19 +39,26 @@ source ./venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## Compile Proto files as Python files
+### 4. Compile Proto files as Python files
 
 > If does not have execution permission, run 'chmod +x ./gen-proto.sh`
 
 ```shell
 # Pull external code
-git submodule add -b release/v2.2.x https://github.com/functionx/fx-core.git
-git submodule add -b release/v3.1.x https://github.com/cosmos/ibc-go.git
-git submodule add -b release/v0.45.x https://github.com/cosmos/cosmos-sdk.git
-git submodule update
+git submodule update --init --recursive --remote
 
 pip install grpcio
 pip install grpcio-tools
 
 ./gen-proto.sh
 ```
+
+### 5. Build Project
+
+```shell
+python -m build
+```
+
+## License
+
+[Apache License 2.0](LICENSE)

@@ -30,6 +30,31 @@ class MsgStub(object):
                 request_serializer=fx_dot_erc20_dot_v1_dot_tx__pb2.MsgConvertDenom.SerializeToString,
                 response_deserializer=fx_dot_erc20_dot_v1_dot_tx__pb2.MsgConvertDenomResponse.FromString,
                 )
+        self.UpdateParams = channel.unary_unary(
+                '/fx.erc20.v1.Msg/UpdateParams',
+                request_serializer=fx_dot_erc20_dot_v1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
+                response_deserializer=fx_dot_erc20_dot_v1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
+                )
+        self.RegisterCoin = channel.unary_unary(
+                '/fx.erc20.v1.Msg/RegisterCoin',
+                request_serializer=fx_dot_erc20_dot_v1_dot_tx__pb2.MsgRegisterCoin.SerializeToString,
+                response_deserializer=fx_dot_erc20_dot_v1_dot_tx__pb2.MsgRegisterCoinResponse.FromString,
+                )
+        self.RegisterERC20 = channel.unary_unary(
+                '/fx.erc20.v1.Msg/RegisterERC20',
+                request_serializer=fx_dot_erc20_dot_v1_dot_tx__pb2.MsgRegisterERC20.SerializeToString,
+                response_deserializer=fx_dot_erc20_dot_v1_dot_tx__pb2.MsgRegisterERC20Response.FromString,
+                )
+        self.ToggleTokenConversion = channel.unary_unary(
+                '/fx.erc20.v1.Msg/ToggleTokenConversion',
+                request_serializer=fx_dot_erc20_dot_v1_dot_tx__pb2.MsgToggleTokenConversion.SerializeToString,
+                response_deserializer=fx_dot_erc20_dot_v1_dot_tx__pb2.MsgToggleTokenConversionResponse.FromString,
+                )
+        self.UpdateDenomAlias = channel.unary_unary(
+                '/fx.erc20.v1.Msg/UpdateDenomAlias',
+                request_serializer=fx_dot_erc20_dot_v1_dot_tx__pb2.MsgUpdateDenomAlias.SerializeToString,
+                response_deserializer=fx_dot_erc20_dot_v1_dot_tx__pb2.MsgUpdateDenomAliasResponse.FromString,
+                )
 
 
 class MsgServicer(object):
@@ -59,6 +84,38 @@ class MsgServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def UpdateParams(self, request, context):
+        """UpdateParams defines a governance operation for updating the x/erc20 module
+        parameters. The authority is hard-coded to the x/gov module account.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def RegisterCoin(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def RegisterERC20(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ToggleTokenConversion(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdateDenomAlias(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_MsgServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -76,6 +133,31 @@ def add_MsgServicer_to_server(servicer, server):
                     servicer.ConvertDenom,
                     request_deserializer=fx_dot_erc20_dot_v1_dot_tx__pb2.MsgConvertDenom.FromString,
                     response_serializer=fx_dot_erc20_dot_v1_dot_tx__pb2.MsgConvertDenomResponse.SerializeToString,
+            ),
+            'UpdateParams': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateParams,
+                    request_deserializer=fx_dot_erc20_dot_v1_dot_tx__pb2.MsgUpdateParams.FromString,
+                    response_serializer=fx_dot_erc20_dot_v1_dot_tx__pb2.MsgUpdateParamsResponse.SerializeToString,
+            ),
+            'RegisterCoin': grpc.unary_unary_rpc_method_handler(
+                    servicer.RegisterCoin,
+                    request_deserializer=fx_dot_erc20_dot_v1_dot_tx__pb2.MsgRegisterCoin.FromString,
+                    response_serializer=fx_dot_erc20_dot_v1_dot_tx__pb2.MsgRegisterCoinResponse.SerializeToString,
+            ),
+            'RegisterERC20': grpc.unary_unary_rpc_method_handler(
+                    servicer.RegisterERC20,
+                    request_deserializer=fx_dot_erc20_dot_v1_dot_tx__pb2.MsgRegisterERC20.FromString,
+                    response_serializer=fx_dot_erc20_dot_v1_dot_tx__pb2.MsgRegisterERC20Response.SerializeToString,
+            ),
+            'ToggleTokenConversion': grpc.unary_unary_rpc_method_handler(
+                    servicer.ToggleTokenConversion,
+                    request_deserializer=fx_dot_erc20_dot_v1_dot_tx__pb2.MsgToggleTokenConversion.FromString,
+                    response_serializer=fx_dot_erc20_dot_v1_dot_tx__pb2.MsgToggleTokenConversionResponse.SerializeToString,
+            ),
+            'UpdateDenomAlias': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateDenomAlias,
+                    request_deserializer=fx_dot_erc20_dot_v1_dot_tx__pb2.MsgUpdateDenomAlias.FromString,
+                    response_serializer=fx_dot_erc20_dot_v1_dot_tx__pb2.MsgUpdateDenomAliasResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -136,5 +218,90 @@ class Msg(object):
         return grpc.experimental.unary_unary(request, target, '/fx.erc20.v1.Msg/ConvertDenom',
             fx_dot_erc20_dot_v1_dot_tx__pb2.MsgConvertDenom.SerializeToString,
             fx_dot_erc20_dot_v1_dot_tx__pb2.MsgConvertDenomResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def UpdateParams(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/fx.erc20.v1.Msg/UpdateParams',
+            fx_dot_erc20_dot_v1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
+            fx_dot_erc20_dot_v1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def RegisterCoin(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/fx.erc20.v1.Msg/RegisterCoin',
+            fx_dot_erc20_dot_v1_dot_tx__pb2.MsgRegisterCoin.SerializeToString,
+            fx_dot_erc20_dot_v1_dot_tx__pb2.MsgRegisterCoinResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def RegisterERC20(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/fx.erc20.v1.Msg/RegisterERC20',
+            fx_dot_erc20_dot_v1_dot_tx__pb2.MsgRegisterERC20.SerializeToString,
+            fx_dot_erc20_dot_v1_dot_tx__pb2.MsgRegisterERC20Response.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ToggleTokenConversion(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/fx.erc20.v1.Msg/ToggleTokenConversion',
+            fx_dot_erc20_dot_v1_dot_tx__pb2.MsgToggleTokenConversion.SerializeToString,
+            fx_dot_erc20_dot_v1_dot_tx__pb2.MsgToggleTokenConversionResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def UpdateDenomAlias(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/fx.erc20.v1.Msg/UpdateDenomAlias',
+            fx_dot_erc20_dot_v1_dot_tx__pb2.MsgUpdateDenomAlias.SerializeToString,
+            fx_dot_erc20_dot_v1_dot_tx__pb2.MsgUpdateDenomAliasResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
