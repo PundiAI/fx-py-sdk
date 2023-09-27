@@ -15,8 +15,7 @@ class TestGrpcSendTx(unittest.TestCase):
 
     def test_send_tx(self):
         private_key = wallet.mnemonic_to_privkey(
-            "kiwi steel wrestle rotate outer hip orient sudden food remove cruel oyster know pitch jacket reflect "
-            "feed cash crumble stairs leopard canyon kiwi company")
+            "test test test test test test test test test test test junk")
 
         from_addr = private_key.to_address()
         print('address:', from_addr)

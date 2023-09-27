@@ -10,7 +10,7 @@ from google.protobuf.any_pb2 import Any
 from x.cosmos.crypto.secp256k1.keys_pb2 import PubKey
 from wallet.address import DEFAULT_BECH32_HRP
 
-DEFAULT_DERIVATION_PATH = "m/44'/118'/0'/0/0"
+DEFAULT_DERIVATION_PATH = "m/44'/60'/0'/0/0"
 
 
 class PublicKey:
@@ -26,7 +26,7 @@ class PublicKey:
 
     def to_secp256k1_any(self) -> Any:
         key = PubKey(key=self._pub_key).SerializeToString()
-        return Any(type_url='/cosmos.crypto.secp256k1.PubKey', value=key)
+        return Any(type_url='/ethermint.crypto.v1.ethsecp256k1.PubKey', value=key)
 
 
 class PrivateKey:

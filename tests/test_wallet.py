@@ -7,8 +7,7 @@ from wallet.key import PublicKey, PrivateKey
 class TestWallet(unittest.TestCase):
     def test_seed_to_address(self):
         private_key = wallet.key.mnemonic_to_privkey(
-            'lonely trumpet tiny soccer brief holiday eye warm credit focus correct april between '
-            'armed spoon dice save visit endorse wonder record swim course field')
+            'test test test test test test test test test test test junk')
         self.assertEqual(private_key.to_address(),
                          'fx12fv300avzf266qp930ur4g50agajuz6jcsj5tz')
 

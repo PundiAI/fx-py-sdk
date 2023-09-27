@@ -1,0 +1,328 @@
+syntax = "proto3";
+package fx.dex.v1;
+
+import "google/api/annotations.proto";
+import "fx/dex/v1/order.proto";
+import "fx/dex/v1/match.proto";
+import "fx/dex/v1/position.proto";
+import "fx/dex/v1/params.proto";
+import "fx/dex/v1/funding.proto";
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/marginxio/marginx/x/dex/v1/types";
+
+// Query defines the gRPC querier service.
+service Query {
+  rpc QueryParams(QueryParamsReq) returns (QueryParamsResp) {
+    option (google.api.http).get = "/dex/params";
+  }
+
+  // orders query
+  rpc QueryOrders(QueryOrdersRequest) returns (QueryOrdersResponse) {
+    option (google.api.http).get = "/dex/orders";
+  }
+
+  rpc QueryOrder(QueryOrderRequest) returns (QueryOrderResponse) {
+    option (google.api.http).get = "/dex/order";
+  }
+
+  rpc QueryOrderbook(QueryOrderbookReq) returns (QueryOrderbookResp) {
+    option (google.api.http).get = "/dex/orderbook";
+  }
+
+  // positions query
+  rpc QueryPositions(QueryPositionsReq) returns (QueryPositionsResp) {
+    option (google.api.http).get = "/dex/positions";
+  }
+
+  rpc QueryPosition(QueryPositionReq) returns (QueryPositionResp) {
+    option (google.api.http).get = "/dex/position";
+  }
+
+  // fundings query
+  rpc QueryFunding(QueryFundingReq) returns (QueryFundingResp) {
+    option (google.api.http).get = "/dex/funding";
+  }
+
+  rpc QueryPairFundingRates(QueryPairFundingRatesReq)
+      returns (QueryPairFundingRatesResp) {
+    option (google.api.http).get = "/dex/funding_rates";
+  }
+
+  rpc QueryFundingTime(QueryFundingTimeReq) returns (QueryFundingTimeResp) {
+    option (google.api.http).get = "/dex/funding_time";
+  }
+
+  // query latest deal price no matter what block
+  rpc QueryDealPrice(QueryDealPriceReq) returns (QueryDealPriceResp) {
+    option (google.api.http).get = "/dex/deal_price";
+  }
+
+  rpc QueryMatchResult(QueryMatchResultReq) returns (QueryMatchResultResp) {
+    option (google.api.http).get = "/dex/match_result";
+  }
+
+  rpc QueryMarkPrice(QueryMarkPriceReq) returns (QueryMarkPriceResp) {
+    option (google.api.http).get = "/dex/mark_price";
+  }
+
+  rpc QueryMarkAndOraclePrice(QueryMarkAndOraclePriceReq)
+      returns (QueryMarkAndOraclePriceResp) {
+    option (google.api.http).get = "/dex/mark_oracle_price";
+  }
+
+  rpc QueryLiquidationPrice(QueryLiquidationPriceReq)
+      returns (QueryLiquidationPriceResp) {
+    option (google.api.http).get = "/dex/liquidation_price";
+  }
+
+  rpc QueryMovingAverage(QueryMAReq) returns (QueryMAResp) {
+    option (google.api.http).get = "/dex/moving_average";
+  }
+
+  rpc QueryStoreStatistic(QueryStoreStatisticReq)
+      returns (QueryStoreStatisticResp) {
+    option (google.api.http).get = "/dex/store_statistic";
+  }
+
+  rpc QueryIsFunding(QueryIsFundingReq) returns (QueryIsFundingResp) {
+    option (google.api.http).get = "/dex/is_funding";
+  }
+
+  rpc QueryPremiumIndexConf(QueryPremiumIndexConfReq)
+      returns (QueryPremiumIndexConfResp) {
+    option (google.api.http).get = "/dex/premium_index_conf";
+  }
+
+  rpc QueryNeedToLiquidationPosIds(QueryNeedToLiquidationPosIdsReq)
+      returns (QueryNeedToLiquidatorPosIdsResp) {
+    option (google.api.http).get = "/dex/liquidation_pos_ids";
+  }
+
+  rpc QueryAccountNumber(QueryAccountNumberReq)
+      returns (QueryAccountNumberResp) {
+    option (google.api.http).get = "/dex/account_number";
+  }
+
+  rpc QueryReserve(QueryReserveReq) returns (QueryReserveResp) {
+    option (google.api.http).get = "/dex/reserve";
+  }
+}
+
+message QueryReserveReq {}
+
+message QueryReserveResp { Reserve reserve = 1; }
+
+message QueryIsFundingReq {}
+
+message QueryIsFundingResp { bool is_funding = 1; }
+
+message QueryStoreStatisticReq {}
+
+message QueryStoreStatisticResp {
+  int64 store_order_num = 1;
+  int64 orderbook_size = 2;
+  int64 orderbook_length = 3;
+}
+
+message QueryMAReq { string pair_id = 1; }
+
+message QueryMAResp {
+  repeated string average_price = 1 [
+    (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
+    (gogoproto.nullable) = false
+  ];
+  string price2 = 2 [
+    (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
+    (gogoproto.nullable) = false
+  ];
+}
+
+message QueryMarkAndOraclePriceReq {
+  string pair_id = 1;
+  bool query_all = 2;
+}
+
+message QueryMarkAndOraclePriceResp {
+  repeated MarkAndOraclePrice prices = 1 [ (gogoproto.nullable) = false ];
+}
+
+message QueryParamsReq {}
+
+message QueryParamsResp { Params params = 1 [ (gogoproto.nullable) = false ]; }
+
+///////////////////// orders query ///////////////////////////
+message QueryOrdersRequest {
+  string owner = 1;
+  //    Direction direction = 2;
+  string pair_id = 2;
+  //    bool is_finished = 4;
+  string page = 3 [
+    (gogoproto.customtype) = "cosmossdk.io/math.Uint",
+    (gogoproto.nullable) = false
+  ];
+  string limit = 4 [
+    (gogoproto.customtype) = "cosmossdk.io/math.Uint",
+    (gogoproto.nullable) = false
+  ];
+}
+
+message QueryOrdersResponse {
+  repeated Order orders = 1 [ (gogoproto.nullable) = false ];
+}
+
+message QueryOrderRequest { string order_id = 1; }
+
+message QueryOrderResponse { Order order = 1 [ (gogoproto.nullable) = false ]; }
+
+message QueryOrderbookReq { string pair_id = 1; }
+
+message QueryOrderbookResp {
+  repeated OrderDepth Asks = 1 [ (gogoproto.nullable) = false ];
+  repeated OrderDepth Bids = 2 [ (gogoproto.nullable) = false ];
+}
+
+///////////////////// positions query ///////////////////////////
+message QueryPositionsReq {
+  string owner = 1;
+  PosDirection direction = 2;
+  string pair_id = 3;
+  string page = 4 [
+    (gogoproto.customtype) = "cosmossdk.io/math.Uint",
+    (gogoproto.nullable) = false
+  ];
+  string limit = 5 [
+    (gogoproto.customtype) = "cosmossdk.io/math.Uint",
+    (gogoproto.nullable) = false
+  ];
+}
+
+message QueryPositionsResp {
+  repeated Position positions = 1 [ (gogoproto.nullable) = false ];
+}
+
+message QueryPositionReq {
+  string owner = 1;
+  string pair_id = 2;
+}
+
+message QueryPositionResp {
+  repeated Position positions = 1 [ (gogoproto.nullable) = false ];
+}
+
+///////////////////// fundings query ///////////////////////////
+message QueryFundingReq {}
+
+message QueryFundingResp {
+  Funding funding = 1 [ (gogoproto.nullable) = false ];
+}
+
+// latest_or_realtime:
+// true/1: last settled funding rate
+// false/0: realtime funding rate
+message QueryPairFundingRatesReq { bool last_or_realtime = 1; }
+
+message QueryPairFundingRatesResp {
+  repeated PairFundingRate pair_funding_rates = 1
+      [ (gogoproto.nullable) = false ];
+}
+
+message QueryFundingTimeReq {}
+
+message QueryFundingTimeResp {
+  FundingTime funding_time = 1 [ (gogoproto.nullable) = false ];
+}
+
+///////////////////// match query ///////////////////////////
+message PairPrice {
+  string pair_id = 1;
+  string price = 2 [
+    (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
+    (gogoproto.nullable) = false
+  ];
+}
+
+message QueryDealPriceReq {
+  string pair_id = 1;
+  bool query_all = 2;
+}
+
+message QueryDealPriceResp {
+  repeated PairPrice pair_price = 1 [ (gogoproto.nullable) = false ];
+}
+
+message QueryMatchResultReq {
+  string pair_id = 1;
+  int64 block_number = 2;
+}
+
+message QueryMatchResultResp {
+  MatchResult match_result = 1 [ (gogoproto.nullable) = false ];
+}
+
+message QueryMarkPriceReq {
+  string pair_id = 1;
+  bool query_all = 2;
+}
+
+message QueryMarkPriceResp {
+  repeated PairPrice pair_mark_price = 1 [ (gogoproto.nullable) = false ];
+}
+
+message MarkAndOraclePrice {
+  string pair_id = 1;
+  string mark_price = 2 [
+    (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
+    (gogoproto.nullable) = false
+  ];
+  string oracle_price = 3 [
+    (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
+    (gogoproto.nullable) = false
+  ];
+}
+
+///////////////////// liquidation calculator ///////////////////////////
+message QueryLiquidationPriceReq {
+  string pair_id = 1;
+  uint64 leverage = 2;
+  PosDirection direction = 3;
+  string entry_price = 4 [
+    (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
+    (gogoproto.nullable) = false
+  ];
+  string quantity = 5 [
+    (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
+    (gogoproto.nullable) = false
+  ];
+  string wallet_balance = 6 [
+    (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
+    (gogoproto.nullable) = false
+  ];
+}
+
+message QueryLiquidationPriceResp {
+  string liquidation_price = 1 [
+    (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
+    (gogoproto.nullable) = false
+  ];
+}
+
+message QueryPremiumIndexConfReq {}
+
+message QueryPremiumIndexConfResp {
+  PremiumIndexConf premium_index_conf = 1 [ (gogoproto.nullable) = false ];
+}
+
+message QueryNeedToLiquidationPosIdsReq {}
+
+message QueryNeedToLiquidatorPosIdsResp {
+  repeated string position_ids = 1 [
+    (gogoproto.customtype) = "cosmossdk.io/math.Uint",
+    (gogoproto.nullable) = false
+  ];
+  int64 height = 2;
+}
+
+message QueryAccountNumberReq {}
+
+message QueryAccountNumberResp { uint64 value = 1; }

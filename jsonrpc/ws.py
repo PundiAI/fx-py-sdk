@@ -26,7 +26,8 @@ class Websocket:
         else:
             print("websocket disconnected", error)
 
-    def on_message(self, message):
+    @staticmethod
+    def on_message(message):
         msg = json.loads(message)
         print(msg)
 
@@ -34,7 +35,8 @@ class Websocket:
         logging.info("connection to node...")
         self.ws_block.send(self.event)
 
-    def on_close(self):
+    @staticmethod
+    def on_close():
         logging.info("connection to node websocket is closed")
 
     def subscribe(self):

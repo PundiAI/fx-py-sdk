@@ -99,11 +99,6 @@ class HttpRpcClient(BaseHttpRpcClient):
 
     @staticmethod
     def _handle_response(response):
-        """Internal helper for handling API responses from the server.
-        Raises the appropriate exceptions when necessary; otherwise, returns the
-        response.
-        """
-
         try:
             res = response.json()
 
@@ -120,11 +115,6 @@ class HttpRpcClient(BaseHttpRpcClient):
 
     @staticmethod
     def _handle_session_response(response):
-        """Internal helper for handling API responses from the server.
-        Raises the appropriate exceptions when necessary; otherwise, returns the
-        response.
-        """
-
         if not str(response.status_code).startswith('2'):
             raise Exception(response)
         try:
@@ -145,98 +135,10 @@ class HttpRpcClient(BaseHttpRpcClient):
             raise Exception('Invalid Response: %s' % response.text)
 
     def get_path_list(self):
-        """Return HTML formatted list of available endpoints
-        """
         res = self._request(self._endpoint_url, method="get")
         return res.content
 
-    def get_abci_info(self):
-        """Get some info about the application.
-        """
-        return self._request('abci_info')
-
-    def get_consensus_state(self):
-        """ConsensusState returns a concise summary of the consensus state. UNSTABLE
-        """
-        return self._request('consensus_state')
-
-    def dump_consensus_state(self):
-        """DumpConsensusState dumps consensus state. UNSTABLE
-        """
-        return self._request('dump_consensus_state')
-
-    def get_genesis(self):
-        """Get genesis file.
-        """
-        return self._request('genesis')
-
-    def get_net_info(self):
-        """Get network info.
-        """
-        return self._request('net_info')
-
-    def get_num_unconfirmed_txs(self):
-        """Get number of unconfirmed transactions.
-        """
-        return self._request('num_unconfirmed_txs')
-
-    def get_status(self):
-        """Get Tendermint status including node info, pubkey, latest block hash, app hash, block height and time.
-        """
-        return self._request('status')
-
-    def get_health(self):
-        """Get node health. Returns empty result (200 OK) on success, no response - in case of an error.
-        """
-        return self._request('health')
-
-    def get_unconfirmed_txs(self):
-        """Get unconfirmed transactions (maximum ?limit entries) including their number.
-        """
-        data = {
-            'limit': str('100'),
-        }
-        return self._request('unconfirmed_txs', data=data)
-
-    def get_validators(self, height: int, page: int = 1):
-        """Get the validator set at the given block height. If no height is provided, it will fetch the
-        current validator set.
-        """
-        data = {
-            'height': str(height),
-            'page': str(page),
-            'per_page': '10'
-        }
-        return self._request('validators', data=data)
-
-    def abci_query(self, data: str, path: Optional[str] = None,
-                   prove: Optional[bool] = None, height: Optional[int] = None):
-        """Query the application for some information.
-
-        path	string	Path to the data ("/a/b/c")
-        data	[]byte	Data
-        height	int64	Height (0 means latest)
-        prove	bool	Includes proof if true
-        """
-
-        data = {
-            'data': data
-        }
-        if path:
-            data['path'] = path
-        if prove:
-            data['prove'] = str(prove)
-        if height:
-            data['height'] = str(height)
-
-        return self._request('abci_query', data=data)
-
     def get_block(self, height: Optional[int] = None):
-        """Get block at a given height. If no height is provided, it will fetch the latest block.
-
-        height	int64
-        """
-
         data = {
             'height': str(height) if height else None
         }
@@ -244,12 +146,6 @@ class HttpRpcClient(BaseHttpRpcClient):
         return self._request('block', data=data)
 
     def get_block_results(self, height: int):
-        """BlockResults gets ABCIResults at a given height.
-        If no height is provided, it will fetch results for the latest block.
-
-        height	int64
-        """
-
         data = {
             'height': str(height)
         }
@@ -257,12 +153,6 @@ class HttpRpcClient(BaseHttpRpcClient):
         return self._request('block_results', data=data)
 
     def get_block_commit(self, height: int):
-        """Get block commit at a given height. If no height is provided, it will fetch the commit for the latest block.
-
-        height	int64	0
-
-        """
-
         data = {
             'height': str(height)
         }
@@ -270,14 +160,6 @@ class HttpRpcClient(BaseHttpRpcClient):
         return self._request('commit', data=data)
 
     def get_blockchain_info(self, min_height: int, max_height: int):
-        """Get block headers for minHeight <= height <= maxHeight. Block headers are returned in descending order
-        (highest first). Returns at most 20 items.
-
-        min_height	int64	0
-        max_height	int64	0
-
-        """
-
         assert max_height > min_height
 
         data = {
@@ -288,27 +170,15 @@ class HttpRpcClient(BaseHttpRpcClient):
         return self._request('blockchain', data=data)
 
     def _broadcast_tx_async(self, tx_data: Dict):
-        """Returns right away, with no response
-        """
         return self._request_session("broadcast_tx_async", params=tx_data)
 
     def _broadcast_tx_commit(self, tx_data: Dict):
-        """CONTRACT: only returns error if mempool.CheckTx() errs or if we timeout waiting for tx to commit.
-        """
         return self._request_session("broadcast_tx_commit", params=tx_data)
 
     def _broadcast_tx_sync(self, tx_data: Dict):
-        """Returns with the response from CheckTx.
-        """
         return self._request_session("broadcast_tx_sync", params=tx_data)
 
     def get_consensus_params(self, height: Optional[int] = None):
-        """Get the consensus parameters at the given block height. If no height is provided, it will fetch the
-        current consensus params.
-
-        height: int
-
-        """
         data = {
             'height': str(height) if height else None
         }
@@ -316,14 +186,6 @@ class HttpRpcClient(BaseHttpRpcClient):
         return self._request('consensus_params', data=data)
 
     def get_tx(self, tx_hash: str, prove: Optional[bool] = None):
-        """Tx allows you to query the transaction results. nil could mean the transaction is in the mempool,
-        invalidated, or was not sent in the first place.
-
-        tx_hash	string	""	true	Query
-        prove	bool	false	false	Include proofs of the transactions inclusion in the block
-
-        """
-
         data = {
             'hash': tx_hash
         }
@@ -334,16 +196,6 @@ class HttpRpcClient(BaseHttpRpcClient):
 
     def tx_search(self, query: str, prove: Optional[bool] = None,
                   page: Optional[int] = None, limit: Optional[int] = None):
-        """TxSearch allows you to query for multiple transactions results. It returns a list of transactions
-        (maximum ?per_page entries) and the total count.
-
-        query	string	""	true	Query
-        prove	bool	false	false	Include proofs of the transactions inclusion in the block
-        page	int	1	false	Page number (1-based)
-        per_page	int	30	false	Number of entries per page (max: 100)
-
-        """
-
         data = {
             'query': query
         }

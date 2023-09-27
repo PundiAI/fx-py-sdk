@@ -1,0 +1,39 @@
+syntax = "proto3";
+package fx.dex.v1;
+
+import "fx/dex/v1/funding.proto";
+import "fx/dex/v1/margin.proto";
+import "fx/dex/v1/match.proto";
+import "fx/dex/v1/order.proto";
+import "fx/dex/v1/params.proto";
+import "fx/dex/v1/position.proto";
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/marginxio/marginx/x/dex/v1/types";
+
+message GenesisState {
+  repeated PairFundingRate pair_funding_rates = 1
+      [ (gogoproto.nullable) = false ];
+  Funding funding_info = 2 [ (gogoproto.nullable) = false ];
+  FundingTime funding_time = 3 [ (gogoproto.nullable) = false ];
+  PremiumIndexConf premium_index_config = 4 [ (gogoproto.nullable) = false ];
+  repeated PremiumIndex premium_index = 5 [ (gogoproto.nullable) = false ];
+  repeated MarginRateTable margin_rate_tables = 6
+      [ (gogoproto.nullable) = false ];
+  repeated DealPrice deal_price = 7 [ (gogoproto.nullable) = false ];
+  repeated Order orders = 8 [ (gogoproto.nullable) = false ];
+  Params params = 9 [ (gogoproto.nullable) = false ];
+  repeated Position positions = 10 [ (gogoproto.nullable) = false ];
+  PositionID position_id = 11 [ (gogoproto.nullable) = false ];
+  MovingAverageParams ma_params = 12 [ (gogoproto.nullable) = false ];
+  repeated string book_pair_ids = 13 [ (gogoproto.nullable) = false ];
+  repeated OrderDepthArray ask_book = 14 [ (gogoproto.nullable) = false ];
+  repeated OrderDepthArray bid_book = 15 [ (gogoproto.nullable) = false ];
+  repeated string order_book_ids_keys = 16 [ (gogoproto.nullable) = false ];
+  repeated OrderIDs order_book_ids = 17 [ (gogoproto.nullable) = false ];
+  Reserve reserve = 18 [ (gogoproto.nullable) = false ];
+}
+
+message OrderDepthArray {
+  repeated OrderDepth values = 1 [ (gogoproto.nullable) = false ];
+}

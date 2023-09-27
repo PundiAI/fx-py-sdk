@@ -22,8 +22,8 @@ from x.cosmos.tx.v1beta1.service_pb2 import BROADCAST_MODE_BLOCK, BroadcastMode,
     GetTxRequest, GetTxResponse
 from x.cosmos.tx.v1beta1.service_pb2_grpc import ServiceStub as TxClient
 from x.cosmos.tx.v1beta1.tx_pb2 import Fee, Tx, TxRaw
-from x.fx.other.query_pb2 import GasPriceRequest
-from x.fx.other.query_pb2_grpc import QueryStub as OtherQuery
+from x.cosmos.base.node.v1beta1.query_pb2_grpc import ServiceStub as CosmosNodeClient
+from x.cosmos.base.node.v1beta1.query_pb2 import ConfigRequest
 from x.tendermint.p2p.types_pb2 import DefaultNodeInfo
 from x.tendermint.types.block_pb2 import Block
 
@@ -62,8 +62,8 @@ class GRPCClient:
 
     def query_gas_price(self) -> [Coin]:
 
-        response = OtherQuery(self.channel).GasPrice(GasPriceRequest())
-        return response.gas_prices
+        response = CosmosNodeClient(self.channel).Config(ConfigRequest())
+        return response.minimum_gas_price
 
     def query_block_by_height(self, height: int) -> Block:
 

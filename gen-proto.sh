@@ -7,9 +7,10 @@ OUT_DIR="./x"
 [[ -d "$OUT_DIR"  ]] && rm -rf "$OUT_DIR"
 [[ ! -d "$OUT_DIR"  ]] && mkdir -p "$OUT_DIR"
 
-proto_dirs=$(find ./*/proto ./cosmos-sdk/third_party/proto -path -prune -o -name '*.proto' -print0 | xargs -0 -n1 dirname | sort | uniq)
+proto_dirs=$(find ./proto ./*/proto ./cosmos-sdk/third_party/proto -path -prune -o -name '*.proto' -print0 | xargs -0 -n1 dirname | sort | uniq)
 for dir in $proto_dirs; do
   find "${dir}" -maxdepth 1 -name '*.proto' -print0 | xargs -0 python3 -m grpc_tools.protoc \
+    -I="./proto" \
     -I="./fx-core/proto" \
     -I="./ibc-go/proto" \
     -I="./cosmos-sdk/proto" \

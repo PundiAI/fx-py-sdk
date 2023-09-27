@@ -1,0 +1,88 @@
+syntax = "proto3";
+package fx.dex.v1;
+
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/marginxio/marginx/x/dex/v1/types";
+
+// cumulative funding rates
+message PairFundingRate {
+  string pair_id = 1;
+  string funding_rate = 2 [
+    (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
+    (gogoproto.nullable) = false
+  ];
+  int64 funding_time = 3;
+}
+
+// system params
+message Funding {
+  int64 funding_period = 1; // not used again after use funding time
+  int64 next_funding_time = 2;
+  int64 funding_times = 3;
+  int64 max_funding_per_block = 4;
+  int64 crypto_funding_period = 5 [ (gogoproto.nullable) = true ];
+  int64 crypto_next_funding_time = 6 [ (gogoproto.nullable) = true ];
+  int64 crypto_funding_times = 7 [ (gogoproto.nullable) = true ];
+}
+
+message FundingTime {
+  int64 summer_time = 1;
+  int64 winter_time = 2;
+  repeated string summer_clocks = 3;
+  repeated string winter_clocks = 4;
+  repeated string holidays = 5;
+  repeated string crypto_clocks = 6;
+}
+
+message SettleFunding {
+  bool is_funding = 1;
+  string next_position_id = 2 [
+    (gogoproto.customtype) = "cosmossdk.io/math.Uint",
+    (gogoproto.nullable) = false
+  ];
+  string market_type = 3 [ (gogoproto.nullable) = true ];
+}
+
+message PremiumIndexConf {
+  int64 update_period = 1;
+  int64 next_update_time = 2;
+  int64 round_start_time = 3;
+  int64 next_round_time = 4;
+  int32 round_index = 5;
+
+  int64 crypto_update_period = 6 [ (gogoproto.nullable) = true ];
+  int64 crypto_next_update_time = 7 [ (gogoproto.nullable) = true ];
+  int64 crypto_round_start_time = 8 [ (gogoproto.nullable) = true ];
+  int64 crypto_next_round_time = 9 [ (gogoproto.nullable) = true ];
+  int32 crypto_round_index = 10 [ (gogoproto.nullable) = true ];
+}
+
+// get/set -> key_prefix:pair_id:roundTimestamp
+message PremiumIndex {
+  string pair_id = 1;
+
+  int64 round_timestamp = 2;
+
+  repeated Tick ticks = 3 [ (gogoproto.nullable) = false ];
+
+  message Tick {
+    string value = 1 [
+      (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
+      (gogoproto.nullable) = false
+    ];
+    int64 ts = 2;
+  }
+}
+
+message MovingAverageParams {
+  int64 update_period = 1;
+  int64 next_update_time = 2;
+}
+
+message MovingAverage {
+  repeated string average_price = 1 [
+    (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
+    (gogoproto.nullable) = false
+  ];
+}
