@@ -1,4 +1,4 @@
-# f(x)Core Python SDK
+# fx Python SDK
 
 [![PyPI version](https://badge.fury.io/py/fx-py-sdk.svg)](https://badge.fury.io/py/fx-py-sdk)
 
