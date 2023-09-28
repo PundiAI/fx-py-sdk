@@ -43,14 +43,12 @@ if __name__ == '__main__':
     cli = GRPCClient('127.0.0.1:9090')
 
     a_private_key = wallet.mnemonic_to_privkey(
-        "snap wheel salad awesome memory awkward that baby increase valid nice leave method gather great reason sell "
-        "wine oil actual turn squeeze require bag")
+        "test test test test test test test test test test test junk")
     a_addr = a_private_key.to_address()
     a_balance = cli.query_balance(a_addr, 'FX')
 
     b_private_key = wallet.mnemonic_to_privkey(
-        "sun live pistol cupboard spatial various gauge render pluck piano giggle food develop foster surface mail "
-        "coffee sister soft wool prefer true blame success")
+        "test test test test test test test test test test test junk")
     b_addr = b_private_key.to_address()
     b_balance = cli.query_balance(b_addr, 'FX')
 
