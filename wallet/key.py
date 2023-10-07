@@ -1,5 +1,4 @@
 import hashlib
-from typing import Any
 
 import bech32
 import ecdsa
@@ -28,6 +27,9 @@ class PublicKey:
         key = PubKey(key=self._pub_key).SerializeToString()
         return Any(type_url='/ethermint.crypto.v1.ethsecp256k1.PubKey', value=key)
 
+    def to_hex(self) -> str:
+        return bytes.hex(self._pub_key)
+
 
 class PrivateKey:
 
@@ -42,6 +44,9 @@ class PrivateKey:
 
     def to_address(self, hrp: str = DEFAULT_BECH32_HRP) -> str:
         return self.to_public_key().to_address(hrp=hrp)
+
+    def to_hex(self) -> str:
+        return bytes.hex(self._priv_key)
 
     def sign(self, message_bytes: bytes) -> bytes:
         privkey = ecdsa.SigningKey.from_string(

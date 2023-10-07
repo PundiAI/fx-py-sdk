@@ -9,21 +9,21 @@ class TestGrpcClientQuery(unittest.TestCase):
 
     def test_query_balances(self):
         balances = grpc_cli.query_all_balances(
-            address="fx1pn2zxcgf2ngu6nk83psrc5zmzzcafel0zna5rs")
+            address="fx15428vq2uzwhm3taey9sr9x5vm6tk78ewryy2rg")
         print(balances)
 
     def test_query_balance(self):
         balance = grpc_cli.query_balance(
-            address="fx1pn2zxcgf2ngu6nk83psrc5zmzzcafel0zna5rs", denom="FX")
+            address="fx15428vq2uzwhm3taey9sr9x5vm6tk78ewryy2rg", denom="FX")
         print(balance)
 
         balances = grpc_cli.query_balance(
-            address="fx1pn2zxcgf2ngu6nk83psrc5zmzzcafel0zna5rs", denom="FX")
+            address="fx15428vq2uzwhm3taey9sr9x5vm6tk78ewryy2rg", denom="FX")
         print(balances)
 
     def test_query_account(self):
         account = grpc_cli.query_account_info(
-            address="fx1pn2zxcgf2ngu6nk83psrc5zmzzcafel0zna5rs")
+            address="fx15428vq2uzwhm3taey9sr9x5vm6tk78ewryy2rg")
         print(account)
 
     def test_query_tx(self):
