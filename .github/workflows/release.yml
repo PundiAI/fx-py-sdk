@@ -10,6 +10,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Create Release
-        run: hub release create -m "${GITHUB_REF#refs/tags/}" ${GITHUB_REF#refs/tags/}
+        run: gh release create ${GITHUB_REF#refs/tags/} --title ${GITHUB_REF#refs/tags/}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
