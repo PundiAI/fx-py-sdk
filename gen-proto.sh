@@ -4,7 +4,7 @@ set -o errexit -o nounset -o pipefail
 
 OUT_DIR="./x"
 
-[[ -d "$OUT_DIR"  ]] && rm -rf "$OUT_DIR"
+[[ -d "$OUT_DIR"  ]] && rm -rf "$OUT_DIR/cosmos" "$OUT_DIR/fx" "$OUT_DIR/ibc" "$OUT_DIR/tendermint"
 [[ ! -d "$OUT_DIR"  ]] && mkdir -p "$OUT_DIR"
 
 proto_dirs=$(find ./proto ./*/proto ./cosmos-sdk/third_party/proto -path -prune -o -name '*.proto' -print0 | xargs -0 -n1 dirname | sort | uniq)
