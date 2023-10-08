@@ -5,7 +5,7 @@ from google.protobuf.json_format import MessageToJson
 
 from wallet.key import mnemonic_to_privkey
 from wallet.builder import TxBuilder
-from client.grpc_client import GRPCClient
+from client.grpc_client import BaseClient
 from x.cosmos.bank.v1beta1.tx_pb2 import MsgSend
 from x.cosmos.base.v1beta1.coin_pb2 import Coin
 from x.cosmos.tx.v1beta1.service_pb2 import BROADCAST_MODE_SYNC
@@ -20,7 +20,7 @@ class TestGrpcSendTx(unittest.TestCase):
         from_addr = private_key.to_address()
         print('address:', from_addr)
 
-        cli = GRPCClient('127.0.0.1:9090')
+        cli = BaseClient('127.0.0.1:9090')
 
         send_msg = MsgSend(from_address=from_addr, to_address=from_addr,
                            amount=[Coin(amount='100', denom='FX')])

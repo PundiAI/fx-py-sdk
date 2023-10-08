@@ -2,7 +2,7 @@ import unittest
 
 from client.jsonrpc_client import *
 
-rpc_client = HttpRpcClient("http://127.0.0.1:26657")
+rpc_client = JsonRpcClient("http://127.0.0.1:26657")
 
 
 class TestJsonRpcCase(unittest.TestCase):

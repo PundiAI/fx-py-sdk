@@ -1,8 +1,8 @@
 import unittest
 
-from client.grpc_client import GRPCClient
+from client.grpc_client import BaseClient
 
-grpc_cli = GRPCClient('localhost:9090')
+grpc_cli = BaseClient('localhost:9090')
 
 
 class TestGrpcClientQuery(unittest.TestCase):

@@ -29,7 +29,7 @@ from x.tendermint.p2p.types_pb2 import DefaultNodeInfo
 from x.tendermint.types.block_pb2 import Block
 
 
-class GRPCClient:
+class BaseClient:
     def __init__(self, url: str = 'localhost:9090'):
         self.__height = 0
         if urlparse(url).scheme == "https":
