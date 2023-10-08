@@ -47,9 +47,6 @@ pip install -r requirements.txt
 # Pull external code
 git submodule update --init --recursive --remote
 
-pip install grpcio
-pip install grpcio-tools
-
 ./gen-proto.sh
 ```
 

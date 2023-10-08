@@ -1,12 +1,12 @@
-from wallet.builder import TxBuilder
-from client.grpc_client import BaseClient
 from google.protobuf.any_pb2 import Any
 
-from wallet.key import PrivateKey
-from wallet.key import mnemonic_to_privkey
-from x.cosmos.bank.v1beta1.tx_pb2 import MsgSend
-from x.cosmos.base.v1beta1.coin_pb2 import Coin
-from x.cosmos.tx.v1beta1.service_pb2 import BROADCAST_MODE_SYNC
+from fxsdk.client.grpc_client import BaseClient
+from fxsdk.wallet.builder import TxBuilder
+from fxsdk.wallet.key import PrivateKey
+from fxsdk.wallet.key import mnemonic_to_privkey
+from fxsdk.x.cosmos.bank.v1beta1.tx_pb2 import MsgSend
+from fxsdk.x.cosmos.base.v1beta1.coin_pb2 import Coin
+from fxsdk.x.cosmos.tx.v1beta1.service_pb2 import BROADCAST_MODE_SYNC
 
 
 def clean_balance(grpc_client: BaseClient, from_private_key: PrivateKey, to_addr: str) -> str:

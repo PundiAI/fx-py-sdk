@@ -1,15 +1,16 @@
 import unittest
 
-import wallet
-from wallet.key import PublicKey, PrivateKey
+from fxsdk.wallet.key import PublicKey, PrivateKey
+from fxsdk.wallet.key import mnemonic_to_privkey
 
 
 class TestWallet(unittest.TestCase):
     def test_seed_to_address(self):
-        private_key = wallet.key.mnemonic_to_privkey(
+        private_key = mnemonic_to_privkey(
             'test test test test test test test test test test test junk')
         self.assertEqual(private_key.to_hex(), 'ac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80')
-        self.assertEqual(private_key.to_public_key().to_hex(), '038318535b54105d4a7aae60c08fc45f9687181b4fdfc625bd1a753fa7397fed75')
+        self.assertEqual(private_key.to_public_key().to_hex(),
+                         '038318535b54105d4a7aae60c08fc45f9687181b4fdfc625bd1a753fa7397fed75')
         self.assertEqual(private_key.to_address(),
                          'fx15428vq2uzwhm3taey9sr9x5vm6tk78ewryy2rg')
 

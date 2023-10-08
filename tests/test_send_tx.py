@@ -3,12 +3,12 @@ import unittest
 from google.protobuf.any_pb2 import Any
 from google.protobuf.json_format import MessageToJson
 
-from wallet.key import mnemonic_to_privkey
-from wallet.builder import TxBuilder
-from client.grpc_client import BaseClient
-from x.cosmos.bank.v1beta1.tx_pb2 import MsgSend
-from x.cosmos.base.v1beta1.coin_pb2 import Coin
-from x.cosmos.tx.v1beta1.service_pb2 import BROADCAST_MODE_SYNC
+from fxsdk.wallet.key import mnemonic_to_privkey
+from fxsdk.wallet.builder import TxBuilder
+from fxsdk.client.grpc_client import BaseClient
+from fxsdk.x.cosmos.bank.v1beta1.tx_pb2 import MsgSend
+from fxsdk.x.cosmos.base.v1beta1.coin_pb2 import Coin
+from fxsdk.x.cosmos.tx.v1beta1.service_pb2 import BROADCAST_MODE_SYNC
 
 
 class TestGrpcSendTx(unittest.TestCase):
