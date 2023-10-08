@@ -9,7 +9,7 @@ with open("README.md", "r", encoding="UTF-8") as fh:
 
 setup(
     name="fx-py-sdk",
-    version="0.3.0",
+    version="0.5.0",
     platforms='any',
     description="Python library for fxCore",
     long_description=long_description,
