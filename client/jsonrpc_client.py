@@ -135,6 +135,58 @@ class JsonRpcClient(BaseJsonRpcClient):
         res = self._request(self._endpoint_url, method="get")
         return res.content
 
+    def get_abci_info(self):
+        return self._request('abci_info')
+
+    def get_consensus_state(self):
+        return self._request('consensus_state')
+
+    def get_genesis(self):
+        return self._request('genesis')
+
+    def get_net_info(self):
+        return self._request('net_info')
+
+    def get_num_unconfirmed_txs(self):
+        return self._request('num_unconfirmed_txs')
+
+    def get_status(self):
+        return self._request('status')
+
+    def get_health(self):
+        return self._request('health')
+
+    def get_validators(self, height: int, page: int = 1):
+        data = {
+            'height': str(height),
+            'page': str(page),
+            'per_page': '10'
+        }
+        return self._request('validators', data=data)
+
+    def get_consensus_params(self, height: Optional[int] = None):
+        data = {
+            'height': str(height) if height else None
+        }
+
+        return self._request('consensus_params', data=data)
+
+    def abci_query(self, data: str,
+                   path: Optional[str] = None,
+                   prove: Optional[bool] = None,
+                   height: Optional[int] = None):
+        data = {
+            'data': data
+        }
+        if path:
+            data['path'] = path
+        if prove:
+            data['prove'] = str(prove)
+        if height:
+            data['height'] = str(height)
+
+        return self._request('abci_query', data=data)
+
     def get_block(self, height: Optional[int] = None):
         data = {
             'height': str(height) if height else None
@@ -175,13 +227,6 @@ class JsonRpcClient(BaseJsonRpcClient):
     def _broadcast_tx_sync(self, tx_data: Dict):
         return self._request_session("broadcast_tx_sync", params=tx_data)
 
-    def get_consensus_params(self, height: Optional[int] = None):
-        data = {
-            'height': str(height) if height else None
-        }
-
-        return self._request('consensus_params', data=data)
-
     def get_tx(self, tx_hash: str, prove: Optional[bool] = None):
         data = {
             'hash': tx_hash
@@ -208,10 +253,10 @@ class JsonRpcClient(BaseJsonRpcClient):
 
 class RpcRequest:
 
-    def __init__(self, method, id, params=None):
+    def __init__(self, method, req_id, params=None):
         self._method = method
         self._params = params
-        self._id = id
+        self._id = req_id
 
     @staticmethod
     def _sort_request(request):
