@@ -1,6 +1,6 @@
 import unittest
 
-from fxgrpc.client import GRPCClient
+from client.grpc_client import GRPCClient
 
 grpc_cli = GRPCClient('localhost:9090')
 
@@ -9,7 +9,7 @@ class TestGrpcClientQuery(unittest.TestCase):
 
     def test_query_balances(self):
         balances = grpc_cli.query_all_balances(
-            address="fx15428vq2uzwhm3taey9sr9x5vm6tk78ewryy2rg")
+            address="mx17w0adeg64ky0daxwd2ugyuneellmjgnxqezt98")
         print(balances)
 
     def test_query_balance(self):

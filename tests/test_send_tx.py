@@ -3,9 +3,9 @@ import unittest
 from google.protobuf.any_pb2 import Any
 from google.protobuf.json_format import MessageToJson
 
-import wallet
+from wallet.key import mnemonic_to_privkey
 from wallet.builder import TxBuilder
-from fxgrpc.client import GRPCClient
+from client.grpc_client import GRPCClient
 from x.cosmos.bank.v1beta1.tx_pb2 import MsgSend
 from x.cosmos.base.v1beta1.coin_pb2 import Coin
 from x.cosmos.tx.v1beta1.service_pb2 import BROADCAST_MODE_SYNC
@@ -14,7 +14,7 @@ from x.cosmos.tx.v1beta1.service_pb2 import BROADCAST_MODE_SYNC
 class TestGrpcSendTx(unittest.TestCase):
 
     def test_send_tx(self):
-        private_key = wallet.mnemonic_to_privkey(
+        private_key = mnemonic_to_privkey(
             "test test test test test test test test test test test junk")
 
         from_addr = private_key.to_address()

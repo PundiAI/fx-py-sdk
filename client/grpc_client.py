@@ -1,9 +1,10 @@
 import time
-from wallet.builder import TxBuilder
+import grpc
+
 from google.protobuf.any_pb2 import Any
 from urllib.parse import urlparse
 
-import grpc
+from wallet.builder import TxBuilder
 from x.cosmos.auth.v1beta1.auth_pb2 import BaseAccount
 from x.cosmos.auth.v1beta1.query_pb2 import QueryAccountRequest
 from x.cosmos.auth.v1beta1.query_pb2_grpc import QueryStub as AuthQuery
@@ -30,6 +31,7 @@ from x.tendermint.types.block_pb2 import Block
 
 class GRPCClient:
     def __init__(self, url: str = 'localhost:9090'):
+        self.__height = 0
         if urlparse(url).scheme == "https":
             self.channel = grpc.secure_channel(
                 urlparse(url).netloc, grpc.ssl_channel_credentials())
@@ -46,7 +48,6 @@ class GRPCClient:
             return account
 
     def query_all_balances(self, address: str) -> [Coin]:
-
         response = BankQuery(self.channel).AllBalances(QueryAllBalancesRequest(address=address))
         return response.balances
 
