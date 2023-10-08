@@ -3,6 +3,7 @@ import grpc
 
 from google.protobuf.any_pb2 import Any
 from urllib.parse import urlparse
+from typing import Optional
 
 from wallet.builder import TxBuilder
 from x.cosmos.auth.v1beta1.auth_pb2 import BaseAccount
@@ -28,42 +29,49 @@ from x.cosmos.base.node.v1beta1.query_pb2 import ConfigRequest
 from x.tendermint.p2p.types_pb2 import DefaultNodeInfo
 from x.tendermint.types.block_pb2 import Block
 
+GRPCBlockHeightHeader = 'x-cosmos-block-height'
+
 
 class BaseClient:
     def __init__(self, url: str = 'localhost:9090'):
-        self.__height = 0
         if urlparse(url).scheme == "https":
             self.channel = grpc.secure_channel(
                 urlparse(url).netloc, grpc.ssl_channel_credentials())
         else:
             self.channel = grpc.insecure_channel(url)
 
-    def query_account_info(self, address: str) -> BaseAccount:
+    def query_account_info(self, address: str, height: Optional[int] = 0) -> BaseAccount:
 
-        account_any = AuthQuery(self.channel).Account(
-            QueryAccountRequest(address=address)).account
+        metadata = [(GRPCBlockHeightHeader, str(height))]
+        response = AuthQuery(self.channel).Account(QueryAccountRequest(address=address), metadata=metadata)
+        account_any = response.account
         account = BaseAccount()
         if account_any.Is(account.DESCRIPTOR):
             account_any.Unpack(account)
             return account
 
-    def query_all_balances(self, address: str) -> [Coin]:
-        response = BankQuery(self.channel).AllBalances(QueryAllBalancesRequest(address=address))
+    def query_all_balances(self, address: str, height: Optional[int] = 0) -> [Coin]:
+
+        metadata = [(GRPCBlockHeightHeader, str(height))]
+        response = BankQuery(self.channel).AllBalances(QueryAllBalancesRequest(address=address), metadata=metadata)
         return response.balances
 
-    def query_balance(self, address: str, denom: str) -> Coin:
+    def query_balance(self, address: str, denom: str, height: Optional[int] = 0) -> Coin:
 
-        response = BankQuery(self.channel).Balance(QueryBalanceRequest(address=address, denom=denom))
+        metadata = [(GRPCBlockHeightHeader, str(height))]
+        response = BankQuery(self.channel).Balance(QueryBalanceRequest(address=address, denom=denom), metadata=metadata)
         return response.balance
 
-    def query_total_supply(self) -> [Supply]:
+    def query_total_supply(self, height: Optional[int] = 0) -> [Supply]:
 
-        response = BankQuery(self.channel).TotalSupply(QueryTotalSupplyRequest())
+        metadata = [(GRPCBlockHeightHeader, str(height))]
+        response = BankQuery(self.channel).TotalSupply(QueryTotalSupplyRequest(), metadata=metadata)
         return response.supply
 
-    def query_gas_price(self) -> [Coin]:
+    def query_gas_price(self, height: Optional[int] = 0) -> [Coin]:
 
-        response = CosmosNodeClient(self.channel).Config(ConfigRequest())
+        metadata = [(GRPCBlockHeightHeader, str(height))]
+        response = CosmosNodeClient(self.channel).Config(ConfigRequest(), metadata=metadata)
         return response.minimum_gas_price
 
     def query_block_by_height(self, height: int) -> Block:
@@ -91,17 +99,18 @@ class BaseClient:
         response = TendermintClient(self.channel).GetNodeInfo(GetNodeInfoRequest())
         return response.default_node_info
 
-    def query_validator_list(self) -> [Validator]:
+    def query_validator_list(self, height: Optional[int] = 0) -> [Validator]:
 
-        response = StakingClient(self.channel).Validators(QueryValidatorsRequest())
+        metadata = [(GRPCBlockHeightHeader, str(height))]
+        response = StakingClient(self.channel).Validators(QueryValidatorsRequest(), metadata=metadata)
         return response.validators
 
     def query_tx(self, tx_hash: str) -> GetTxResponse:
 
         return TxClient(self.channel).GetTx(GetTxRequest(hash=tx_hash))
 
-    def build_tx(self, tx_builder: TxBuilder, msg: [Any], account_number: int = -1, sequence: int = -1,
-                 gas_limit: int = 0) -> Tx:
+    def build_tx(self, tx_builder: TxBuilder, msg: [Any], account_number: int = -1,
+                 sequence: int = -1, gas_limit: int = 0) -> Tx:
 
         if tx_builder.chain_id == '':
             tx_builder.chain_id = self.query_chain_id()
@@ -150,6 +159,7 @@ class BaseClient:
         return response.tx_response
 
     def wait_mint_tx(self, tx_hash: str) -> TxResponse:
+
         for i in range(5):
             time.sleep(5)
             try:
