@@ -12,6 +12,7 @@ requires = [
     "hdwallets>=0.1.2",
     "mnemonic>=0.20",
     "eth_hash>=0.5.2"
+    "coincurve>=18.0.0"
 ]
 
 with open("README.md", "r", encoding="UTF-8") as fh:

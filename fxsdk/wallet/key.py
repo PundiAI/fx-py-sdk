@@ -2,6 +2,7 @@ import hashlib
 import bech32
 import ecdsa
 import hdwallets
+import coincurve
 
 from mnemonic import Mnemonic
 from eth_hash.auto import keccak as keccak_256
@@ -72,10 +73,18 @@ class PrivateKey:
         return bytes.hex(self._priv_key)
 
     def sign(self, message_bytes: bytes) -> bytes:
-        privkey = ecdsa.SigningKey.from_string(self._priv_key, curve=ecdsa.SECP256k1)
-        signature_compact = privkey.sign_deterministic(
-            message_bytes, hashfunc=hashlib.sha256, sigencode=ecdsa.util.sigencode_string_canonize
-        )
+        if self._key_type == SECP256K1_KEY_TYPE:
+            privkey = ecdsa.SigningKey.from_string(self._priv_key, curve=ecdsa.SECP256k1)
+            signature_compact = privkey.sign_deterministic(
+                data=message_bytes, hashfunc=hashlib.sha256, sigencode=ecdsa.util.sigencode_string_canonize
+            )
+        else:
+            if len(message_bytes) != 32:
+                message_bytes = keccak_256(message_bytes)
+            signature_compact = coincurve.keys.PrivateKey(self._priv_key).sign_recoverable(
+                message=message_bytes, hasher=None,
+            )
+
         return signature_compact
 
 
