@@ -1,8 +1,8 @@
 import unittest
 
-from fxsdk.client.grpc_client import BaseClient
+from fxsdk.client.grpc_client import Client
 
-grpc_cli = BaseClient('localhost:9090')
+grpc_cli = Client('localhost:9090')
 
 
 class TestGrpcClientQuery(unittest.TestCase):
@@ -38,8 +38,8 @@ class TestGrpcClientQuery(unittest.TestCase):
         validators = grpc_cli.query_validator_list()
         print(validators)
 
-    def test_query_gas_price(self):
-        res = grpc_cli.query_gas_price()
+    def test_query_gas_prices(self):
+        res = grpc_cli.query_gas_prices()
         print(res)
 
 

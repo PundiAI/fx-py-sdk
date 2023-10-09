@@ -4,7 +4,8 @@ DEFAULT_BECH32_PREFIX = "fx"
 
 
 class Address:
-    def __init__(self, addr):
+    def __init__(self, addr, prefix: str = DEFAULT_BECH32_PREFIX):
+        self._prefix = prefix
         if type(addr) == str:
             _, data = bech32.bech32_decode(addr)
             self._data = data
@@ -13,9 +14,9 @@ class Address:
         else:
             raise Exception('invalid address')
 
-    def to_string(self, hrp: str = DEFAULT_BECH32_PREFIX) -> str:
-        return bech32.bech32_encode(hrp, self._data)
+    def to_string(self, prefix: str = None) -> str:
+        prefix = self._prefix if prefix is None else prefix
+        return bech32.bech32_encode(prefix, self._data)
 
     def to_bytes(self) -> bytes:
         return bytes(bech32.convertbits(self._data, 5, 8, False))
-

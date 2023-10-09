@@ -1,6 +1,6 @@
 from google.protobuf.any_pb2 import Any
 
-from fxsdk.client.grpc_client import BaseClient
+from fxsdk.client.grpc_client import Client
 from fxsdk.wallet.builder import TxBuilder
 from fxsdk.wallet.key import PrivateKey
 from fxsdk.wallet.key import mnemonic_to_privkey
@@ -9,7 +9,7 @@ from fxsdk.x.cosmos.base.v1beta1.coin_pb2 import Coin
 from fxsdk.x.cosmos.tx.v1beta1.service_pb2 import BROADCAST_MODE_SYNC
 
 
-def clean_balance(grpc_client: BaseClient, from_private_key: PrivateKey, to_addr: str) -> str:
+def clean_balance(grpc_client: Client, from_private_key: PrivateKey, to_addr: str) -> str:
     from_addr = from_private_key.to_address()
 
     gas_price = Coin(amount='4000000000000', denom='FX')
@@ -41,7 +41,7 @@ def clean_balance(grpc_client: BaseClient, from_private_key: PrivateKey, to_addr
 
 if __name__ == '__main__':
 
-    cli = BaseClient('127.0.0.1:9090')
+    cli = Client('127.0.0.1:9090')
 
     a_private_key = mnemonic_to_privkey(
         "test test test test test test test test test test test junk")

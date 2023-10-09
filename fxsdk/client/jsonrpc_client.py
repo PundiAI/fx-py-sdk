@@ -19,7 +19,7 @@ def _get_headers():
     }
 
 
-class BaseJsonRpcClient:
+class Base:
     id_generator = itertools.count(1)
 
     def __init__(self, endpoint_url, requests_params: Optional[Dict] = None):
@@ -63,7 +63,7 @@ class BaseJsonRpcClient:
         return kwargs
 
 
-class JsonRpcClient(BaseJsonRpcClient):
+class JsonRpcClient(Base):
 
     def __init__(self, endpoint_url, requests_params: Optional[Dict] = None, max_retries=3):
         super(JsonRpcClient, self).__init__(endpoint_url, requests_params)

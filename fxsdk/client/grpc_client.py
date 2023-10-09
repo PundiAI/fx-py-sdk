@@ -6,6 +6,8 @@ from urllib.parse import urlparse
 from typing import Optional
 
 from fxsdk.wallet.builder import TxBuilder
+from fxsdk.coin import parse_coins
+
 from fxsdk.x.cosmos.auth.v1beta1.auth_pb2 import BaseAccount
 from fxsdk.x.cosmos.auth.v1beta1.query_pb2 import QueryAccountRequest
 from fxsdk.x.cosmos.auth.v1beta1.query_pb2_grpc import QueryStub as AuthQuery
@@ -21,7 +23,7 @@ from fxsdk.x.cosmos.base.v1beta1.coin_pb2 import Coin
 from fxsdk.x.cosmos.staking.v1beta1.query_pb2 import QueryValidatorsRequest
 from fxsdk.x.cosmos.staking.v1beta1.query_pb2_grpc import QueryStub as StakingClient
 from fxsdk.x.cosmos.staking.v1beta1.staking_pb2 import Validator
-from fxsdk.x.cosmos.tx.v1beta1.service_pb2 import BROADCAST_MODE_BLOCK, BroadcastMode, BroadcastTxRequest, \
+from fxsdk.x.cosmos.tx.v1beta1.service_pb2 import BROADCAST_MODE_SYNC, BroadcastMode, BroadcastTxRequest, \
     SimulateRequest, \
     GetTxRequest, GetTxResponse
 from fxsdk.x.cosmos.tx.v1beta1.service_pb2_grpc import ServiceStub as TxClient
@@ -32,9 +34,11 @@ from fxsdk.x.tendermint.p2p.types_pb2 import DefaultNodeInfo
 from fxsdk.x.tendermint.types.block_pb2 import Block
 
 GRPCBlockHeightHeader = 'x-cosmos-block-height'
+DefGasLimit = 200_000
+DefGasAdjustment = 1.5
 
 
-class BaseClient:
+class Client:
     def __init__(self, url: str = 'localhost:9090'):
         if urlparse(url).scheme == "https":
             self.channel = grpc.secure_channel(
@@ -70,11 +74,11 @@ class BaseClient:
         response = BankQuery(self.channel).TotalSupply(QueryTotalSupplyRequest(), metadata=metadata)
         return response.supply
 
-    def query_gas_price(self, height: Optional[int] = 0) -> [Coin]:
+    def query_gas_prices(self, height: Optional[int] = 0) -> [Coin]:
 
         metadata = [(GRPCBlockHeightHeader, str(height))]
         response = CosmosNodeClient(self.channel).Config(ConfigRequest(), metadata=metadata)
-        return response.minimum_gas_price
+        return parse_coins(response.minimum_gas_price)
 
     def query_block_by_height(self, height: int) -> Block:
 
@@ -112,7 +116,7 @@ class BaseClient:
         return TxClient(self.channel).GetTx(GetTxRequest(hash=tx_hash))
 
     def bank_send(self, tx_builder: TxBuilder, to: str, amount: [Coin],
-                  mode: BroadcastMode = BROADCAST_MODE_BLOCK) -> TxResponse:
+                  mode: BroadcastMode = BROADCAST_MODE_SYNC) -> TxResponse:
 
         send_msg = MsgSend(from_address=tx_builder.address(), to_address=to, amount=amount)
         send_msg_any = Any(type_url='/cosmos.bank.v1beta1.MsgSend', value=send_msg.SerializeToString())
@@ -130,26 +134,22 @@ class BaseClient:
             account_number = account.account_number
             sequence = account.sequence
 
-        gas_price_amount = int(tx_builder.gas_price.amount)
-        fee_denom = tx_builder.gas_price.denom
-        if gas_price_amount <= 0:
-
-            for item in self.query_gas_price():
-                if item.denom == fee_denom:
-                    gas_price_amount = int(item.amount)
+        if tx_builder.has_gas_price() is False:
+            gas_prices = self.query_gas_prices()
+            tx_builder.with_gas_price(gas_prices)
+        gas_fee_denom = tx_builder.gas_price.denom
+        gas_price_amount = float(tx_builder.gas_price.amount)
 
         if gas_limit <= 0:
-            gas_limit = 500_000
-            fee_amount = Coin(amount=str(
-                gas_limit * gas_price_amount), denom=fee_denom)
+            gas_limit = DefGasLimit
+            fee_amount = Coin(amount=str(int(gas_limit * gas_price_amount)), denom=gas_fee_denom)
             fee = Fee(amount=[fee_amount], gas_limit=gas_limit)
             tx = tx_builder.sign(msg, fee, account_number, sequence)
 
             gas_info = self.estimating_gas(tx)
-            gas_limit = int(float(gas_info.gas_used) * 1.5)
+            gas_limit = int(float(gas_info.gas_used) * DefGasAdjustment)
 
-        fee_amount = Coin(amount=str(
-            gas_limit * gas_price_amount), denom=fee_denom)
+        fee_amount = Coin(amount=str(int(gas_limit * gas_price_amount)), denom=gas_fee_denom)
         fee = Fee(amount=[fee_amount], gas_limit=gas_limit)
         return tx_builder.sign(msg, fee, account_number, sequence)
 
@@ -158,7 +158,7 @@ class BaseClient:
         response = TxClient(self.channel).Simulate(SimulateRequest(tx=tx))
         return response.gas_info
 
-    def broadcast_tx(self, tx: Tx, mode: BroadcastMode = BROADCAST_MODE_BLOCK) -> TxResponse:
+    def broadcast_tx(self, tx: Tx, mode: BroadcastMode = BROADCAST_MODE_SYNC) -> TxResponse:
 
         tx_raw = TxRaw(body_bytes=tx.body.SerializeToString(),
                        auth_info_bytes=tx.auth_info.SerializeToString(),

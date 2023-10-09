@@ -9,14 +9,16 @@ from fxsdk.x.cosmos.tx.v1beta1.tx_pb2 import SignDoc
 from fxsdk.x.cosmos.tx.v1beta1.tx_pb2 import SignerInfo
 from fxsdk.x.cosmos.tx.v1beta1.tx_pb2 import Tx
 from fxsdk.x.cosmos.tx.v1beta1.tx_pb2 import TxBody
-from fxsdk.wallet.address import Address
-from fxsdk.wallet.key import PrivateKey, DEFAULT_DERIVATION_PATH, mnemonic_to_privkey
+from fxsdk.wallet.address import Address, DEFAULT_BECH32_PREFIX
+from fxsdk.wallet.key import PrivateKey, ETH_DERIVATION_PATH, mnemonic_to_privkey, ETHSECP256K1_KEY_TYPE
 
 
 class TxBuilder:
     def __init__(self, private_key: PrivateKey,
                  chain_id: str = '',
-                 gas_price: Coin = Coin(amount='0', denom="FX")):
+                 gas_price: Coin = Coin(amount='0', denom=''),
+                 prefix: str = DEFAULT_BECH32_PREFIX):
+        self._prefix = prefix
         self.chain_id = chain_id
         if gas_price.amount != '0' and gas_price.denom == '':
             raise Exception('gas price denom can not be empty')
@@ -25,25 +27,42 @@ class TxBuilder:
         self._memo = ''
 
     @classmethod
-    def from_mnemonic(cls, mnemonic: str, path: str = DEFAULT_DERIVATION_PATH,
+    def from_mnemonic(cls, mnemonic: str, path: str = ETH_DERIVATION_PATH,
                       chain_id: str = '',
-                      gas_price: Coin = Coin(amount='0', denom="FX")):
-        private_key = mnemonic_to_privkey(mnemonic, path)
-        return cls(private_key=private_key, chain_id=chain_id, gas_price=gas_price)
+                      gas_price: Coin = Coin(amount='0', denom=''),
+                      prefix: str = DEFAULT_BECH32_PREFIX,
+                      key_type: str = ETHSECP256K1_KEY_TYPE):
+        private_key = mnemonic_to_privkey(mnemonic=mnemonic, path=path, key_type=key_type)
+        return cls(private_key=private_key, chain_id=chain_id, gas_price=gas_price, prefix=prefix)
 
     def with_memo(self, memo: str):
         self._memo = memo
 
-    def address(self) -> str:
-        return self._private_key.to_address()
+    def has_gas_price(self) -> bool:
+        return self.gas_price.amount != '0' and self.gas_price.denom != ''
+
+    def with_gas_price(self, gas_prices: [Coin]):
+        if len(gas_prices) == 0:
+            raise Exception("gas prices is empty")
+        if self.gas_price.denom == '':
+            self.gas_price = gas_prices[0]
+            return
+        for item in gas_prices:
+            if item.denom == self.gas_price.denom:
+                self.gas_price = item
+        if self.has_gas_price() is False:
+            raise Exception("invalid gas price")
+
+    def address(self, prefix: str = None) -> str:
+        prefix = self._prefix if prefix is None else prefix
+        return self._private_key.to_address(prefix=prefix)
 
     def acc_address(self):
         addr = Address(self.address())
         return addr.to_bytes()
 
     def sign(self, msgs: [Any], fee: Fee, account_number: int, sequence: int, timeout_height: int = 0) -> Tx:
-        tx_body = TxBody(messages=msgs, memo=self._memo,
-                         timeout_height=timeout_height)
+        tx_body = TxBody(messages=msgs, memo=self._memo, timeout_height=timeout_height)
         tx_body_bytes = tx_body.SerializeToString()
 
         single = ModeInfo.Single(mode=SIGN_MODE_DIRECT)
