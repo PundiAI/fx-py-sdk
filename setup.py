@@ -11,8 +11,8 @@ requires = [
     "ecdsa>=0.18.0",
     "hdwallets>=0.1.2",
     "mnemonic>=0.20",
-    "eth_hash>=0.5.2"
-    "coincurve>=18.0.0"
+    "eth_hash>=0.5.2",
+    "coincurve>=18.0.0",
 ]
 
 with open("README.md", "r", encoding="UTF-8") as fh:
@@ -20,7 +20,7 @@ with open("README.md", "r", encoding="UTF-8") as fh:
 
 setup(
     name="fx-py-sdk",
-    version="0.6.3",
+    version="0.6.4",
     platforms='any',
     description="Python library for FunctionX",
     long_description=long_description,
