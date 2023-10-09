@@ -8,6 +8,17 @@
 pip install fx-py-sdk
 ```
 
+## Use
+
+```python
+from fxsdk.client.grpc_client import BaseClient
+
+if __name__ == '__main__':
+
+    chain_id = BaseClient(url='localhost:9090').query_chain_id()
+    print('chain id:', chain_id)
+```
+
 ## Development
 
 ### 1. Clone the code to local
