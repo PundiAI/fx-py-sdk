@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 from setuptools import (
+    find_packages,
     setup,
 )
 
@@ -17,13 +18,13 @@ with open("README.md", "r", encoding="UTF-8") as fh:
 
 setup(
     name="fx-py-sdk",
-    version="0.6.2",
+    version="0.6.3",
     platforms='any',
     description="Python library for FunctionX",
     long_description=long_description,
     long_description_content_type="text/markdown",
     author='zakir',
-    packages=["fxsdk"],
+    packages=find_packages(),
     python_requires=">=3.7",
     install_requires=requires,
     url='https://github.com/functionx/fx-py-sdk',
