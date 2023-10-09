@@ -10,7 +10,7 @@ from fxsdk.x.cosmos.tx.v1beta1.tx_pb2 import SignerInfo
 from fxsdk.x.cosmos.tx.v1beta1.tx_pb2 import Tx
 from fxsdk.x.cosmos.tx.v1beta1.tx_pb2 import TxBody
 from fxsdk.wallet.address import Address
-from fxsdk.wallet.key import PrivateKey
+from fxsdk.wallet.key import PrivateKey, DEFAULT_DERIVATION_PATH, mnemonic_to_privkey
 
 
 class TxBuilder:
@@ -23,6 +23,13 @@ class TxBuilder:
         self.gas_price = gas_price
         self._private_key = private_key
         self._memo = ''
+
+    @classmethod
+    def from_mnemonic(cls, mnemonic: str, path: str = DEFAULT_DERIVATION_PATH,
+                      chain_id: str = '',
+                      gas_price: Coin = Coin(amount='0', denom="FX")):
+        private_key = mnemonic_to_privkey(mnemonic, path)
+        return cls(private_key=private_key, chain_id=chain_id, gas_price=gas_price)
 
     def with_memo(self, memo: str):
         self._memo = memo
