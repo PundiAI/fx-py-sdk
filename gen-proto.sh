@@ -29,4 +29,3 @@ find "$OUT_DIR" -name '*_pb2.py' -print0 | xargs -0 -I{} perl -pi -e 's|from cos
 find "$OUT_DIR" -name '*.py' -print0 | xargs -0 -I{} perl -pi -e 's|from cosmos.|from fxsdk.x.cosmos.|g' {}
 find "$OUT_DIR" -name '*.py' -print0 | xargs -0 -I{} perl -pi -e 's|from tendermint.|from fxsdk.x.tendermint.|g' {}
 find "$OUT_DIR" -name '*_pb2.py' -print0 | xargs -0 -I{} perl -pi -e 's|from gogoproto import|from fxsdk.x.gogoproto import|g' {}
-#find "$OUT_DIR" -name '*_pb2.py' -print0 | xargs -0 -I{} perl -pi -e 's|from google.api import|from fxsdk.x.google.api import|g' {}
