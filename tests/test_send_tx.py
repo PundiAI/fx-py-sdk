@@ -16,18 +16,19 @@ grpc_cli = Client('localhost:9090')
 class TestGrpcSendTx(unittest.TestCase):
 
     def test_bank_send(self):
+        address_prefix = 'mx'
         private_key = mnemonic_to_privkey(
             "test test test test test test test test test test test junk")
 
-        from_addr = private_key.to_address()
+        from_addr = private_key.to_address(address_prefix)
         print('address:', from_addr)
 
         send_msg = MsgSend(from_address=from_addr, to_address=from_addr,
-                           amount=[Coin(amount='100', denom='FX')])
+                           amount=[Coin(amount='1000000', denom='cusd')])
         send_msg_any = Any(type_url='/cosmos.bank.v1beta1.MsgSend',
                            value=send_msg.SerializeToString())
 
-        tx_builder = TxBuilder(private_key)
+        tx_builder = TxBuilder(private_key=private_key, prefix=address_prefix)
 
         tx = grpc_cli.build_tx(tx_builder, [send_msg_any])
         print(MessageToJson(tx))

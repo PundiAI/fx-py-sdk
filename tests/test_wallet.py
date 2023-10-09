@@ -31,8 +31,7 @@ class TestWallet(unittest.TestCase):
     def test_private_key_sign(self):
         priv_key_bytes = bytes.fromhex(
             '47788d676b3d841f4d608e552a9ed5756e8e54f3cb054aade5c454f6fb3be6ef')
-        priv_key = PrivateKey(priv_key_bytes)
-        priv_key.with_key_type(key_type=SECP256K1_KEY_TYPE)
+        priv_key = PrivateKey(priv_key_bytes, key_type=SECP256K1_KEY_TYPE)
         self.assertEqual(priv_key.to_address(),
                          'fx12fv300avzf266qp930ur4g50agajuz6jcsj5tz')
         self.assertEqual(priv_key.sign(priv_key_bytes).hex(),

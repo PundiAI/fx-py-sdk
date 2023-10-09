@@ -130,7 +130,7 @@ class Client:
             tx_builder.chain_id = self.query_chain_id()
 
         if account_number < 0 or sequence < 0:
-            account = self.query_account_info(tx_builder.address())
+            account = self.query_account_info(address=tx_builder.address())
             account_number = account.account_number
             sequence = account.sequence
 

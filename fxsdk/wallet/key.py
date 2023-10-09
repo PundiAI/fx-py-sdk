@@ -7,7 +7,8 @@ from mnemonic import Mnemonic
 from eth_hash.auto import keccak as keccak_256
 from google.protobuf.any_pb2 import Any
 
-from fxsdk.x.cosmos.crypto.secp256k1.keys_pb2 import PubKey
+from fxsdk.x.cosmos.crypto.secp256k1.keys_pb2 import PubKey as secp256k1PubKey
+from fxsdk.x.ethermint.crypto.v1.ethsecp256k1.keys_pb2 import PubKey as ethsecp256k1PubKey
 from fxsdk.wallet.address import DEFAULT_BECH32_PREFIX
 
 ETH_DERIVATION_PATH = "m/44'/60'/0'/0/0"
@@ -25,23 +26,26 @@ class PublicKey:
         self._key_type = key_type
 
     def to_address(self, prefix: str = DEFAULT_BECH32_PREFIX) -> str:
-        if self._key_type == ETHSECP256K1_KEY_TYPE:
-            pubkey_obj = ecdsa.keys.VerifyingKey.from_string(self._pub_key, curve=ecdsa.SECP256k1)
-            data = keccak_256(pubkey_obj.to_string("raw"))[-20:]
-        else:
+        if self._key_type == SECP256K1_KEY_TYPE:
             h = hashlib.new("sha256", self._pub_key).digest()
             data = hashlib.new("ripemd160", h).digest()
+        else:
+            pubkey_obj = ecdsa.keys.VerifyingKey.from_string(self._pub_key, curve=ecdsa.SECP256k1)
+            data = keccak_256(pubkey_obj.to_string("raw"))[-20:]
 
         five_bit_r = bech32.convertbits(data, 8, 5)
         assert five_bit_r is not None, "Unsuccessful bech32.convertbits call"
         return bech32.bech32_encode(prefix, five_bit_r)
 
     def to_secp256k1_any(self) -> Any:
-        key = PubKey(key=self._pub_key).SerializeToString()
-        public_type_url = ETHSECP256K1_PUBLICK_TYPE_URL
         if self._key_type == SECP256K1_KEY_TYPE:
+            key = secp256k1PubKey(key=self._pub_key).SerializeToString()
             public_type_url = SECP256K1_PUBLICK_TYPE_URL
-        return Any(type_url=public_type_url, value=key)
+            return Any(type_url=public_type_url, value=key)
+        else:
+            key = ethsecp256k1PubKey(key=self._pub_key).SerializeToString()
+            public_type_url = ETHSECP256K1_PUBLICK_TYPE_URL
+            return Any(type_url=public_type_url, value=key)
 
     def to_hex(self) -> str:
         return bytes.hex(self._pub_key)
