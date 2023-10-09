@@ -1,6 +1,6 @@
 import bech32
 
-DEFAULT_BECH32_HRP = "fx"
+DEFAULT_BECH32_PREFIX = "fx"
 
 
 class Address:
@@ -13,7 +13,7 @@ class Address:
         else:
             raise Exception('invalid address')
 
-    def to_string(self, hrp: str = DEFAULT_BECH32_HRP) -> str:
+    def to_string(self, hrp: str = DEFAULT_BECH32_PREFIX) -> str:
         return bech32.bech32_encode(hrp, self._data)
 
     def to_bytes(self) -> bytes:

@@ -7,7 +7,7 @@ import mnemonic
 from google.protobuf.any_pb2 import Any
 
 from fxsdk.x.cosmos.crypto.secp256k1.keys_pb2 import PubKey
-from fxsdk.wallet.address import DEFAULT_BECH32_HRP
+from fxsdk.wallet.address import DEFAULT_BECH32_PREFIX
 
 DEFAULT_DERIVATION_PATH = "m/44'/60'/0'/0/0"
 
@@ -16,7 +16,7 @@ class PublicKey:
     def __init__(self, key: bytes):
         self._pub_key = key
 
-    def to_address(self, *, hrp: str = DEFAULT_BECH32_HRP) -> str:
+    def to_address(self, *, hrp: str = DEFAULT_BECH32_PREFIX) -> str:
         s = hashlib.new("sha256", self._pub_key).digest()
         r = hashlib.new("ripemd160", s).digest()
         five_bit_r = bech32.convertbits(r, 8, 5)
@@ -42,7 +42,7 @@ class PrivateKey:
         pubkey_obj = privkey_obj.get_verifying_key()
         return PublicKey(pubkey_obj.to_string("compressed"))
 
-    def to_address(self, hrp: str = DEFAULT_BECH32_HRP) -> str:
+    def to_address(self, hrp: str = DEFAULT_BECH32_PREFIX) -> str:
         return self.to_public_key().to_address(hrp=hrp)
 
     def to_hex(self) -> str:
@@ -77,7 +77,7 @@ def mnemonic_to_privkey(phrase: str, path: str = DEFAULT_DERIVATION_PATH) -> Pri
     return PrivateKey(derived_privkey)
 
 
-def pubkey_to_address(pubkey: bytes, *, hrp: str = DEFAULT_BECH32_HRP) -> str:
+def pubkey_to_address(pubkey: bytes, *, hrp: str = DEFAULT_BECH32_PREFIX) -> str:
     s = hashlib.new("sha256", pubkey).digest()
     r = hashlib.new("ripemd160", s).digest()
     five_bit_r = bech32.convertbits(r, 8, 5)
