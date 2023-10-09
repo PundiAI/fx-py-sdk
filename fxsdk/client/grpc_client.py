@@ -10,6 +10,7 @@ from fxsdk.x.cosmos.auth.v1beta1.auth_pb2 import BaseAccount
 from fxsdk.x.cosmos.auth.v1beta1.query_pb2 import QueryAccountRequest
 from fxsdk.x.cosmos.auth.v1beta1.query_pb2_grpc import QueryStub as AuthQuery
 from fxsdk.x.cosmos.bank.v1beta1.bank_pb2 import Supply
+from fxsdk.x.cosmos.bank.v1beta1.tx_pb2 import MsgSend
 from fxsdk.x.cosmos.bank.v1beta1.query_pb2 import QueryBalanceRequest, QueryAllBalancesRequest, QueryTotalSupplyRequest
 from fxsdk.x.cosmos.bank.v1beta1.query_pb2_grpc import QueryStub as BankQuery
 from fxsdk.x.cosmos.base.abci.v1beta1.abci_pb2 import GasInfo, TxResponse
@@ -20,7 +21,8 @@ from fxsdk.x.cosmos.base.v1beta1.coin_pb2 import Coin
 from fxsdk.x.cosmos.staking.v1beta1.query_pb2 import QueryValidatorsRequest
 from fxsdk.x.cosmos.staking.v1beta1.query_pb2_grpc import QueryStub as StakingClient
 from fxsdk.x.cosmos.staking.v1beta1.staking_pb2 import Validator
-from fxsdk.x.cosmos.tx.v1beta1.service_pb2 import BROADCAST_MODE_BLOCK, BroadcastMode, BroadcastTxRequest, SimulateRequest, \
+from fxsdk.x.cosmos.tx.v1beta1.service_pb2 import BROADCAST_MODE_BLOCK, BroadcastMode, BroadcastTxRequest, \
+    SimulateRequest, \
     GetTxRequest, GetTxResponse
 from fxsdk.x.cosmos.tx.v1beta1.service_pb2_grpc import ServiceStub as TxClient
 from fxsdk.x.cosmos.tx.v1beta1.tx_pb2 import Fee, Tx, TxRaw
@@ -108,6 +110,14 @@ class BaseClient:
     def query_tx(self, tx_hash: str) -> GetTxResponse:
 
         return TxClient(self.channel).GetTx(GetTxRequest(hash=tx_hash))
+
+    def bank_send(self, tx_builder: TxBuilder, to: str, amount: [Coin],
+                  mode: BroadcastMode = BROADCAST_MODE_BLOCK) -> TxResponse:
+
+        send_msg = MsgSend(from_address=tx_builder.address(), to_address=to, amount=amount)
+        send_msg_any = Any(type_url='/cosmos.bank.v1beta1.MsgSend', value=send_msg.SerializeToString())
+        tx = self.build_tx(tx_builder, [send_msg_any])
+        return self.broadcast_tx(tx, mode)
 
     def build_tx(self, tx_builder: TxBuilder, msg: [Any], account_number: int = -1,
                  sequence: int = -1, gas_limit: int = 0) -> Tx:
