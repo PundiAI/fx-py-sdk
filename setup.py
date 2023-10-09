@@ -5,11 +5,11 @@ from setuptools import (
 
 requires = [
     "grpcio>=1.59.0",
-    "google-api-python-client>=2.102.0"
-    "bech32>=1.2.0"
-    "ecdsa>=0.18.0"
-    "hdwallets>=0.1.2"
-    "mnemonic>=0.20"
+    "google-api-python-client>=2.102.0",
+    "bech32>=1.2.0",
+    "ecdsa>=0.18.0",
+    "hdwallets>=0.1.2",
+    "mnemonic>=0.20",
 ]
 
 with open("README.md", "r", encoding="UTF-8") as fh:
