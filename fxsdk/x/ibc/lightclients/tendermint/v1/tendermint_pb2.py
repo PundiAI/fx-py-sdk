@@ -16,8 +16,8 @@ from fxsdk.x.tendermint.types import types_pb2 as tendermint_dot_types_dot_types
 import proofs_pb2 as proofs__pb2
 from google.protobuf import duration_pb2 as google_dot_protobuf_dot_duration__pb2
 from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
-from ibc.core.client.v1 import client_pb2 as ibc_dot_core_dot_client_dot_v1_dot_client__pb2
-from ibc.core.commitment.v1 import commitment_pb2 as ibc_dot_core_dot_commitment_dot_v1_dot_commitment__pb2
+from fxsdk.x.ibc.core.client.v1 import client_pb2 as ibc_dot_core_dot_client_dot_v1_dot_client__pb2
+from fxsdk.x.ibc.core.commitment.v1 import commitment_pb2 as ibc_dot_core_dot_commitment_dot_v1_dot_commitment__pb2
 from fxsdk.x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 
 

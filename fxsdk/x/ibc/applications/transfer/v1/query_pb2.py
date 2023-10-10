@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 from fxsdk.x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 from fxsdk.x.cosmos.base.query.v1beta1 import pagination_pb2 as cosmos_dot_base_dot_query_dot_v1beta1_dot_pagination__pb2
-from ibc.applications.transfer.v1 import transfer_pb2 as ibc_dot_applications_dot_transfer_dot_v1_dot_transfer__pb2
+from fxsdk.x.ibc.applications.transfer.v1 import transfer_pb2 as ibc_dot_applications_dot_transfer_dot_v1_dot_transfer__pb2
 from google.api import annotations_pb2 as google_dot_api_dot_annotations__pb2
 
 
