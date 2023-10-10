@@ -1,0 +1,60 @@
+syntax = "proto3";
+package marginx.oracle.v1;
+
+import "gogoproto/gogo.proto";
+import "marginx/oracle/v1/types.proto";
+import "cosmos/msg/v1/msg.proto";
+import "cosmos_proto/cosmos.proto";
+
+option go_package = "github.com/marginxio/marginx/x/oracle/types";
+
+service Msg {
+  rpc BatchSubmitOracleAnswers(MsgBatchSubmitOracleAnswers)
+      returns (MsgBatchSubmitOracleAnswersResponse);
+  rpc UpdateAggregator(MsgUpdateAggregator)
+      returns (MsgUpdateAggregatorResponse);
+  rpc PresetOracle(MsgPresetOracle) returns (MsgPresetOracleResponse);
+}
+
+message MsgBatchSubmitOracleAnswers {
+  option (cosmos.msg.v1.signer) = "from_address";
+  option (gogoproto.equal) = false;
+  option (gogoproto.goproto_getters) = false;
+
+  string from_address = 1;
+  repeated OracleAnswer answers = 2 [ (gogoproto.nullable) = false ];
+}
+
+message MsgBatchSubmitOracleAnswersResponse {}
+
+message OracleAnswer {
+  string symbol = 1;
+  int64 height = 2;
+  string answer = 3 [
+    (cosmos_proto.scalar) = "cosmos.Dec",
+    (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
+    (gogoproto.nullable) = false
+  ];
+  bytes signature = 4;
+}
+
+message MsgUpdateAggregator {
+  option (cosmos.msg.v1.signer) = "authority";
+  option (gogoproto.equal) = false;
+  option (gogoproto.goproto_getters) = false;
+
+  string authority = 1 [ (cosmos_proto.scalar) = "cosmos.AddressString" ];
+  Aggregator aggregator = 2 [ (gogoproto.nullable) = false ];
+}
+
+message MsgUpdateAggregatorResponse {}
+
+message MsgPresetOracle {
+  option (cosmos.msg.v1.signer) = "authority";
+  string authority = 1 [ (cosmos_proto.scalar) = "cosmos.AddressString" ];
+  repeated Market markets = 2 [ (gogoproto.nullable) = false ];
+  repeated Price prices = 3 [ (gogoproto.nullable) = false ];
+  repeated Aggregator aggregators = 4 [ (gogoproto.nullable) = false ];
+}
+
+message MsgPresetOracleResponse {}

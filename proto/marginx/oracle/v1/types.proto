@@ -1,0 +1,65 @@
+syntax = "proto3";
+package marginx.oracle.v1;
+
+import "gogoproto/gogo.proto";
+import "cosmos_proto/cosmos.proto";
+
+option go_package = "github.com/marginxio/marginx/x/oracle/types";
+
+message Params { string price_quote_symbol = 1; }
+
+enum MarketStatus {
+  option (gogoproto.goproto_enum_stringer) = true;
+  option (gogoproto.goproto_enum_prefix) = false;
+
+  MARKET_STATUS_UNSPECIFIED = 0
+      [ (gogoproto.enumvalue_customname) = "MarketStatusEmpty" ];
+  MARKET_STATUS_LISTED = 1
+      [ (gogoproto.enumvalue_customname) = "MarketStatusListed" ];
+  MARKET_STATUS_SUSPEND = 2
+      [ (gogoproto.enumvalue_customname) = "MarketStatusSuspend" ];
+  MARKET_STATUS_PRESET = 3
+      [ (gogoproto.enumvalue_customname) = "MarketStatusPreset" ];
+}
+
+message Market {
+  string pair_id = 1;
+  string base_asset = 2;
+  string quote_asset = 3;
+  MarketStatus market_status = 5;
+  int64 price_decimal = 6;
+  int64 position_decimal = 7;
+  string type = 8 [ (gogoproto.nullable) = true ];
+}
+
+message Answer {
+  string oracle = 1;
+  string answer = 2 [
+    (cosmos_proto.scalar) = "cosmos.Dec",
+    (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
+    (gogoproto.nullable) = false
+  ];
+}
+
+message Price {
+  string symbol = 1;
+  string value = 2 [
+    (cosmos_proto.scalar) = "cosmos.Dec",
+    (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
+    (gogoproto.nullable) = false
+  ];
+}
+
+message Aggregator {
+  string symbol = 1;
+  OracleConfig config = 2 [ (gogoproto.nullable) = false ];
+  int64 round_start_time = 3;
+  repeated Answer submissions = 4 [ (gogoproto.nullable) = false ];
+  string type = 5 [ (gogoproto.nullable) = true ];
+}
+
+message OracleConfig {
+  repeated string oracles = 1;
+  uint32 min_answer_threshold = 2;
+  int64 staleness_threshold = 3;
+}

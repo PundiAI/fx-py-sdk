@@ -1,0 +1,74 @@
+syntax = "proto3";
+package marginx.oracle.v1;
+
+import "google/api/annotations.proto";
+import "gogoproto/gogo.proto";
+import "marginx/oracle/v1/types.proto";
+import "cosmos_proto/cosmos.proto";
+
+option go_package = "github.com/marginxio/marginx/x/oracle/types";
+
+service Query {
+  rpc Markets(QueryMarketsRequest) returns (QueryMarketsResponse) {
+    option (google.api.http).get = "/marginx/oracle/v1/markets";
+  }
+  rpc Market(QueryMarketRequest) returns (QueryMarketResponse) {
+    option (google.api.http).get = "/marginx/oracle/v1/market";
+  }
+  rpc Price(QueryPriceRequest) returns (QueryPriceResponse) {
+    option (google.api.http).get = "/marginx/oracle/v1/current_price";
+  }
+  rpc Prices(QueryPricesRequest) returns (QueryPricesResponse) {
+    option (google.api.http).get = "/marginx/oracle/v1/current_prices";
+  }
+  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
+    option (google.api.http).get = "/marginx/oracle/v1/params";
+  }
+  rpc Aggregators(QueryAggregatorsRequest) returns (QueryAggregatorsResponse) {
+    option (google.api.http).get = "/marginx/oracle/v1/aggregators";
+  }
+}
+
+message QueryMarketRequest { string pair_id = 1; }
+
+message QueryMarketResponse {
+  Market market = 1 [ (gogoproto.nullable) = false ];
+}
+
+message QueryMarketsRequest {}
+
+message QueryMarketsResponse {
+  repeated Market markets = 1 [ (gogoproto.nullable) = false ];
+}
+
+message QueryPriceRequest { string pair_id = 1; }
+
+message QueryPriceResponse {
+  string price = 1 [
+    (cosmos_proto.scalar) = "cosmos.Dec",
+    (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
+    (gogoproto.nullable) = false
+  ];
+}
+
+message QueryPricesRequest {}
+
+message QueryPricesResponse {
+  repeated string prices = 1 [
+    (cosmos_proto.scalar) = "cosmos.Dec",
+    (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
+    (gogoproto.nullable) = false
+  ];
+}
+
+message QueryParamsRequest {}
+
+message QueryParamsResponse {
+  Params params = 1 [ (gogoproto.nullable) = false ];
+}
+
+message QueryAggregatorsRequest {}
+
+message QueryAggregatorsResponse {
+  repeated Aggregator aggregators = 1 [ (gogoproto.nullable) = false ];
+}
