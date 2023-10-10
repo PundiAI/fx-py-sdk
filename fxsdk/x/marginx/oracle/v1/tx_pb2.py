@@ -12,7 +12,7 @@ _sym_db = _symbol_database.Default()
 
 
 from fxsdk.x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
-from marginx.oracle.v1 import types_pb2 as marginx_dot_oracle_dot_v1_dot_types__pb2
+from fxsdk.x.marginx.oracle.v1 import types_pb2 as marginx_dot_oracle_dot_v1_dot_types__pb2
 from fxsdk.x.cosmos.msg.v1 import msg_pb2 as cosmos_dot_msg_dot_v1_dot_msg__pb2
 from fxsdk.x.cosmos_proto import cosmos_pb2 as cosmos__proto_dot_cosmos__pb2
 
