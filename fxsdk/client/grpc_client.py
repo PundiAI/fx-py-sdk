@@ -29,7 +29,7 @@ from fxsdk.x.cosmos.staking.v1beta1.staking_pb2 import Validator
 from fxsdk.x.cosmos.staking.v1beta1.staking_pb2 import Params as StakingParams
 from fxsdk.x.cosmos.tx.v1beta1.service_pb2 import BROADCAST_MODE_SYNC, BroadcastMode, BroadcastTxRequest, \
     SimulateRequest, \
-    GetTxRequest, GetTxResponse
+    GetTxRequest, GetTxResponse, OrderBy, GetTxsEventRequest, GetTxsEventResponse
 from fxsdk.x.cosmos.tx.v1beta1.service_pb2_grpc import ServiceStub as TxClient
 from fxsdk.x.cosmos.tx.v1beta1.tx_pb2 import Fee, Tx, TxRaw
 from fxsdk.x.cosmos.base.node.v1beta1.query_pb2_grpc import ServiceStub as CosmosNodeClient
@@ -126,6 +126,11 @@ class Client:
 
     def query_tx(self, tx_hash: str) -> GetTxResponse:
         return TxClient(self.channel).GetTx(GetTxRequest(hash=tx_hash))
+
+    def query_txs_by_event(self, events, order_by: OrderBy, page: int, limit: int) -> GetTxsEventResponse:
+        return TxClient(self.channel).GetTxsEvent(GetTxsEventRequest(
+            events=events, order_by=order_by, page=page, limit=limit
+        ))
 
     def bank_send(self, tx_builder: TxBuilder, to: str, amount: [Coin],
                   mode: BroadcastMode = BROADCAST_MODE_SYNC) -> TxResponse:
