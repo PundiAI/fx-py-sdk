@@ -47,7 +47,6 @@ class Client:
             self.channel = grpc.insecure_channel(url)
 
     def query_account_info(self, address: str, height: Optional[int] = 0) -> BaseAccount:
-
         metadata = [(GRPCBlockHeightHeader, str(height))]
         response = AuthQuery(self.channel).Account(QueryAccountRequest(address=address), metadata=metadata)
         account_any = response.account
@@ -57,66 +56,54 @@ class Client:
             return account
 
     def query_all_balances(self, address: str, height: Optional[int] = 0) -> [Coin]:
-
         metadata = [(GRPCBlockHeightHeader, str(height))]
         response = BankQuery(self.channel).AllBalances(QueryAllBalancesRequest(address=address), metadata=metadata)
         return response.balances
 
     def query_balance(self, address: str, denom: str, height: Optional[int] = 0) -> Coin:
-
         metadata = [(GRPCBlockHeightHeader, str(height))]
         response = BankQuery(self.channel).Balance(QueryBalanceRequest(address=address, denom=denom), metadata=metadata)
         return response.balance
 
     def query_total_supply(self, height: Optional[int] = 0) -> [Supply]:
-
         metadata = [(GRPCBlockHeightHeader, str(height))]
         response = BankQuery(self.channel).TotalSupply(QueryTotalSupplyRequest(), metadata=metadata)
         return response.supply
 
     def query_gas_prices(self) -> [Coin]:
-
         response = CosmosNodeClient(self.channel).Config(ConfigRequest())
         return parse_coins(response.minimum_gas_price)
 
     def query_block_by_height(self, height: int) -> Block:
-
         response = TendermintClient(self.channel).GetBlockByHeight(GetBlockByHeightRequest(height))
         return response.block
 
     def query_latest_block(self) -> Block:
-
         response = TendermintClient(self.channel).GetLatestBlock(GetLatestBlockRequest())
         return response.block
 
     def query_chain_id(self) -> str:
-
         response = TendermintClient(self.channel).GetLatestBlock(GetLatestBlockRequest())
         return response.block.header.chain_id
 
     def query_node_syncing(self) -> bool:
-
         response = TendermintClient(self.channel).GetSyncing(GetSyncingRequest())
         return response.syncing
 
     def query_node_info(self) -> DefaultNodeInfo:
-
         response = TendermintClient(self.channel).GetNodeInfo(GetNodeInfoRequest())
         return response.default_node_info
 
     def query_validator_list(self, height: Optional[int] = 0) -> [Validator]:
-
         metadata = [(GRPCBlockHeightHeader, str(height))]
         response = StakingClient(self.channel).Validators(QueryValidatorsRequest(), metadata=metadata)
         return response.validators
 
     def query_tx(self, tx_hash: str) -> GetTxResponse:
-
         return TxClient(self.channel).GetTx(GetTxRequest(hash=tx_hash))
 
     def bank_send(self, tx_builder: TxBuilder, to: str, amount: [Coin],
                   mode: BroadcastMode = BROADCAST_MODE_SYNC) -> TxResponse:
-
         send_msg = MsgSend(from_address=tx_builder.address(), to_address=to, amount=amount)
         send_msg_any = Any(type_url='/cosmos.bank.v1beta1.MsgSend', value=send_msg.SerializeToString())
         tx = self.build_tx(tx_builder, [send_msg_any])
@@ -124,7 +111,6 @@ class Client:
 
     def build_tx(self, tx_builder: TxBuilder, msg: [Any], account_number: int = -1,
                  sequence: int = -1, gas_limit: int = 0) -> Tx:
-
         if tx_builder.chain_id == '':
             tx_builder.chain_id = self.query_chain_id()
 
@@ -153,12 +139,10 @@ class Client:
         return tx_builder.sign(msg, fee, account_number, sequence)
 
     def estimating_gas(self, tx: Tx) -> GasInfo:
-
         response = TxClient(self.channel).Simulate(SimulateRequest(tx=tx))
         return response.gas_info
 
     def broadcast_tx(self, tx: Tx, mode: BroadcastMode = BROADCAST_MODE_SYNC) -> TxResponse:
-
         tx_raw = TxRaw(body_bytes=tx.body.SerializeToString(),
                        auth_info_bytes=tx.auth_info.SerializeToString(),
                        signatures=tx.signatures)
@@ -168,7 +152,6 @@ class Client:
         return response.tx_response
 
     def wait_mint_tx(self, tx_hash: str) -> TxResponse:
-
         for i in range(5):
             time.sleep(5)
             try:

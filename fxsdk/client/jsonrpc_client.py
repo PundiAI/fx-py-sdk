@@ -30,19 +30,15 @@ class Base:
 
     @staticmethod
     def _init_session():
-
         session = requests.session()
         session.headers.update(_get_headers())
         return session
 
     def _get_rpc_request(self, path, **kwargs) -> str:
-
         rpc_request = RpcRequest(path, next(self.id_generator), kwargs.get('data', None))
-
         return str(rpc_request)
 
     def request_kwargs(self, method, **kwargs):
-
         # set default requests timeout
         kwargs['timeout'] = 10
 
@@ -74,7 +70,6 @@ class JsonRpcClient(Base):
             self.session.mount('http://', HTTPAdapter(max_retries=retries))
 
     def _request(self, path, **kwargs):
-
         rpc_request = self._get_rpc_request(path, **kwargs)
         try:
             response = self.session.post(self._endpoint_url, data=rpc_request.encode(), headers=_get_headers())
@@ -84,7 +79,6 @@ class JsonRpcClient(Base):
             traceback.print_exc()
 
     def _request_session(self, path, params=None):
-
         kwargs = {
             'params': params,
             'headers': _get_headers()
