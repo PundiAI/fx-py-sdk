@@ -11,11 +11,11 @@ from fxsdk.coin import parse_coins
 
 from fxsdk.x.cosmos.auth.v1beta1.auth_pb2 import BaseAccount, ModuleAccount
 from fxsdk.x.cosmos.auth.v1beta1.query_pb2 import QueryAccountRequest, Bech32PrefixRequest, QueryModuleAccountsRequest
-from fxsdk.x.cosmos.auth.v1beta1.query_pb2_grpc import QueryStub as AuthQuery
+from fxsdk.x.cosmos.auth.v1beta1.query_pb2_grpc import QueryStub as AuthClient
 from fxsdk.x.cosmos.bank.v1beta1.bank_pb2 import Supply
 from fxsdk.x.cosmos.bank.v1beta1.query_pb2 import (QueryBalanceRequest, QueryAllBalancesRequest,
                                                    QueryTotalSupplyRequest, QuerySupplyOfRequest)
-from fxsdk.x.cosmos.bank.v1beta1.query_pb2_grpc import QueryStub as BankQuery
+from fxsdk.x.cosmos.bank.v1beta1.query_pb2_grpc import QueryStub as BankClient
 from fxsdk.x.cosmos.base.abci.v1beta1.abci_pb2 import GasInfo, TxResponse
 from fxsdk.x.cosmos.base.tendermint.v1beta1.query_pb2 import GetBlockByHeightRequest, GetLatestBlockRequest, \
     GetSyncingRequest, GetNodeInfoRequest
@@ -51,7 +51,7 @@ class Client:
 
     def query_account_info(self, address: str, height: Optional[int] = 0) -> BaseAccount:
         metadata = [(GRPCBlockHeightHeader, str(height))]
-        response = AuthQuery(self.channel).Account(QueryAccountRequest(address=address), metadata=metadata)
+        response = AuthClient(self.channel).Account(QueryAccountRequest(address=address), metadata=metadata)
         account_any = response.account
         account = BaseAccount()
         if account_any.Is(account.DESCRIPTOR):
@@ -59,11 +59,11 @@ class Client:
             return account
 
     def query_bech32_prefix(self) -> str:
-        response = AuthQuery(self.channel).Bech32Prefix(Bech32PrefixRequest())
+        response = AuthClient(self.channel).Bech32Prefix(Bech32PrefixRequest())
         return response.bech32_prefix
 
     def query_module_accounts(self) -> [ModuleAccount]:
-        response = AuthQuery(self.channel).ModuleAccounts(QueryModuleAccountsRequest())
+        response = AuthClient(self.channel).ModuleAccounts(QueryModuleAccountsRequest())
         accounts = []
         for account_any in response.accounts:
             account = ModuleAccount()
@@ -73,22 +73,22 @@ class Client:
 
     def query_all_balances(self, address: str, height: Optional[int] = 0) -> [Coin]:
         metadata = [(GRPCBlockHeightHeader, str(height))]
-        response = BankQuery(self.channel).AllBalances(QueryAllBalancesRequest(address=address), metadata=metadata)
+        response = BankClient(self.channel).AllBalances(QueryAllBalancesRequest(address=address), metadata=metadata)
         return response.balances
 
     def query_balance(self, address: str, denom: str, height: Optional[int] = 0) -> Coin:
         metadata = [(GRPCBlockHeightHeader, str(height))]
-        response = BankQuery(self.channel).Balance(QueryBalanceRequest(address=address, denom=denom), metadata=metadata)
+        response = BankClient(self.channel).Balance(QueryBalanceRequest(address=address, denom=denom), metadata=metadata)
         return response.balance
 
     def query_total_supply(self, height: Optional[int] = 0) -> [Supply]:
         metadata = [(GRPCBlockHeightHeader, str(height))]
-        response = BankQuery(self.channel).TotalSupply(QueryTotalSupplyRequest(), metadata=metadata)
+        response = BankClient(self.channel).TotalSupply(QueryTotalSupplyRequest(), metadata=metadata)
         return response.supply
 
     def query_supply_of(self, denom: str, height: Optional[int] = 0) -> Coin:
         metadata = [(GRPCBlockHeightHeader, str(height))]
-        response = BankQuery(self.channel).SupplyOf(QuerySupplyOfRequest(denom=denom), metadata=metadata)
+        response = BankClient(self.channel).SupplyOf(QuerySupplyOfRequest(denom=denom), metadata=metadata)
         return response.amount
 
     def query_validator_list(self, height: Optional[int] = 0) -> [Validator]:
