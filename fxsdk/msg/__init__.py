@@ -1,3 +1,6 @@
+import time
+import datetime
+
 from google.protobuf.any_pb2 import Any
 from decimal import Decimal
 
@@ -5,6 +8,8 @@ from fxsdk.x.cosmos.bank.v1beta1.tx_pb2 import MsgSend
 from fxsdk.x.cosmos.base.v1beta1.coin_pb2 import Coin
 from fxsdk.x.fx.dex.v1.order_pb2 import Direction
 from fxsdk.x.fx.dex.v1.tx_pb2 import MsgCreateOrder, MsgCancelOrder, MsgClosePosition, MsgAddMargin
+from fxsdk.x.ibc.applications.transfer.v1.tx_pb2 import MsgTransfer
+from fxsdk.x.ibc.core.client.v1.client_pb2 import Height
 
 DEFAULT_DEC = 1000000
 
@@ -23,6 +28,28 @@ def new_msg_send(from_address: str, to_address: str, amount: [Coin]) -> Any:
     )
     msg_any = Any(
         type_url='/cosmos.bank.v1beta1.MsgSend',
+        value=msg.SerializeToString(),
+    )
+    return msg_any
+
+
+def new_ibc_msg_transfer(channel: str, sender: str, receiver: str, token: Coin, memo: str) -> Any:
+    height = Height(revision_number=0, revision_height=0)
+    dtime = datetime.datetime.now()
+    ans_time = time.mktime(dtime.timetuple())
+    ans_time = (int(ans_time) + 60 * 60) * 1000 * 1000 * 1000  # 1 hour
+    msg = MsgTransfer(
+        source_port="transfer",
+        source_channel=channel,
+        token=token,
+        sender=sender,
+        receiver=receiver,
+        timeout_height=height,
+        timeout_timestamp=ans_time,
+        memo=memo,
+    )
+    msg_any = Any(
+        type_url='/ibc.applications.transfer.v1.MsgTransfer',
         value=msg.SerializeToString(),
     )
     return msg_any
@@ -65,7 +92,6 @@ def new_msg_close_position(owner: str, pair_id: str, position_id: str, price: De
         full_close=full_close,
         market_close=market_close,
     )
-
     msg_any = Any(
         type_url='/fx.dex.v1.MsgClosePosition',
         value=msg.SerializeToString(),
