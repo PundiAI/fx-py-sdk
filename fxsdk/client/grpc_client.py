@@ -74,10 +74,9 @@ class Client:
         response = BankQuery(self.channel).TotalSupply(QueryTotalSupplyRequest(), metadata=metadata)
         return response.supply
 
-    def query_gas_prices(self, height: Optional[int] = 0) -> [Coin]:
+    def query_gas_prices(self) -> [Coin]:
 
-        metadata = [(GRPCBlockHeightHeader, str(height))]
-        response = CosmosNodeClient(self.channel).Config(ConfigRequest(), metadata=metadata)
+        response = CosmosNodeClient(self.channel).Config(ConfigRequest())
         return parse_coins(response.minimum_gas_price)
 
     def query_block_by_height(self, height: int) -> Block:
