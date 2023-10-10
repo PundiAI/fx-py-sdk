@@ -20,7 +20,7 @@ with open("README.md", "r", encoding="UTF-8") as fh:
 
 setup(
     name="fx-py-sdk",
-    version="0.6.5",
+    version="0.6.6",
     platforms='any',
     description="Python library for FunctionX",
     long_description=long_description,
