@@ -5,6 +5,7 @@ from google.protobuf.any_pb2 import Any
 from urllib.parse import urlparse
 from typing import Optional
 
+from fxsdk.msg import new_msg_send
 from fxsdk.wallet.builder import TxBuilder
 from fxsdk.coin import parse_coins
 
@@ -128,9 +129,8 @@ class Client:
 
     def bank_send(self, tx_builder: TxBuilder, to: str, amount: [Coin],
                   mode: BroadcastMode = BROADCAST_MODE_SYNC) -> TxResponse:
-        send_msg = MsgSend(from_address=tx_builder.address(), to_address=to, amount=amount)
-        send_msg_any = Any(type_url='/cosmos.bank.v1beta1.MsgSend', value=send_msg.SerializeToString())
-        tx = self.build_tx(tx_builder, [send_msg_any])
+        msg = new_msg_send(from_address=tx_builder.address(), to_address=to, amount=amount)
+        tx = self.build_tx(tx_builder, [msg])
         return self.broadcast_tx(tx, mode)
 
     def build_tx(self, tx_builder: TxBuilder, msg: [Any], account_number: int = -1,

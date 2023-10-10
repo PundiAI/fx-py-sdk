@@ -1,12 +1,11 @@
 import unittest
 
-from google.protobuf.any_pb2 import Any
 from google.protobuf.json_format import MessageToJson
 
+from fxsdk.msg import new_msg_send
 from fxsdk.wallet.key import mnemonic_to_privkey
 from fxsdk.wallet.builder import TxBuilder
 from fxsdk.client.grpc_client import Client
-from fxsdk.x.cosmos.bank.v1beta1.tx_pb2 import MsgSend
 from fxsdk.x.cosmos.base.v1beta1.coin_pb2 import Coin
 from fxsdk.x.cosmos.tx.v1beta1.service_pb2 import BROADCAST_MODE_SYNC
 
@@ -22,10 +21,8 @@ class TestGrpcSendTx(unittest.TestCase):
         from_addr = private_key.to_address(address_prefix)
         print('address:', from_addr)
 
-        send_msg = MsgSend(from_address=from_addr, to_address=from_addr,
-                           amount=[Coin(amount='100', denom='cusd')])
-        send_msg_any = Any(type_url='/cosmos.bank.v1beta1.MsgSend',
-                           value=send_msg.SerializeToString())
+        send_msg_any = new_msg_send(from_address=from_addr, to_address=from_addr,
+                                    amount=[Coin(amount='100', denom='cusd')])
 
         tx_builder = TxBuilder(private_key=private_key, prefix=address_prefix)
 

@@ -40,6 +40,10 @@ class TestGrpcClientQuery(unittest.TestCase):
         res = grpc_cli.query_gas_prices()
         print(res)
 
+    def test_query_node_info(self):
+        res = grpc_cli.query_node_info()
+        print(res)
+
 
 if __name__ == '__main__':
     unittest.main()
