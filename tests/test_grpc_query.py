@@ -24,9 +24,9 @@ class TestGrpcClientQuery(unittest.TestCase):
         account = grpc_cli.query_account_info(address=test_address)
         print(account)
 
-    def test_query_tx(self):
-        tx_response = grpc_cli.query_tx("D331D4DAFD2FA19848CA1B97991C0F82BD84F9E4DF18085E27BC2C49B9A9995C")
-        print(tx_response)
+    def test_query_module_accounts(self):
+        module_accounts = grpc_cli.query_module_accounts()
+        print(module_accounts)
 
     def test_query_total_supply(self):
         supply = grpc_cli.query_total_supply()

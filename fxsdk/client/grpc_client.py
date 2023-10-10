@@ -8,12 +8,13 @@ from typing import Optional
 from fxsdk.wallet.builder import TxBuilder
 from fxsdk.coin import parse_coins
 
-from fxsdk.x.cosmos.auth.v1beta1.auth_pb2 import BaseAccount
-from fxsdk.x.cosmos.auth.v1beta1.query_pb2 import QueryAccountRequest
+from fxsdk.x.cosmos.auth.v1beta1.auth_pb2 import BaseAccount, ModuleAccount
+from fxsdk.x.cosmos.auth.v1beta1.query_pb2 import QueryAccountRequest, Bech32PrefixRequest, QueryModuleAccountsRequest
 from fxsdk.x.cosmos.auth.v1beta1.query_pb2_grpc import QueryStub as AuthQuery
 from fxsdk.x.cosmos.bank.v1beta1.bank_pb2 import Supply
 from fxsdk.x.cosmos.bank.v1beta1.tx_pb2 import MsgSend
-from fxsdk.x.cosmos.bank.v1beta1.query_pb2 import QueryBalanceRequest, QueryAllBalancesRequest, QueryTotalSupplyRequest
+from fxsdk.x.cosmos.bank.v1beta1.query_pb2 import QueryBalanceRequest, QueryAllBalancesRequest, QueryTotalSupplyRequest, \
+    QuerySupplyOfRequest
 from fxsdk.x.cosmos.bank.v1beta1.query_pb2_grpc import QueryStub as BankQuery
 from fxsdk.x.cosmos.base.abci.v1beta1.abci_pb2 import GasInfo, TxResponse
 from fxsdk.x.cosmos.base.tendermint.v1beta1.query_pb2 import GetBlockByHeightRequest, GetLatestBlockRequest, \
@@ -21,8 +22,10 @@ from fxsdk.x.cosmos.base.tendermint.v1beta1.query_pb2 import GetBlockByHeightReq
 from fxsdk.x.cosmos.base.tendermint.v1beta1.query_pb2_grpc import ServiceStub as TendermintClient
 from fxsdk.x.cosmos.base.v1beta1.coin_pb2 import Coin
 from fxsdk.x.cosmos.staking.v1beta1.query_pb2 import QueryValidatorsRequest
+from fxsdk.x.cosmos.staking.v1beta1.query_pb2 import QueryParamsRequest as QueryStakingParamsRequest
 from fxsdk.x.cosmos.staking.v1beta1.query_pb2_grpc import QueryStub as StakingClient
 from fxsdk.x.cosmos.staking.v1beta1.staking_pb2 import Validator
+from fxsdk.x.cosmos.staking.v1beta1.staking_pb2 import Params as StakingParams
 from fxsdk.x.cosmos.tx.v1beta1.service_pb2 import BROADCAST_MODE_SYNC, BroadcastMode, BroadcastTxRequest, \
     SimulateRequest, \
     GetTxRequest, GetTxResponse
@@ -55,6 +58,19 @@ class Client:
             account_any.Unpack(account)
             return account
 
+    def query_bech32_prefix(self) -> str:
+        response = AuthQuery(self.channel).Bech32Prefix(Bech32PrefixRequest())
+        return response.bech32_prefix
+
+    def query_module_accounts(self) -> [ModuleAccount]:
+        response = AuthQuery(self.channel).ModuleAccounts(QueryModuleAccountsRequest())
+        accounts = []
+        for account_any in response.accounts:
+            account = ModuleAccount()
+            account_any.Unpack(account)
+            accounts.append(account)
+        return accounts
+
     def query_all_balances(self, address: str, height: Optional[int] = 0) -> [Coin]:
         metadata = [(GRPCBlockHeightHeader, str(height))]
         response = BankQuery(self.channel).AllBalances(QueryAllBalancesRequest(address=address), metadata=metadata)
@@ -69,6 +85,20 @@ class Client:
         metadata = [(GRPCBlockHeightHeader, str(height))]
         response = BankQuery(self.channel).TotalSupply(QueryTotalSupplyRequest(), metadata=metadata)
         return response.supply
+
+    def query_supply_of(self, denom: str, height: Optional[int] = 0) -> Coin:
+        metadata = [(GRPCBlockHeightHeader, str(height))]
+        response = BankQuery(self.channel).SupplyOf(QuerySupplyOfRequest(denom=denom), metadata=metadata)
+        return response.amount
+
+    def query_validator_list(self, height: Optional[int] = 0) -> [Validator]:
+        metadata = [(GRPCBlockHeightHeader, str(height))]
+        response = StakingClient(self.channel).Validators(QueryValidatorsRequest(), metadata=metadata)
+        return response.validators
+
+    def query_staking_params(self) -> StakingParams:
+        response = StakingClient(self.channel).Params(QueryStakingParamsRequest())
+        return response.params
 
     def query_gas_prices(self) -> [Coin]:
         response = CosmosNodeClient(self.channel).Config(ConfigRequest())
@@ -93,11 +123,6 @@ class Client:
     def query_node_info(self) -> DefaultNodeInfo:
         response = TendermintClient(self.channel).GetNodeInfo(GetNodeInfoRequest())
         return response.default_node_info
-
-    def query_validator_list(self, height: Optional[int] = 0) -> [Validator]:
-        metadata = [(GRPCBlockHeightHeader, str(height))]
-        response = StakingClient(self.channel).Validators(QueryValidatorsRequest(), metadata=metadata)
-        return response.validators
 
     def query_tx(self, tx_hash: str) -> GetTxResponse:
         return TxClient(self.channel).GetTx(GetTxRequest(hash=tx_hash))
