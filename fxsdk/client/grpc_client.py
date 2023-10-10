@@ -113,8 +113,7 @@ class Client:
         return response.block
 
     def query_chain_id(self) -> str:
-        response = TendermintClient(self.channel).GetLatestBlock(GetLatestBlockRequest())
-        return response.block.header.chain_id
+        return self.query_node_info().network
 
     def query_node_syncing(self) -> bool:
         response = TendermintClient(self.channel).GetSyncing(GetSyncingRequest())
