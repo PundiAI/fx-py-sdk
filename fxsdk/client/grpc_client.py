@@ -13,9 +13,8 @@ from fxsdk.x.cosmos.auth.v1beta1.auth_pb2 import BaseAccount, ModuleAccount
 from fxsdk.x.cosmos.auth.v1beta1.query_pb2 import QueryAccountRequest, Bech32PrefixRequest, QueryModuleAccountsRequest
 from fxsdk.x.cosmos.auth.v1beta1.query_pb2_grpc import QueryStub as AuthQuery
 from fxsdk.x.cosmos.bank.v1beta1.bank_pb2 import Supply
-from fxsdk.x.cosmos.bank.v1beta1.tx_pb2 import MsgSend
-from fxsdk.x.cosmos.bank.v1beta1.query_pb2 import QueryBalanceRequest, QueryAllBalancesRequest, QueryTotalSupplyRequest, \
-    QuerySupplyOfRequest
+from fxsdk.x.cosmos.bank.v1beta1.query_pb2 import (QueryBalanceRequest, QueryAllBalancesRequest,
+                                                   QueryTotalSupplyRequest, QuerySupplyOfRequest)
 from fxsdk.x.cosmos.bank.v1beta1.query_pb2_grpc import QueryStub as BankQuery
 from fxsdk.x.cosmos.base.abci.v1beta1.abci_pb2 import GasInfo, TxResponse
 from fxsdk.x.cosmos.base.tendermint.v1beta1.query_pb2 import GetBlockByHeightRequest, GetLatestBlockRequest, \
@@ -186,6 +185,6 @@ class Client:
             try:
                 response = self.query_tx(tx_hash)
                 return response.tx_response
-            except:
+            except grpc.RpcError:
                 continue
         raise Exception("not found tx")

@@ -6,10 +6,10 @@ DEFAULT_BECH32_PREFIX = "fx"
 class Address:
     def __init__(self, addr, prefix: str = DEFAULT_BECH32_PREFIX):
         self._prefix = prefix
-        if type(addr) == str:
+        if type(addr) is str:
             _, data = bech32.bech32_decode(addr)
             self._data = data
-        elif type(addr) == bytes:
+        elif type(addr) is bytes:
             self._data = bech32.convertbits(addr, 8, 5)
         else:
             raise Exception('invalid address')
