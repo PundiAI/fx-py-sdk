@@ -51,3 +51,7 @@ class MxClient(Client):
             order = new_order_from_proto(order)
             orders.append(order)
         return orders
+
+    def query_funding_info(self) -> Funding:
+        response = DexClient(self.channel).QueryFunding(QueryFundingReq())
+        return response.funding
