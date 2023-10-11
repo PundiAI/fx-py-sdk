@@ -11,19 +11,21 @@ def parse_coins(value: str) -> [Coin]:
     :return: coins
     """
     coins = []
-
     parts = value.split(',')
     for part in parts:
         part = part.strip()
         if part == "":
             continue
-
-        match = re.match(r"(\d+.\d+)(\w+)", part)
-        if match is None:
-            raise RuntimeError(f"Unable to parse value {part}")
-
-        # extract out the groups
-        amount, denom = match.groups()
-        coins.append(Coin(amount=amount, denom=denom))
+        coins.append(parse_coin(part))
 
     return coins
+
+
+def parse_coin(value: str) -> Coin:
+    match = re.match(r"(\d+.\d+)(\w+)", value)
+    if match is None:
+        raise RuntimeError(f"Unable to parse value {value}")
+
+    # extract out the groups
+    amount, denom = match.groups()
+    return Coin(amount=amount, denom=denom)
