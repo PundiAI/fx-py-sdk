@@ -1,4 +1,4 @@
-from fxsdk.client.grpc_client import Client
+from fxsdk.client.grpc import Client
 from fxsdk.wallet.builder import TxBuilder
 from fxsdk.x.cosmos.base.v1beta1.coin_pb2 import Coin
 

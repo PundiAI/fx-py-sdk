@@ -1,6 +1,6 @@
 from google.protobuf.any_pb2 import Any
 
-from fxsdk.client.grpc_client import Client
+from fxsdk.client.grpc import Client
 from fxsdk.wallet.builder import TxBuilder
 from fxsdk.wallet.key import PrivateKey
 from fxsdk.wallet.key import mnemonic_to_privkey

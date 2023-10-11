@@ -1,6 +1,6 @@
 import unittest
 
-from fxsdk.client.mx_client import MxClient
+from fxsdk.client.marginx import MxClient
 
 grpc_cli = MxClient('localhost:9090')
 

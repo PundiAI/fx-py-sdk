@@ -5,7 +5,7 @@ from google.protobuf.json_format import MessageToJson
 from fxsdk.msg import new_msg_send
 from fxsdk.wallet.key import mnemonic_to_privkey
 from fxsdk.wallet.builder import TxBuilder
-from fxsdk.client.grpc_client import Client
+from fxsdk.client.grpc import Client
 from fxsdk.x.cosmos.base.v1beta1.coin_pb2 import Coin
 from fxsdk.x.cosmos.tx.v1beta1.service_pb2 import BROADCAST_MODE_SYNC
 

@@ -1,6 +1,6 @@
 import unittest
 
-from fxsdk.client.grpc_client import Client
+from fxsdk.client.grpc import Client
 
 grpc_cli = Client('localhost:9090')
 

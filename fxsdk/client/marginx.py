@@ -1,6 +1,6 @@
 from decimal import Decimal
 
-from fxsdk.client.grpc_client import Client
+from fxsdk.client.grpc import Client
 from fxsdk.dec import dec_from_str
 from fxsdk.msg.dex import new_position_from_proto, new_order_from_proto, Order, Position, \
     new_pair_funding_rate_from_proto, PairFundingRate, OrderDepths, PairPrice, new_order_depths_from_proto

@@ -1,6 +1,6 @@
 import unittest
 
-from fxsdk.client.jsonrpc_client import *
+from fxsdk.client.jsonrpc import JsonRpcClient
 
 rpc_client = JsonRpcClient("http://127.0.0.1:26657")
 
