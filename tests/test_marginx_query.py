@@ -1,8 +1,8 @@
 import unittest
 
-from fxsdk.client.marginx import MxClient
+from fxsdk.client.marginx import MarginXClient
 
-grpc_cli = MxClient('localhost:9090')
+grpc_cli = MarginXClient('localhost:9090')
 
 pair_id = 'btc:cusd'
 

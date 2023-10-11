@@ -15,7 +15,7 @@ from fxsdk.x.fx.dex.v1.query_pb2 import QueryPositionReq, QueryOrderRequest, Que
     QueryPairFundingRatesReq, QueryOrderbookReq, QueryMarkPriceReq
 
 
-class MxClient(Client):
+class MarginXClient(Client):
 
     def __init__(self, url: str = 'localhost:9090'):
         super().__init__(url)
