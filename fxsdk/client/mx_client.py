@@ -5,7 +5,7 @@ from fxsdk.x.marginx.oracle.v1.query_pb2 import QueryPriceRequest, QueryMarketRe
 from fxsdk.x.marginx.oracle.v1.query_pb2_grpc import QueryStub as OracleClient
 
 from fxsdk.x.fx.dex.v1.query_pb2_grpc import QueryStub as DexClient
-from fxsdk.x.fx.dex.v1.query_pb2 import QueryPositionReq, QueryOrderRequest
+from fxsdk.x.fx.dex.v1.query_pb2 import QueryPositionReq, QueryOrderRequest, QueryOrdersRequest
 
 
 class MxClient(Client):
@@ -41,3 +41,11 @@ class MxClient(Client):
         response = DexClient(self.channel).QueryOrder(QueryOrderRequest(order_id=order_id))
         order = new_order_from_proto(response.order)
         return order
+
+    def query_orders(self, owner: str, pair_id: str):
+        orders = []
+        response = DexClient(self.channel).QueryOrders(QueryOrdersRequest(owner=owner, pair_id=pair_id))
+        for order in response.orders:
+            order = new_order_from_proto(order)
+            orders.append(order)
+        return orders
