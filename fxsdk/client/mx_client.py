@@ -1,7 +1,11 @@
 from fxsdk.client.grpc_client import Client
+from fxsdk.msg.dex import new_position_from_proto
 
 from fxsdk.x.marginx.oracle.v1.query_pb2 import QueryPriceRequest, QueryMarketRequest
 from fxsdk.x.marginx.oracle.v1.query_pb2_grpc import QueryStub as OracleClient
+
+from fxsdk.x.fx.dex.v1.query_pb2_grpc import QueryStub as DexClient
+from fxsdk.x.fx.dex.v1.query_pb2 import QueryPositionReq
 
 
 class MxClient(Client):
@@ -24,3 +28,11 @@ class MxClient(Client):
     def query_oracle_markets(self):
         response = OracleClient(self.channel).Markets(QueryMarketRequest())
         return response.markets
+
+    def query_positions(self, owner: str, pair_id: str):
+        positions = []
+        response = DexClient(self.channel).QueryPosition(QueryPositionReq(owner=owner, pair_id=pair_id))
+        for pos in response.positions:
+            position = new_position_from_proto(pos)
+            positions.append(position)
+        return positions

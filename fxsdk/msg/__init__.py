@@ -4,20 +4,13 @@ import datetime
 from google.protobuf.any_pb2 import Any
 from decimal import Decimal
 
+from fxsdk.dec import dec_to_str
 from fxsdk.x.cosmos.bank.v1beta1.tx_pb2 import MsgSend
 from fxsdk.x.cosmos.base.v1beta1.coin_pb2 import Coin
 from fxsdk.x.fx.dex.v1.order_pb2 import Direction
 from fxsdk.x.fx.dex.v1.tx_pb2 import MsgCreateOrder, MsgCancelOrder, MsgClosePosition, MsgAddMargin
 from fxsdk.x.ibc.applications.transfer.v1.tx_pb2 import MsgTransfer
 from fxsdk.x.ibc.core.client.v1.client_pb2 import Height
-
-DEFAULT_DEC = 1000000
-
-
-def dec_to_str(amount: Decimal) -> str:
-    amount = amount * Decimal(DEFAULT_DEC)
-    amount = str(amount)
-    return amount.split('.', 1)[0]
 
 
 def new_msg_send(from_address: str, to_address: str, amount: [Coin]) -> Any:
