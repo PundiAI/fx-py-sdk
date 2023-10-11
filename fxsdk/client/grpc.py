@@ -78,7 +78,8 @@ class Client:
 
     def query_balance(self, address: str, denom: str, height: Optional[int] = 0) -> Coin:
         metadata = [(GRPCBlockHeightHeader, str(height))]
-        response = BankClient(self.channel).Balance(QueryBalanceRequest(address=address, denom=denom), metadata=metadata)
+        response = BankClient(self.channel).Balance(QueryBalanceRequest(address=address, denom=denom),
+                                                    metadata=metadata)
         return response.balance
 
     def query_total_supply(self, height: Optional[int] = 0) -> [Supply]:
@@ -179,9 +180,14 @@ class Client:
             BroadcastTxRequest(tx_bytes=tx_bytes, mode=mode))
         return response.tx_response
 
-    def wait_mint_tx(self, tx_hash: str) -> TxResponse:
-        for i in range(5):
-            time.sleep(5)
+    def build_and_broadcast_tx(self, tx_builder: TxBuilder, msg: [Any], account_number: int = -1, sequence: int = -1,
+                               gas_limit: int = 0, mode: BroadcastMode = BROADCAST_MODE_SYNC) -> TxResponse:
+        tx = self.build_tx(tx_builder, msg, account_number, sequence, gas_limit)
+        return self.broadcast_tx(tx, mode)
+
+    def wait_mint_tx(self, tx_hash: str, timeout: int = 5, poll_interval: int = 1) -> TxResponse:
+        for i in range(timeout // poll_interval):
+            time.sleep(poll_interval)
             try:
                 response = self.query_tx(tx_hash)
                 return response.tx_response
