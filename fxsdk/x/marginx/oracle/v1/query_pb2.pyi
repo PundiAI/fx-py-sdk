@@ -47,11 +47,19 @@ class QueryPricesRequest(_message.Message):
     __slots__ = []
     def __init__(self) -> None: ...
 
+class PairPrice(_message.Message):
+    __slots__ = ["pair_id", "price"]
+    PAIR_ID_FIELD_NUMBER: _ClassVar[int]
+    PRICE_FIELD_NUMBER: _ClassVar[int]
+    pair_id: str
+    price: str
+    def __init__(self, pair_id: _Optional[str] = ..., price: _Optional[str] = ...) -> None: ...
+
 class QueryPricesResponse(_message.Message):
     __slots__ = ["prices"]
     PRICES_FIELD_NUMBER: _ClassVar[int]
-    prices: _containers.RepeatedScalarFieldContainer[str]
-    def __init__(self, prices: _Optional[_Iterable[str]] = ...) -> None: ...
+    prices: _containers.RepeatedCompositeFieldContainer[PairPrice]
+    def __init__(self, prices: _Optional[_Iterable[_Union[PairPrice, _Mapping]]] = ...) -> None: ...
 
 class QueryParamsRequest(_message.Message):
     __slots__ = []

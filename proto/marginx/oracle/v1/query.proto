@@ -53,12 +53,17 @@ message QueryPriceResponse {
 
 message QueryPricesRequest {}
 
-message QueryPricesResponse {
-  repeated string prices = 1 [
+message PairPrice {
+  string pair_id = 1;
+  string price = 2 [
     (cosmos_proto.scalar) = "cosmos.Dec",
     (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
     (gogoproto.nullable) = false
   ];
+}
+
+message QueryPricesResponse {
+  repeated PairPrice prices = 1 [ (gogoproto.nullable) = false ];
 }
 
 message QueryParamsRequest {}

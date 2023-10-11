@@ -2,7 +2,7 @@ from decimal import Decimal
 
 from fxsdk.client.grpc import Client
 from fxsdk.dec import dec_from_str
-from fxsdk.msg.dex import new_position_from_proto, new_order_from_proto, Order, Position, \
+from fxsdk.msg.marginx import new_position_from_proto, new_order_from_proto, Order, Position, \
     new_pair_funding_rate_from_proto, PairFundingRate, OrderDepths, PairPrice, new_order_depths_from_proto
 
 from fxsdk.x.marginx.oracle.v1.query_pb2 import QueryPriceRequest, QueryMarketRequest
@@ -24,9 +24,12 @@ class MarginXClient(Client):
         response = OracleClient(self.channel).Price(QueryPriceRequest(pair_id=pair_id))
         return dec_from_str(response.price)
 
-    def query_oracle_prices(self):  # TODO: need fix return type
+    def query_oracle_prices(self) -> [PairPrice]:
         response = OracleClient(self.channel).Prices(QueryPriceRequest())
-        return response.prices
+        pair_prices = []
+        for price in response.prices:
+            pair_prices.append(PairPrice(price.pair_id, dec_from_str(price.price)))
+        return pair_prices
 
     def query_oracle_market(self, pair_id: str) -> Market:
         response = OracleClient(self.channel).Market(QueryMarketRequest(pair_id=pair_id))

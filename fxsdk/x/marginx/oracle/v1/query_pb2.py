@@ -17,7 +17,7 @@ from fxsdk.x.marginx.oracle.v1 import types_pb2 as marginx_dot_oracle_dot_v1_dot
 from fxsdk.x.cosmos_proto import cosmos_pb2 as cosmos__proto_dot_cosmos__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1dmarginx/oracle/v1/query.proto\x12\x11marginx.oracle.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x14gogoproto/gogo.proto\x1a\x1dmarginx/oracle/v1/types.proto\x1a\x19\x63osmos_proto/cosmos.proto\"%\n\x12QueryMarketRequest\x12\x0f\n\x07pair_id\x18\x01 \x01(\t\"F\n\x13QueryMarketResponse\x12/\n\x06market\x18\x01 \x01(\x0b\x32\x19.marginx.oracle.v1.MarketB\x04\xc8\xde\x1f\x00\"\x15\n\x13QueryMarketsRequest\"H\n\x14QueryMarketsResponse\x12\x30\n\x07markets\x18\x01 \x03(\x0b\x32\x19.marginx.oracle.v1.MarketB\x04\xc8\xde\x1f\x00\"$\n\x11QueryPriceRequest\x12\x0f\n\x07pair_id\x18\x01 \x01(\t\"V\n\x12QueryPriceResponse\x12@\n\x05price\x18\x01 \x01(\tB1\xc8\xde\x1f\x00\xda\xde\x1f\x1b\x63osmossdk.io/math.LegacyDec\xd2\xb4-\ncosmos.Dec\"\x14\n\x12QueryPricesRequest\"X\n\x13QueryPricesResponse\x12\x41\n\x06prices\x18\x01 \x03(\tB1\xc8\xde\x1f\x00\xda\xde\x1f\x1b\x63osmossdk.io/math.LegacyDec\xd2\xb4-\ncosmos.Dec\"\x14\n\x12QueryParamsRequest\"F\n\x13QueryParamsResponse\x12/\n\x06params\x18\x01 \x01(\x0b\x32\x19.marginx.oracle.v1.ParamsB\x04\xc8\xde\x1f\x00\"\x19\n\x17QueryAggregatorsRequest\"T\n\x18QueryAggregatorsResponse\x12\x38\n\x0b\x61ggregators\x18\x01 \x03(\x0b\x32\x1d.marginx.oracle.v1.AggregatorB\x04\xc8\xde\x1f\x00\x32\x95\x06\n\x05Query\x12~\n\x07Markets\x12&.marginx.oracle.v1.QueryMarketsRequest\x1a\'.marginx.oracle.v1.QueryMarketsResponse\"\"\x82\xd3\xe4\x93\x02\x1c\x12\x1a/marginx/oracle/v1/markets\x12z\n\x06Market\x12%.marginx.oracle.v1.QueryMarketRequest\x1a&.marginx.oracle.v1.QueryMarketResponse\"!\x82\xd3\xe4\x93\x02\x1b\x12\x19/marginx/oracle/v1/market\x12~\n\x05Price\x12$.marginx.oracle.v1.QueryPriceRequest\x1a%.marginx.oracle.v1.QueryPriceResponse\"(\x82\xd3\xe4\x93\x02\"\x12 /marginx/oracle/v1/current_price\x12\x82\x01\n\x06Prices\x12%.marginx.oracle.v1.QueryPricesRequest\x1a&.marginx.oracle.v1.QueryPricesResponse\")\x82\xd3\xe4\x93\x02#\x12!/marginx/oracle/v1/current_prices\x12z\n\x06Params\x12%.marginx.oracle.v1.QueryParamsRequest\x1a&.marginx.oracle.v1.QueryParamsResponse\"!\x82\xd3\xe4\x93\x02\x1b\x12\x19/marginx/oracle/v1/params\x12\x8e\x01\n\x0b\x41ggregators\x12*.marginx.oracle.v1.QueryAggregatorsRequest\x1a+.marginx.oracle.v1.QueryAggregatorsResponse\"&\x82\xd3\xe4\x93\x02 \x12\x1e/marginx/oracle/v1/aggregatorsB-Z+github.com/marginxio/marginx/x/oracle/typesb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1dmarginx/oracle/v1/query.proto\x12\x11marginx.oracle.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x14gogoproto/gogo.proto\x1a\x1dmarginx/oracle/v1/types.proto\x1a\x19\x63osmos_proto/cosmos.proto\"%\n\x12QueryMarketRequest\x12\x0f\n\x07pair_id\x18\x01 \x01(\t\"F\n\x13QueryMarketResponse\x12/\n\x06market\x18\x01 \x01(\x0b\x32\x19.marginx.oracle.v1.MarketB\x04\xc8\xde\x1f\x00\"\x15\n\x13QueryMarketsRequest\"H\n\x14QueryMarketsResponse\x12\x30\n\x07markets\x18\x01 \x03(\x0b\x32\x19.marginx.oracle.v1.MarketB\x04\xc8\xde\x1f\x00\"$\n\x11QueryPriceRequest\x12\x0f\n\x07pair_id\x18\x01 \x01(\t\"V\n\x12QueryPriceResponse\x12@\n\x05price\x18\x01 \x01(\tB1\xc8\xde\x1f\x00\xda\xde\x1f\x1b\x63osmossdk.io/math.LegacyDec\xd2\xb4-\ncosmos.Dec\"\x14\n\x12QueryPricesRequest\"^\n\tPairPrice\x12\x0f\n\x07pair_id\x18\x01 \x01(\t\x12@\n\x05price\x18\x02 \x01(\tB1\xc8\xde\x1f\x00\xda\xde\x1f\x1b\x63osmossdk.io/math.LegacyDec\xd2\xb4-\ncosmos.Dec\"I\n\x13QueryPricesResponse\x12\x32\n\x06prices\x18\x01 \x03(\x0b\x32\x1c.marginx.oracle.v1.PairPriceB\x04\xc8\xde\x1f\x00\"\x14\n\x12QueryParamsRequest\"F\n\x13QueryParamsResponse\x12/\n\x06params\x18\x01 \x01(\x0b\x32\x19.marginx.oracle.v1.ParamsB\x04\xc8\xde\x1f\x00\"\x19\n\x17QueryAggregatorsRequest\"T\n\x18QueryAggregatorsResponse\x12\x38\n\x0b\x61ggregators\x18\x01 \x03(\x0b\x32\x1d.marginx.oracle.v1.AggregatorB\x04\xc8\xde\x1f\x00\x32\x95\x06\n\x05Query\x12~\n\x07Markets\x12&.marginx.oracle.v1.QueryMarketsRequest\x1a\'.marginx.oracle.v1.QueryMarketsResponse\"\"\x82\xd3\xe4\x93\x02\x1c\x12\x1a/marginx/oracle/v1/markets\x12z\n\x06Market\x12%.marginx.oracle.v1.QueryMarketRequest\x1a&.marginx.oracle.v1.QueryMarketResponse\"!\x82\xd3\xe4\x93\x02\x1b\x12\x19/marginx/oracle/v1/market\x12~\n\x05Price\x12$.marginx.oracle.v1.QueryPriceRequest\x1a%.marginx.oracle.v1.QueryPriceResponse\"(\x82\xd3\xe4\x93\x02\"\x12 /marginx/oracle/v1/current_price\x12\x82\x01\n\x06Prices\x12%.marginx.oracle.v1.QueryPricesRequest\x1a&.marginx.oracle.v1.QueryPricesResponse\")\x82\xd3\xe4\x93\x02#\x12!/marginx/oracle/v1/current_prices\x12z\n\x06Params\x12%.marginx.oracle.v1.QueryParamsRequest\x1a&.marginx.oracle.v1.QueryParamsResponse\"!\x82\xd3\xe4\x93\x02\x1b\x12\x19/marginx/oracle/v1/params\x12\x8e\x01\n\x0b\x41ggregators\x12*.marginx.oracle.v1.QueryAggregatorsRequest\x1a+.marginx.oracle.v1.QueryAggregatorsResponse\"&\x82\xd3\xe4\x93\x02 \x12\x1e/marginx/oracle/v1/aggregatorsB-Z+github.com/marginxio/marginx/x/oracle/typesb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -31,8 +31,10 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _QUERYMARKETSRESPONSE.fields_by_name['markets']._serialized_options = b'\310\336\037\000'
   _QUERYPRICERESPONSE.fields_by_name['price']._options = None
   _QUERYPRICERESPONSE.fields_by_name['price']._serialized_options = b'\310\336\037\000\332\336\037\033cosmossdk.io/math.LegacyDec\322\264-\ncosmos.Dec'
+  _PAIRPRICE.fields_by_name['price']._options = None
+  _PAIRPRICE.fields_by_name['price']._serialized_options = b'\310\336\037\000\332\336\037\033cosmossdk.io/math.LegacyDec\322\264-\ncosmos.Dec'
   _QUERYPRICESRESPONSE.fields_by_name['prices']._options = None
-  _QUERYPRICESRESPONSE.fields_by_name['prices']._serialized_options = b'\310\336\037\000\332\336\037\033cosmossdk.io/math.LegacyDec\322\264-\ncosmos.Dec'
+  _QUERYPRICESRESPONSE.fields_by_name['prices']._serialized_options = b'\310\336\037\000'
   _QUERYPARAMSRESPONSE.fields_by_name['params']._options = None
   _QUERYPARAMSRESPONSE.fields_by_name['params']._serialized_options = b'\310\336\037\000'
   _QUERYAGGREGATORSRESPONSE.fields_by_name['aggregators']._options = None
@@ -63,16 +65,18 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _globals['_QUERYPRICERESPONSE']._serialized_end=494
   _globals['_QUERYPRICESREQUEST']._serialized_start=496
   _globals['_QUERYPRICESREQUEST']._serialized_end=516
-  _globals['_QUERYPRICESRESPONSE']._serialized_start=518
-  _globals['_QUERYPRICESRESPONSE']._serialized_end=606
-  _globals['_QUERYPARAMSREQUEST']._serialized_start=608
-  _globals['_QUERYPARAMSREQUEST']._serialized_end=628
-  _globals['_QUERYPARAMSRESPONSE']._serialized_start=630
-  _globals['_QUERYPARAMSRESPONSE']._serialized_end=700
-  _globals['_QUERYAGGREGATORSREQUEST']._serialized_start=702
-  _globals['_QUERYAGGREGATORSREQUEST']._serialized_end=727
-  _globals['_QUERYAGGREGATORSRESPONSE']._serialized_start=729
-  _globals['_QUERYAGGREGATORSRESPONSE']._serialized_end=813
-  _globals['_QUERY']._serialized_start=816
-  _globals['_QUERY']._serialized_end=1605
+  _globals['_PAIRPRICE']._serialized_start=518
+  _globals['_PAIRPRICE']._serialized_end=612
+  _globals['_QUERYPRICESRESPONSE']._serialized_start=614
+  _globals['_QUERYPRICESRESPONSE']._serialized_end=687
+  _globals['_QUERYPARAMSREQUEST']._serialized_start=689
+  _globals['_QUERYPARAMSREQUEST']._serialized_end=709
+  _globals['_QUERYPARAMSRESPONSE']._serialized_start=711
+  _globals['_QUERYPARAMSRESPONSE']._serialized_end=781
+  _globals['_QUERYAGGREGATORSREQUEST']._serialized_start=783
+  _globals['_QUERYAGGREGATORSREQUEST']._serialized_end=808
+  _globals['_QUERYAGGREGATORSRESPONSE']._serialized_start=810
+  _globals['_QUERYAGGREGATORSRESPONSE']._serialized_end=894
+  _globals['_QUERY']._serialized_start=897
+  _globals['_QUERY']._serialized_end=1686
 # @@protoc_insertion_point(module_scope)

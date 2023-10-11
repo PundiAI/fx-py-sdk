@@ -39,12 +39,6 @@ class OrderDepth(_message.Message):
     quantity: str
     def __init__(self, price: _Optional[str] = ..., quantity: _Optional[str] = ...) -> None: ...
 
-class OrderDepths(_message.Message):
-    __slots__ = ["order_depths"]
-    ORDER_DEPTHS_FIELD_NUMBER: _ClassVar[int]
-    order_depths: _containers.RepeatedCompositeFieldContainer[OrderDepth]
-    def __init__(self, order_depths: _Optional[_Iterable[_Union[OrderDepth, _Mapping]]] = ...) -> None: ...
-
 class OrderBook(_message.Message):
     __slots__ = ["bid", "ask"]
     BID_FIELD_NUMBER: _ClassVar[int]
@@ -132,57 +126,3 @@ class DepthCurves(_message.Message):
     ITEMS_FIELD_NUMBER: _ClassVar[int]
     items: _containers.RepeatedCompositeFieldContainer[DepthCurveItem]
     def __init__(self, items: _Optional[_Iterable[_Union[DepthCurveItem, _Mapping]]] = ...) -> None: ...
-
-class Deal(_message.Message):
-    __slots__ = ["order_id", "direction", "quantity", "price", "fee", "position_id"]
-    ORDER_ID_FIELD_NUMBER: _ClassVar[int]
-    DIRECTION_FIELD_NUMBER: _ClassVar[int]
-    QUANTITY_FIELD_NUMBER: _ClassVar[int]
-    PRICE_FIELD_NUMBER: _ClassVar[int]
-    FEE_FIELD_NUMBER: _ClassVar[int]
-    POSITION_ID_FIELD_NUMBER: _ClassVar[int]
-    order_id: str
-    direction: str
-    quantity: str
-    price: str
-    fee: str
-    position_id: str
-    def __init__(self, order_id: _Optional[str] = ..., direction: _Optional[str] = ..., quantity: _Optional[str] = ..., price: _Optional[str] = ..., fee: _Optional[str] = ..., position_id: _Optional[str] = ...) -> None: ...
-
-class MatchRes(_message.Message):
-    __slots__ = ["block_height", "price", "quantity", "deals"]
-    BLOCK_HEIGHT_FIELD_NUMBER: _ClassVar[int]
-    PRICE_FIELD_NUMBER: _ClassVar[int]
-    QUANTITY_FIELD_NUMBER: _ClassVar[int]
-    DEALS_FIELD_NUMBER: _ClassVar[int]
-    block_height: int
-    price: str
-    quantity: str
-    deals: _containers.RepeatedCompositeFieldContainer[Deal]
-    def __init__(self, block_height: _Optional[int] = ..., price: _Optional[str] = ..., quantity: _Optional[str] = ..., deals: _Optional[_Iterable[_Union[Deal, _Mapping]]] = ...) -> None: ...
-
-class ProductLock(_message.Message):
-    __slots__ = ["block_height", "price", "quantity", "buy_executed", "sell_executed"]
-    BLOCK_HEIGHT_FIELD_NUMBER: _ClassVar[int]
-    PRICE_FIELD_NUMBER: _ClassVar[int]
-    QUANTITY_FIELD_NUMBER: _ClassVar[int]
-    BUY_EXECUTED_FIELD_NUMBER: _ClassVar[int]
-    SELL_EXECUTED_FIELD_NUMBER: _ClassVar[int]
-    block_height: int
-    price: str
-    quantity: str
-    buy_executed: str
-    sell_executed: str
-    def __init__(self, block_height: _Optional[int] = ..., price: _Optional[str] = ..., quantity: _Optional[str] = ..., buy_executed: _Optional[str] = ..., sell_executed: _Optional[str] = ...) -> None: ...
-
-class IntList(_message.Message):
-    __slots__ = ["items"]
-    ITEMS_FIELD_NUMBER: _ClassVar[int]
-    items: _containers.RepeatedScalarFieldContainer[int]
-    def __init__(self, items: _Optional[_Iterable[int]] = ...) -> None: ...
-
-class Int(_message.Message):
-    __slots__ = ["items"]
-    ITEMS_FIELD_NUMBER: _ClassVar[int]
-    items: int
-    def __init__(self, items: _Optional[int] = ...) -> None: ...

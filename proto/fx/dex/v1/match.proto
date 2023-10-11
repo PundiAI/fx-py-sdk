@@ -44,10 +44,6 @@ message OrderDepth {
   ];
 }
 
-message OrderDepths {
-  repeated OrderDepth order_depths = 1 [ (gogoproto.nullable) = false ];
-}
-
 message OrderBook {
   Orders bid = 1 [ (gogoproto.nullable) = false ];
   Orders ask = 2 [ (gogoproto.nullable) = false ];
@@ -139,58 +135,3 @@ message DepthCurveItem {
 message DepthCurves {
   repeated DepthCurveItem items = 1 [ (gogoproto.nullable) = false ];
 }
-
-message Deal {
-  string order_id = 1;
-  string direction = 2;
-  string quantity = 3 [
-    (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
-    (gogoproto.nullable) = false
-  ];
-  string price = 4 [
-    (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
-    (gogoproto.nullable) = false
-  ];
-  string fee = 5 [
-    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin",
-    (gogoproto.nullable) = false
-  ];
-  string position_id = 6;
-}
-
-message MatchRes {
-  int64 block_height = 1;
-  string price = 2 [
-    (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
-    (gogoproto.nullable) = false
-  ];
-  string quantity = 3 [
-    (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
-    (gogoproto.nullable) = false
-  ];
-  repeated Deal deals = 4 [ (gogoproto.nullable) = false ];
-}
-
-message ProductLock {
-  int64 block_height = 1;
-  string price = 2 [
-    (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
-    (gogoproto.nullable) = false
-  ];
-  string quantity = 3 [
-    (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
-    (gogoproto.nullable) = false
-  ];
-  string buy_executed = 4 [
-    (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
-    (gogoproto.nullable) = false
-  ];
-  string sell_executed = 5 [
-    (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
-    (gogoproto.nullable) = false
-  ];
-}
-
-message IntList { repeated int64 items = 1; }
-
-message Int { int64 items = 1; }
