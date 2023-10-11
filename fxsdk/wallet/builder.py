@@ -39,7 +39,7 @@ class TxBuilder:
         self._memo = memo
 
     def has_gas_price(self) -> bool:
-        return self.gas_price.amount != '0' and self.gas_price.denom != ''
+        return self.gas_price.denom != ''
 
     def with_gas_price(self, gas_prices: [Coin]):
         if len(gas_prices) == 0:
