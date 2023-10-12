@@ -13,6 +13,7 @@ requires = [
     "mnemonic>=0.20",
     "eth-utils>=2.2.2",
     "coincurve>=18.0.0",
+    "pycryptodome>=3.19.0"
 ]
 
 with open("README.md", "r", encoding="UTF-8") as fh:
@@ -20,7 +21,7 @@ with open("README.md", "r", encoding="UTF-8") as fh:
 
 setup(
     name="fx-py-sdk",
-    version="0.6.9",
+    version="0.6.10",
     platforms='any',
     description="Python library for FunctionX",
     long_description=long_description,
