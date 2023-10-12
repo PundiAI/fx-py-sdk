@@ -32,8 +32,8 @@ class TestGrpcClientQuery(unittest.TestCase):
         supply = grpc_cli.query_total_supply()
         print(supply)
 
-    def test_query_validator_list(self):
-        validators = grpc_cli.query_validator_list()
+    def test_query_validators(self):
+        validators = grpc_cli.query_validators()
         print(validators)
 
     def test_query_gas_prices(self):

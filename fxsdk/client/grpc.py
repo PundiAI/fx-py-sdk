@@ -92,7 +92,7 @@ class Client:
         response = BankClient(self.channel).SupplyOf(QuerySupplyOfRequest(denom=denom), metadata=metadata)
         return response.amount
 
-    def query_validator_list(self, height: Optional[int] = 0) -> [Validator]:
+    def query_validators(self, height: Optional[int] = 0) -> [Validator]:
         metadata = [(GRPCBlockHeightHeader, str(height))]
         response = StakingClient(self.channel).Validators(QueryValidatorsRequest(), metadata=metadata)
         return response.validators
