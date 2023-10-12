@@ -52,6 +52,20 @@ class TestSendTx(unittest.TestCase):
         print(tx_response)
         self.assertEqual(tx_response.code, 0)
 
+    def test_ibc_transfer_mx2mx(self):
+        grpc_cli = CrossChainClient(grpc_url)
+        channels = grpc_cli.query_channels()
+        if len(channels) == 0:
+            print("no channel found")
+            return
+        from_channel = channels[0].channel_id
+        to_channel = "channel-6"
+        amount = Coin(denom='FX', amount='100')
+        tx_response = grpc_cli.ibc_transfer_mx2mx(tx_builder=tx_builder, amount=amount, from_channel=from_channel,
+                                                  to_channel=to_channel, mode=BROADCAST_MODE_SYNC)
+        print(tx_response)
+        self.assertEqual(tx_response.code, 0)
+
 
 if __name__ == '__main__':
     unittest.main()

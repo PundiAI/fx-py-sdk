@@ -85,3 +85,10 @@ class CrossChainClient(Client, BridgeFee):
             return self.build_tx(tx_builder=tx_builder, msgs=[msg])
         else:
             return self.build_and_broadcast_tx(tx_builder=tx_builder, msgs=[msg], mode=mode)
+
+    def ibc_transfer_mx2mx(self, tx_builder: TxBuilder, amount: Coin, from_channel: str, to_channel: str,
+                           mode: Optional[BroadcastMode] = BROADCAST_MODE_UNSPECIFIED):
+        address = tx_builder.from_address()
+        to_address = "{}|transfer/{}:{}".format(address.to_string("fx"), to_channel, address.to_string())
+        self.ibc_transfer(tx_builder=tx_builder, to_address=to_address, amount=amount, channel=from_channel,
+                          target=CrossChainTarget.MarginX, mode=mode)
