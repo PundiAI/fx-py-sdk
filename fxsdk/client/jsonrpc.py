@@ -1,5 +1,4 @@
 import itertools
-import json
 import traceback
 import requests
 import ujson
@@ -8,6 +7,10 @@ from typing import Optional, Dict
 from requests.sessions import ChunkedEncodingError, HTTPAdapter
 from urllib3.util.retry import Retry
 from collections import OrderedDict
+
+from fxsdk.x.cosmos.tx.v1beta1.service_pb2 import BroadcastMode, BROADCAST_MODE_SYNC, BROADCAST_MODE_ASYNC, \
+    BROADCAST_MODE_BLOCK
+from fxsdk.x.cosmos.tx.v1beta1.tx_pb2 import Tx, TxRaw
 
 requests.models.json = ujson
 
@@ -75,7 +78,7 @@ class JsonRpcClient(Base):
             response = self.session.post(self._endpoint_url, data=rpc_request.encode(), headers=_get_headers())
             return self._handle_response(response)
         except ChunkedEncodingError:
-            print(f'Error getting {json.loads(rpc_request)["params"]["height"]}')
+            print(f'Error getting {ujson.loads(rpc_request)["params"]}')
             traceback.print_exc()
 
     def _request_session(self, path, params=None):
@@ -211,6 +214,21 @@ class JsonRpcClient(Base):
         }
 
         return self._request('blockchain', data=data)
+
+    def broadcast_tx(self, tx: Tx, mode: BroadcastMode = BROADCAST_MODE_SYNC):
+        tx_raw = TxRaw(body_bytes=tx.body.SerializeToString(),
+                       auth_info_bytes=tx.auth_info.SerializeToString(),
+                       signatures=tx.signatures)
+        tx_bytes = tx_raw.SerializeToString()
+        data = {
+            'tx': '0x' + tx_bytes.hex(),
+        }
+        if mode == BROADCAST_MODE_SYNC:
+            return self._broadcast_tx_sync(data)
+        elif mode == BROADCAST_MODE_ASYNC:
+            return self._broadcast_tx_async(data)
+        elif mode == BROADCAST_MODE_BLOCK:
+            return self._broadcast_tx_commit(data)
 
     def _broadcast_tx_async(self, tx_data: Dict):
         return self._request_session("broadcast_tx_async", params=tx_data)
