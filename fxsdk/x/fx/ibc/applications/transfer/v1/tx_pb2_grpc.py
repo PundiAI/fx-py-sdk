@@ -3,7 +3,7 @@
 import grpc
 
 from fxsdk.x.fx.ibc.applications.transfer.v1 import tx_pb2 as fx_dot_ibc_dot_applications_dot_transfer_dot_v1_dot_tx__pb2
-from ibc.applications.transfer.v1 import tx_pb2 as ibc_dot_applications_dot_transfer_dot_v1_dot_tx__pb2
+from fxsdk.x.ibc.applications.transfer.v1 import tx_pb2 as ibc_dot_applications_dot_transfer_dot_v1_dot_tx__pb2
 
 
 class MsgStub(object):
