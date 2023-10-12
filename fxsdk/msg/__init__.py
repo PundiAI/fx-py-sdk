@@ -34,7 +34,7 @@ def new_msg_send(from_address: str, to_address: str, amount: [Coin]) -> Any:
     return msg_any
 
 
-def new_ibc_msg_transfer(channel: str, sender: str, receiver: str, token: Coin, memo: str) -> Any:
+def new_ibc_msg_transfer(channel: str, sender: str, receiver: str, token: Coin, memo: str = '') -> Any:
     msg = MsgTransfer(
         source_port="transfer",
         source_channel=channel,
@@ -53,7 +53,7 @@ def new_ibc_msg_transfer(channel: str, sender: str, receiver: str, token: Coin, 
 
 
 def new_ibc_fx_msg_transfer(channel: str, sender: str, receiver: str, token: Coin, router: str, fee: Coin,
-                            memo: str) -> Any:
+                            memo: str = '') -> Any:
     if token.denom != fee.denom:
         raise Exception("token denom must equal to fee denom")
     msg = FxMsgTransfer(

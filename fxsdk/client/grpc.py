@@ -138,7 +138,7 @@ class Client:
         tx = self.build_tx(tx_builder, [msg])
         return self.broadcast_tx(tx, mode)
 
-    def build_tx(self, tx_builder: TxBuilder, msg: [Any], account_number: int = -1,
+    def build_tx(self, tx_builder: TxBuilder, msgs: [Any], account_number: int = -1,
                  sequence: int = -1, gas_limit: int = 0) -> Tx:
         if tx_builder.chain_id == '':
             tx_builder.chain_id = self.query_chain_id()
@@ -158,14 +158,14 @@ class Client:
             gas_limit = DefGasLimit
             fee_amount = Coin(amount=str(int(gas_limit * gas_price_amount)), denom=gas_fee_denom)
             fee = Fee(amount=[fee_amount], gas_limit=gas_limit)
-            tx = tx_builder.sign(msg, fee, account_number, sequence)
+            tx = tx_builder.sign(msgs, fee, account_number, sequence)
 
             gas_info = self.estimating_gas(tx)
             gas_limit = int(float(gas_info.gas_used) * DefGasAdjustment)
 
         fee_amount = Coin(amount=str(int(gas_limit * gas_price_amount)), denom=gas_fee_denom)
         fee = Fee(amount=[fee_amount], gas_limit=gas_limit)
-        return tx_builder.sign(msg, fee, account_number, sequence)
+        return tx_builder.sign(msgs, fee, account_number, sequence)
 
     def estimating_gas(self, tx: Tx) -> GasInfo:
         response = TxClient(self.channel).Simulate(SimulateRequest(tx=tx))
@@ -180,9 +180,9 @@ class Client:
             BroadcastTxRequest(tx_bytes=tx_bytes, mode=mode))
         return response.tx_response
 
-    def build_and_broadcast_tx(self, tx_builder: TxBuilder, msg: [Any], account_number: int = -1, sequence: int = -1,
+    def build_and_broadcast_tx(self, tx_builder: TxBuilder, msgs: [Any], account_number: int = -1, sequence: int = -1,
                                gas_limit: int = 0, mode: BroadcastMode = BROADCAST_MODE_SYNC) -> TxResponse:
-        tx = self.build_tx(tx_builder, msg, account_number, sequence, gas_limit)
+        tx = self.build_tx(tx_builder, msgs, account_number, sequence, gas_limit)
         return self.broadcast_tx(tx, mode)
 
     def wait_mint_tx(self, tx_hash: str, timeout: int = 5, poll_interval: int = 1) -> TxResponse:
