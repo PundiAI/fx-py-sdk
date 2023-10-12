@@ -44,7 +44,7 @@ class TestSendTx(unittest.TestCase):
             print("no channel found")
             return
         channel = channels[0].channel_id
-        to_address = tx_builder.from_address().to_string()
+        to_address = tx_builder.from_address().to_hex()
         amount = Coin(denom='FX', amount='100')
         tx_response = grpc_cli.ibc_transfer(tx_builder=tx_builder, to_address=to_address, amount=amount,
                                             channel=channel, target=CrossChainTarget.Ethereum,

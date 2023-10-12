@@ -36,3 +36,6 @@ class Address:
 
     def to_bytes(self) -> bytes:
         return self._data
+
+    def prefix(self) -> str:
+        return self._prefix

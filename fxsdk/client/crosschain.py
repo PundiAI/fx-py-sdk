@@ -2,6 +2,7 @@ from enum import Enum
 from typing import Optional
 
 import requests
+from eth_utils import is_hex_address
 
 from fxsdk.client.grpc import Client, GRPCBlockHeightHeader
 from fxsdk.msg import new_ibc_fx_msg_transfer
@@ -73,7 +74,8 @@ class CrossChainClient(Client, BridgeFee):
         elif target is CrossChainTarget.MarginX:
             pass
         elif target is CrossChainTarget.FxCore:
-            pass
+            if is_hex_address(to_address) is False:
+                raise Exception("address should be hex format")
         else:
             raise Exception("target chain not supported")
         sender = tx_builder.from_address().to_string()
