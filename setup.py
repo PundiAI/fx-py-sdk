@@ -11,7 +11,7 @@ requires = [
     "ecdsa>=0.18.0",
     "hdwallets>=0.1.2",
     "mnemonic>=0.20",
-    "eth_hash>=0.5.2",
+    "eth-utils>=2.2.2",
     "coincurve>=18.0.0",
 ]
 

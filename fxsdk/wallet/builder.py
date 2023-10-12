@@ -1,5 +1,7 @@
 from google.protobuf.any_pb2 import Any
 
+from fxsdk.wallet.address import DEFAULT_BECH32_PREFIX, Address
+from fxsdk.wallet.key import PrivateKey, ETH_DERIVATION_PATH, mnemonic_to_privkey, ETHSECP256K1_KEY_TYPE
 from fxsdk.x.cosmos.base.v1beta1.coin_pb2 import Coin
 from fxsdk.x.cosmos.tx.signing.v1beta1.signing_pb2 import SIGN_MODE_DIRECT
 from fxsdk.x.cosmos.tx.v1beta1.tx_pb2 import AuthInfo
@@ -9,8 +11,6 @@ from fxsdk.x.cosmos.tx.v1beta1.tx_pb2 import SignDoc
 from fxsdk.x.cosmos.tx.v1beta1.tx_pb2 import SignerInfo
 from fxsdk.x.cosmos.tx.v1beta1.tx_pb2 import Tx
 from fxsdk.x.cosmos.tx.v1beta1.tx_pb2 import TxBody
-from fxsdk.wallet.address import Address, DEFAULT_BECH32_PREFIX
-from fxsdk.wallet.key import PrivateKey, ETH_DERIVATION_PATH, mnemonic_to_privkey, ETHSECP256K1_KEY_TYPE
 
 
 class TxBuilder:
@@ -53,7 +53,7 @@ class TxBuilder:
         if self.has_gas_price() is False:
             raise Exception("invalid gas price")
 
-    def address(self, prefix: str = None) -> str:
+    def from_address(self, prefix: str = None) -> Address:
         prefix = self._prefix if prefix is None else prefix
         return self._private_key.to_address(prefix=prefix)
 

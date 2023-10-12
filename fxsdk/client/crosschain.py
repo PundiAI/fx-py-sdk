@@ -76,7 +76,8 @@ class CrossChainClient(Client, BridgeFee):
             pass
         else:
             raise Exception("target chain not supported")
-        msg = new_ibc_fx_msg_transfer(channel=channel, sender=tx_builder.address(), receiver=to_address, token=amount,
+        sender = tx_builder.from_address().to_string()
+        msg = new_ibc_fx_msg_transfer(channel=channel, sender=sender, receiver=to_address, token=amount,
                                       router=router, fee=fee)
         if mode is BROADCAST_MODE_UNSPECIFIED or mode is None:
             return self.build_tx(tx_builder=tx_builder, msgs=[msg])

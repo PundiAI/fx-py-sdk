@@ -10,7 +10,7 @@ if __name__ == '__main__':
     prefix = 'mx'
     tx_builder = TxBuilder.from_mnemonic(mnemonic=mnemonic, prefix=prefix)
 
-    to = tx_builder.address()
+    to = tx_builder.from_address().to_string()
     amount = [Coin(amount='100', denom='cusd')]
     tx_response = grpc_cli.bank_send(tx_builder, to, amount)
     print(tx_response)

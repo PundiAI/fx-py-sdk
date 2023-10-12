@@ -19,7 +19,7 @@ tx_builder = TxBuilder(private_key=private_key, prefix=address_prefix)
 class TestSendTx(unittest.TestCase):
 
     def test_bank_send(self):
-        from_addr = tx_builder.address()
+        from_addr = tx_builder.from_address().to_string()
         send_msg_any = new_msg_send(
             from_address=from_addr,
             to_address=from_addr,
@@ -39,10 +39,15 @@ class TestSendTx(unittest.TestCase):
 
     def test_ibc_transfer_mx2eth(self):
         grpc_cli = CrossChainClient(grpc_url)
-        to_address = tx_builder.address()
+        channels = grpc_cli.query_channels()
+        if len(channels) == 0:
+            print("no channel found")
+            return
+        channel = channels[0].channel_id
+        to_address = tx_builder.from_address().to_string()
         amount = Coin(denom='FX', amount='100')
         tx_response = grpc_cli.ibc_transfer(tx_builder=tx_builder, to_address=to_address, amount=amount,
-                                            channel='channel-0', target=CrossChainTarget.Ethereum,
+                                            channel=channel, target=CrossChainTarget.Ethereum,
                                             mode=BROADCAST_MODE_SYNC)
         print(tx_response)
         self.assertEqual(tx_response.code, 0)

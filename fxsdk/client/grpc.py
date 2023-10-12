@@ -134,7 +134,8 @@ class Client:
 
     def bank_send(self, tx_builder: TxBuilder, to: str, amount: [Coin],
                   mode: BroadcastMode = BROADCAST_MODE_SYNC) -> TxResponse:
-        msg = new_msg_send(from_address=tx_builder.address(), to_address=to, amount=amount)
+        from_address = tx_builder.from_address().to_string()
+        msg = new_msg_send(from_address=from_address, to_address=to, amount=amount)
         tx = self.build_tx(tx_builder, [msg])
         return self.broadcast_tx(tx, mode)
 
@@ -144,7 +145,8 @@ class Client:
             tx_builder.chain_id = self.query_chain_id()
 
         if account_number < 0 or sequence < 0:
-            account = self.query_account_info(address=tx_builder.address())
+            from_address = tx_builder.from_address().to_string()
+            account = self.query_account_info(address=from_address)
             account_number = account.account_number
             sequence = account.sequence
 

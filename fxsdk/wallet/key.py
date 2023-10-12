@@ -1,5 +1,4 @@
 import hashlib
-import bech32
 import ecdsa
 import hdwallets
 import coincurve
@@ -10,7 +9,7 @@ from google.protobuf.any_pb2 import Any
 
 from fxsdk.x.cosmos.crypto.secp256k1.keys_pb2 import PubKey as secp256k1PubKey
 from fxsdk.x.ethermint.crypto.v1.ethsecp256k1.keys_pb2 import PubKey as ethsecp256k1PubKey
-from fxsdk.wallet.address import DEFAULT_BECH32_PREFIX
+from fxsdk.wallet.address import DEFAULT_BECH32_PREFIX, Address
 
 ETH_DERIVATION_PATH = "m/44'/60'/0'/0/0"
 ETHSECP256K1_KEY_TYPE = 'eth_secp256k1'
@@ -26,17 +25,17 @@ class PublicKey:
         self._pub_key = pub_key
         self._key_type = key_type
 
-    def to_address(self, prefix: str = DEFAULT_BECH32_PREFIX) -> str:
+    def to_address(self, prefix: str = DEFAULT_BECH32_PREFIX) -> Address:
         if self._key_type == SECP256K1_KEY_TYPE:
             h = hashlib.new("sha256", self._pub_key).digest()
             data = hashlib.new("ripemd160", h).digest()
+            if prefix == "0x":
+                raise Exception("secp256k1 not support 0x prefix address")
         else:
             pubkey_obj = ecdsa.keys.VerifyingKey.from_string(self._pub_key, curve=ecdsa.SECP256k1)
             data = keccak_256(pubkey_obj.to_string("raw"))[-20:]
 
-        five_bit_r = bech32.convertbits(data, 8, 5)
-        assert five_bit_r is not None, "Unsuccessful bech32.convertbits call"
-        return bech32.bech32_encode(prefix, five_bit_r)
+        return Address(addr=data, prefix=prefix)
 
     def to_secp256k1_any(self) -> Any:
         if self._key_type == SECP256K1_KEY_TYPE:
@@ -66,7 +65,7 @@ class PrivateKey:
         pubkey_obj = privkey_obj.get_verifying_key()
         return PublicKey(pub_key=pubkey_obj.to_string("compressed"), key_type=self._key_type)
 
-    def to_address(self, prefix: str = DEFAULT_BECH32_PREFIX) -> str:
+    def to_address(self, prefix: str = DEFAULT_BECH32_PREFIX) -> Address:
         return self.to_public_key().to_address(prefix=prefix)
 
     def to_hex(self) -> str:
@@ -104,4 +103,4 @@ def mnemonic_to_privkey(mnemonic: str, passphrase: str = '', path: str = ETH_DER
 
 def pubkey_to_address(pubkey: bytes, prefix: str = DEFAULT_BECH32_PREFIX,
                       key_type: str = ETHSECP256K1_KEY_TYPE, ) -> str:
-    return PublicKey(pub_key=pubkey, key_type=key_type).to_address(prefix)
+    return PublicKey(pub_key=pubkey, key_type=key_type).to_address(prefix).to_string()
