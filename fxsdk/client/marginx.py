@@ -4,7 +4,7 @@ from typing import Optional
 from fxsdk.client.grpc import Client, GRPCBlockHeightHeader
 from fxsdk.dec import dec_from_str
 from fxsdk.msg.marginx import new_position_from_proto, new_order_from_proto, Order, Position, \
-    new_pair_funding_rate_from_proto, PairFundingRate, OrderDepths, PairPrice, new_order_depths_from_proto
+    new_pair_funding_rate_from_proto, PairFundingRate, OrderDepths, PairPrice, new_order_depths_from_proto, DecCoin
 
 from fxsdk.x.marginx.oracle.v1.query_pb2 import QueryPriceRequest, QueryMarketRequest
 from fxsdk.x.marginx.oracle.v1.types_pb2 import Market
@@ -20,6 +20,17 @@ class MarginXClient(Client):
 
     def __init__(self, url: str = 'localhost:9090'):
         super().__init__(url)
+
+    def query_dec_balance(self, address: str, denom: str, height: Optional[int] = 0) -> DecCoin:
+        balance = self.query_balance(address, denom, height)
+        return DecCoin(balance.denom, dec_from_str(balance.amount))
+
+    def query_all_dec_balances(self, address: str, height: Optional[int] = 0) -> [DecCoin]:
+        balances = self.query_all_balances(address, height)
+        coins = []
+        for balance in balances:
+            coins.append(DecCoin(balance.denom, dec_from_str(balance.amount)))
+        return coins
 
     def query_oracle_price(self, pair_id: str, height: Optional[int] = 0) -> Decimal:
         metadata = [(GRPCBlockHeightHeader, str(height))]

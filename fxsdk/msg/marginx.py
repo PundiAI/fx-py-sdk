@@ -136,3 +136,8 @@ def new_order_depths_from_proto(asks: [OrderDepthProto], bids: [OrderDepthProto]
 class PairPrice(NamedTuple):
     pair_id: str
     price: Decimal
+
+
+class DecCoin(NamedTuple):
+    denom: str
+    amount: Decimal
