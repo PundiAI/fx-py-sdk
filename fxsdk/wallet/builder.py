@@ -57,10 +57,6 @@ class TxBuilder:
         prefix = self._prefix if prefix is None else prefix
         return self._private_key.to_address(prefix=prefix)
 
-    def acc_address(self):
-        addr = Address(self.address())
-        return addr.to_bytes()
-
     def sign(self, msgs: [Any], fee: Fee, account_number: int, sequence: int, timeout_height: int = 0) -> Tx:
         tx_body = TxBody(messages=msgs, memo=self._memo, timeout_height=timeout_height)
         tx_body_bytes = tx_body.SerializeToString()
