@@ -74,12 +74,8 @@ class JsonRpcClient(Base):
 
     def _request(self, path, **kwargs):
         rpc_request = self._get_rpc_request(path, **kwargs)
-        try:
-            response = self.session.post(self._endpoint_url, data=rpc_request.encode(), headers=_get_headers())
-            return self._handle_response(response)
-        except ChunkedEncodingError:
-            print(f'Error getting {ujson.loads(rpc_request)["params"]}')
-            traceback.print_exc()
+        response = self.session.post(self._endpoint_url, data=rpc_request.encode(), headers=_get_headers())
+        return self._handle_response(response)
 
     def _request_session(self, path, params=None):
         kwargs = {
@@ -97,7 +93,7 @@ class JsonRpcClient(Base):
             res = response.json()
 
             if 'error' in res and res['error']:
-                raise Exception(response)
+                raise RPCException(response)
 
             # by default return full response
             # if it's a normal response we have a data attribute, return that
@@ -105,20 +101,20 @@ class JsonRpcClient(Base):
                 res = res['result']
             return res
         except ValueError:
-            raise Exception('Invalid Response: %s' % response.text)
+            raise RPCException('Invalid Response: %s' % response.text)
 
     @staticmethod
     def _handle_session_response(response):
         if not str(response.status_code).startswith('2'):
-            raise Exception(response)
+            raise RPCException(response)
         try:
             res = response.json()
 
             if 'code' in res and res['code'] != "200000":
-                raise Exception(response)
+                raise RPCException(response)
 
             if 'success' in res and not res['success']:
-                raise Exception(response)
+                raise RPCException(response)
 
             # by default return full response
             # if it's a normal response we have a data attribute, return that
@@ -286,3 +282,21 @@ class RpcRequest:
             request['params'] = self._params
 
         return ujson.dumps(self._sort_request(request), ensure_ascii=False)
+
+
+class RPCException(Exception):
+    def __init__(self, response):
+        self.code = 0
+        try:
+            json_res = ujson.loads(response.content)
+        except ValueError:
+            self.message = 'Invalid JSON error message from Binance Chain: {}'.format(response.text)
+        else:
+            self.code = json_res['error']['code']
+            self.message = json_res['error']['message']
+        self.status_code = response.status_code
+        self.response = response
+        self.request = getattr(response, 'request', None)
+
+    def __str__(self):  # pragma: no cover
+        return f'RPCError(code={self.code}): {self.message}'
