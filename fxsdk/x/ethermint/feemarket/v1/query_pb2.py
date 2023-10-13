@@ -12,7 +12,7 @@ _sym_db = _symbol_database.Default()
 
 
 from fxsdk.x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
-from ethermint.feemarket.v1 import feemarket_pb2 as ethermint_dot_feemarket_dot_v1_dot_feemarket__pb2
+from fxsdk.x.ethermint.feemarket.v1 import feemarket_pb2 as ethermint_dot_feemarket_dot_v1_dot_feemarket__pb2
 from google.api import annotations_pb2 as google_dot_api_dot_annotations__pb2
 
 

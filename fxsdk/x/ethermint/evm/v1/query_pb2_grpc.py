@@ -2,8 +2,8 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from ethermint.evm.v1 import query_pb2 as ethermint_dot_evm_dot_v1_dot_query__pb2
-from ethermint.evm.v1 import tx_pb2 as ethermint_dot_evm_dot_v1_dot_tx__pb2
+from fxsdk.x.ethermint.evm.v1 import query_pb2 as ethermint_dot_evm_dot_v1_dot_query__pb2
+from fxsdk.x.ethermint.evm.v1 import tx_pb2 as ethermint_dot_evm_dot_v1_dot_tx__pb2
 
 
 class QueryStub(object):

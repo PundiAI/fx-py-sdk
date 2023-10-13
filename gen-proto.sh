@@ -24,10 +24,13 @@ done
 
 find "$OUT_DIR" -type d -exec touch {}/__init__.py \;
 
+# Fix imports
 find "$OUT_DIR" -name '*.py' -print0 | xargs -0 -I{} perl -pi -e 's|from fx.|from fxsdk.x.fx.|g' {}
 find "$OUT_DIR" -name '*_pb2.py' -print0 | xargs -0 -I{} perl -pi -e 's|from cosmos.proto import|from fxsdk.x.cosmos_proto import|g' {}
-find "$OUT_DIR" -name '*.py' -print0 | xargs -0 -I{} perl -pi -e 's|from cosmos.|from fxsdk.x.cosmos.|g' {}
-find "$OUT_DIR" -name '*.py' -print0 | xargs -0 -I{} perl -pi -e 's|from tendermint.|from fxsdk.x.tendermint.|g' {}
 find "$OUT_DIR" -name '*_pb2.py' -print0 | xargs -0 -I{} perl -pi -e 's|from gogoproto import|from fxsdk.x.gogoproto import|g' {}
-find "$OUT_DIR" -name '*.py' -print0 | xargs -0 -I{} perl -pi -e 's|from ibc.|from fxsdk.x.ibc.|g' {}
-find "$OUT_DIR" -name '*.py' -print0 | xargs -0 -I{} perl -pi -e 's|from marginx.|from fxsdk.x.marginx.|g' {}
+for dir in "$OUT_DIR"/*; do
+  [[ ! -d $dir ]] && continue
+  echo "$dir" | grep 'pycache\|x\/fx\|cosmos_proto\|gogoproto' && continue
+  package=$(basename "$dir")
+  find "$OUT_DIR" -name '*.py' -print0 | xargs -0 -I{} perl -pi -e "s|from $package.|from fxsdk.x.$package.|g" {}
+done
