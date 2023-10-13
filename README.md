@@ -12,10 +12,19 @@ pip install fx-py-sdk
 
 ```python
 from fxsdk.client.grpc import Client
+from fxsdk.wallet.builder import TxBuilder
+from fxsdk.x.cosmos.base.v1beta1.coin_pb2 import Coin
 
 if __name__ == '__main__':
-    chain_id = Client(url='localhost:9090').query_chain_id()
-    print('chain id:', chain_id)
+    grpc_cli = Client(url='127.0.0.1:9090')
+    mnemonic = 'test test test test test test test test test test test junk'
+    prefix = 'fx'
+    
+    tx_builder = TxBuilder.from_mnemonic(mnemonic=mnemonic, prefix=prefix)
+    to = tx_builder.from_address().to_string()
+    amount = [Coin(amount='100', denom='FX')]
+    tx_response = grpc_cli.bank_send(tx_builder, to, amount)
+    print(tx_response)
 ```
 
 ## Development
