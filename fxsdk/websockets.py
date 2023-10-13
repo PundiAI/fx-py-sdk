@@ -124,13 +124,11 @@ class WebsocketManagerBase:
 
     def __init__(self, endpoint_url: str):
         self.endpoint_url = endpoint_url
-        self._callback = None
         self._conn = None
-        self._loop = None
         self._log = logging.getLogger(__name__)
 
     @classmethod
-    async def create(cls, endpoint_url: str, callback, loop=None):
+    async def create(cls, endpoint_url: str, callback=None, loop=None):
         """Create a WebsocketManagerBase instance
 
         :param endpoint_url: node endpoint url
@@ -139,13 +137,13 @@ class WebsocketManagerBase:
         :return:
         """
         self = WebsocketManagerBase(endpoint_url)
-        self._loop = loop if loop else asyncio.get_event_loop()
-        self._callback = callback
-        self._conn = ReconnectingWebsocket(endpoint_url, recv=self._recv, loop=self._loop)
+        loop = loop if loop else asyncio.get_event_loop()
+        callback = callback if callback else self.receive
+        self._conn = ReconnectingWebsocket(endpoint_url, recv=callback, loop=loop)
         return self
 
-    async def _recv(self, msg: Dict):
-        await self._callback(msg)
+    def receive(self, data: Dict):
+        self._log.info(f"received data: {data}")
 
     async def close(self):
         await self._conn.cancel()

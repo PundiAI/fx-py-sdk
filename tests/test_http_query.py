@@ -1,4 +1,5 @@
 import asyncio
+import json
 import logging.config
 import unittest
 from typing import Dict
@@ -7,6 +8,7 @@ import yaml
 
 from fxsdk.client.http import HttpRpcClient, AsyncHttpRpcClient
 from fxsdk.client.websockets import WebsocketRpcClient
+from fxsdk.msg import event
 
 rpc_url = "http://127.0.0.1:26657"
 rpc_client = HttpRpcClient(rpc_url)
@@ -24,14 +26,14 @@ class TestWebsocketRpcClient(unittest.IsolatedAsyncioTestCase):
 
     @staticmethod
     async def callback(msg: Dict):
-        print("-------------", msg)
+        print("msg", json.dumps(msg))
 
     async def test_get_block_result(self):
         logging.config.dictConfig(yaml.safe_load(open('../.logging.yaml', 'r')))
         ws_client = await WebsocketRpcClient.create(endpoint_url=rpc_url, callback=self.callback)
         await ws_client.get_status()
-        await ws_client.subscribe("tm.event='NewBlock'")
-        await asyncio.sleep(10)
+        await ws_client.subscribe(event.EVENT_NEW_BLOCK)
+        await asyncio.sleep(5)
         ws_client.close()
 
 
