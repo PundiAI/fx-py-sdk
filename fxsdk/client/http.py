@@ -246,7 +246,8 @@ class HttpRpcClient(BaseRpcClient):
         return self._request('block', data=data)
 
     def block_search(self, query: str, prove: Optional[bool] = None,
-                     page: Optional[int] = None, limit: Optional[int] = None):
+                     page: Optional[int] = None, per_page: Optional[int] = None,
+                     order_by: Optional[str] = None):
         data = {
             'query': query
         }
@@ -254,8 +255,10 @@ class HttpRpcClient(BaseRpcClient):
             data['prove'] = str(prove)
         if page:
             data['page'] = str(page)
-        if limit:
-            data['limit'] = str(limit)
+        if per_page:
+            data['per_page'] = str(per_page)
+        if order_by:
+            data['order_by'] = order_by
 
         return self._request('block_search', data=data)
 
@@ -328,7 +331,8 @@ class HttpRpcClient(BaseRpcClient):
         return self._request('tx', data=data)
 
     def tx_search(self, query: str, prove: Optional[bool] = None,
-                  page: Optional[int] = None, limit: Optional[int] = None):
+                  page: Optional[int] = None, per_page: Optional[int] = None,
+                  order_by: Optional[str] = None):
         data = {
             'query': query
         }
@@ -336,8 +340,10 @@ class HttpRpcClient(BaseRpcClient):
             data['prove'] = str(prove)
         if page:
             data['page'] = str(page)
-        if limit:
-            data['limit'] = str(limit)
+        if per_page:
+            data['per_page'] = str(per_page)
+        if order_by:
+            data['order_by'] = order_by
 
         return self._request('tx_search', data=data)
 
@@ -474,7 +480,8 @@ class AsyncHttpRpcClient(BaseRpcClient):
         return await self._request('block', data=data)
 
     async def block_search(self, query: str, prove: Optional[bool] = None,
-                           page: Optional[int] = None, limit: Optional[int] = None):
+                           page: Optional[int] = None, per_page: Optional[int] = None,
+                           order_by: Optional[str] = None):
         data = {
             'query': query
         }
@@ -482,8 +489,10 @@ class AsyncHttpRpcClient(BaseRpcClient):
             data['prove'] = str(prove)
         if page:
             data['page'] = str(page)
-        if limit:
-            data['limit'] = str(limit)
+        if per_page:
+            data['per_page'] = str(per_page)
+        if order_by:
+            data['order_by'] = order_by
 
         return await self._request('block_search', data=data)
 
@@ -561,7 +570,8 @@ class AsyncHttpRpcClient(BaseRpcClient):
         return await self._request('tx', data=data)
 
     async def tx_search(self, query: str, prove: Optional[bool] = None,
-                        page: Optional[int] = None, limit: Optional[int] = None):
+                        page: Optional[int] = None, per_page: Optional[int] = None,
+                        order_by: Optional[str] = None):
         data = {
             'query': query
         }
@@ -569,7 +579,9 @@ class AsyncHttpRpcClient(BaseRpcClient):
             data['prove'] = str(prove)
         if page:
             data['page'] = str(page)
-        if limit:
-            data['limit'] = str(limit)
+        if per_page:
+            data['per_page'] = str(per_page)
+        if order_by:
+            data['order_by'] = order_by
 
         return await self._request('tx_search', data=data)

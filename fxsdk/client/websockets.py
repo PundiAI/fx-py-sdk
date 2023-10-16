@@ -137,7 +137,8 @@ class WebsocketRpcClient(WebsocketManagerBase):
         await self._conn.send_rpc_message('block', data)
 
     async def block_search(self, query: str, prove: Optional[bool] = None,
-                           page: Optional[int] = None, limit: Optional[int] = None):
+                           page: Optional[int] = None, per_page: Optional[int] = None,
+                           order_by: Optional[str] = None):
         data = {
             'query': query
         }
@@ -145,8 +146,10 @@ class WebsocketRpcClient(WebsocketManagerBase):
             data['prove'] = str(prove)
         if page:
             data['page'] = str(page)
-        if limit:
-            data['limit'] = str(limit)
+        if per_page:
+            data['per_page'] = str(per_page)
+        if order_by:
+            data['order_by'] = order_by
 
         await self._conn.send_rpc_message('block_search', data)
 
@@ -225,7 +228,8 @@ class WebsocketRpcClient(WebsocketManagerBase):
         await self._conn.send_rpc_message('tx', data)
 
     async def tx_search(self, query: str, prove: Optional[bool] = None,
-                        page: Optional[int] = None, limit: Optional[int] = None):
+                        page: Optional[int] = None, per_page: Optional[int] = None,
+                        order_by: Optional[str] = None):
         data = {
             'query': query
         }
@@ -233,7 +237,9 @@ class WebsocketRpcClient(WebsocketManagerBase):
             data['prove'] = str(prove)
         if page:
             data['page'] = str(page)
-        if limit:
-            data['limit'] = str(limit)
+        if per_page:
+            data['per_page'] = str(per_page)
+        if order_by:
+            data['order_by'] = order_by
 
         await self._conn.send_rpc_message('tx_search', data)
