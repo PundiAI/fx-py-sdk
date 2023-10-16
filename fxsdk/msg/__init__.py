@@ -1,3 +1,4 @@
+import base64
 import time
 import datetime
 
@@ -7,6 +8,7 @@ from decimal import Decimal
 from fxsdk.dec import dec_to_str
 from fxsdk.x.cosmos.bank.v1beta1.tx_pb2 import MsgSend
 from fxsdk.x.cosmos.base.v1beta1.coin_pb2 import Coin
+from fxsdk.x.cosmos.tx.v1beta1.tx_pb2 import Tx, TxRaw, TxBody, AuthInfo
 from fxsdk.x.fx.dex.v1.order_pb2 import Direction
 from fxsdk.x.fx.dex.v1.tx_pb2 import MsgCreateOrder, MsgCancelOrder, MsgClosePosition, MsgAddMargin
 from fxsdk.x.ibc.applications.transfer.v1.tx_pb2 import MsgTransfer
@@ -131,3 +133,17 @@ def new_msg_add_margin(owner: str, pair_id: str, position_id: str, amount: Decim
         value=msg.SerializeToString(),
     )
     return msg_any
+
+
+def new_tx_from_base64(base64_tx: str) -> Tx:
+    tx_raw = TxRaw()
+    tx_raw.ParseFromString(base64.b64decode(base64_tx))
+    tx_body = TxBody()
+    tx_body.ParseFromString(tx_raw.body_bytes)
+    auth_info = AuthInfo()
+    auth_info.ParseFromString(tx_raw.auth_info_bytes)
+    return Tx(
+        body=tx_body,
+        auth_info=auth_info,
+        signatures=tx_raw.signatures
+    )
