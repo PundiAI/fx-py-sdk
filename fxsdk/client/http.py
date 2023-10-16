@@ -108,6 +108,9 @@ class BaseRpcClient:
 
 
 class HttpRpcClient(BaseRpcClient):
+    __doc__ = """
+    https://docs.cometbft.com/main/rpc/
+    """
 
     def __init__(self, endpoint_url, requests_params: Optional[Dict] = None, max_retries=3):
         super(HttpRpcClient, self).__init__(endpoint_url, requests_params)
@@ -204,7 +207,7 @@ class HttpRpcClient(BaseRpcClient):
         data = {
             'height': str(height),
             'page': str(page),
-            'per_page': '10'
+            'per_page': '30'
         }
         return self._request('validators', data=data)
 
@@ -349,7 +352,7 @@ class HttpRpcClient(BaseRpcClient):
 
 
 class AsyncHttpRpcClient(BaseRpcClient):
-    DEFAULT_TIMEOUT = 10
+    __doc__ = HttpRpcClient.__doc__
 
     @classmethod
     async def create(cls, endpoint_url):
@@ -449,7 +452,7 @@ class AsyncHttpRpcClient(BaseRpcClient):
         data = {
             'height': str(height),
             'page': str(page),
-            'per_page': '10'
+            'per_page': '30'
         }
         return await self._request('validators', data=data)
 

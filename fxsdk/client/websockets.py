@@ -3,7 +3,7 @@ import itertools
 from urllib.parse import urlparse
 from typing import Callable, Awaitable, Optional, Dict
 
-from fxsdk.client.http import RpcRequest
+from fxsdk.client.http import RpcRequest, HttpRpcClient
 from fxsdk.websockets import ReconnectingWebsocket, WebsocketManagerBase
 from fxsdk.x.cosmos.tx.v1beta1.service_pb2 import BroadcastMode, BROADCAST_MODE_SYNC, BROADCAST_MODE_ASYNC, \
     BROADCAST_MODE_BLOCK
@@ -44,6 +44,7 @@ class ReconnectingRpcWebsocket(ReconnectingWebsocket):
 
 
 class WebsocketRpcClient(WebsocketManagerBase):
+    __doc__ = HttpRpcClient.__doc__
 
     @classmethod
     async def create(cls, endpoint_url: str, loop, callback: Callable[[Dict], Awaitable[None]] = None):
@@ -106,7 +107,7 @@ class WebsocketRpcClient(WebsocketManagerBase):
         data = {
             'height': str(height),
             'page': str(page),
-            'per_page': '10'
+            'per_page': '30'
         }
         await self._conn.send_rpc_message('validators', data)
 
