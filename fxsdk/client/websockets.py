@@ -47,13 +47,6 @@ class WebsocketRpcClient(WebsocketManagerBase):
 
     @classmethod
     async def create(cls, endpoint_url: str, loop, callback: Callable[[Dict], Awaitable[None]] = None):
-        """Create a WebsocketRpcClient instance
-
-        :param endpoint_url: node endpoint url
-        :param loop: asyncio loop
-        :param callback: async callback function to receive messages
-        :return:
-        """
         self = WebsocketRpcClient()
         loop = loop if loop else asyncio.get_event_loop()
         callback = callback if callback else self.receive
@@ -101,7 +94,7 @@ class WebsocketRpcClient(WebsocketManagerBase):
         await self._conn.send_rpc_message('num_unconfirmed_txs')
 
     async def get_status(self):
-        await self._conn.send_rpc_message(method='status')
+        await self._conn.send_rpc_message('status')
 
     async def get_health(self):
         await self._conn.send_rpc_message('health')
@@ -131,11 +124,31 @@ class WebsocketRpcClient(WebsocketManagerBase):
 
         await self._conn.send_rpc_message('abci_query', data)
 
+    async def get_block_header(self, height: Optional[int] = None):
+        data = {
+            'height': str(height) if height else None
+        }
+        await self._conn.send_rpc_message('block_header', data)
+
     async def get_block(self, height: Optional[int] = None):
         data = {
             'height': str(height) if height else None
         }
         await self._conn.send_rpc_message('block', data)
+
+    async def block_search(self, query: str, prove: Optional[bool] = None,
+                           page: Optional[int] = None, limit: Optional[int] = None):
+        data = {
+            'query': query
+        }
+        if prove:
+            data['prove'] = str(prove)
+        if page:
+            data['page'] = str(page)
+        if limit:
+            data['limit'] = str(limit)
+
+        await self._conn.send_rpc_message('block_search', data)
 
     async def get_block_results(self, height: int):
         data = {
@@ -157,6 +170,18 @@ class WebsocketRpcClient(WebsocketManagerBase):
             'maxHeight': str(max_height)
         }
         await self._conn.send_rpc_message('blockchain', data)
+
+    async def check_tx(self, tx: Tx):
+        tx_raw = TxRaw(
+            body_bytes=tx.body.SerializeToString(),
+            auth_info_bytes=tx.auth_info.SerializeToString(),
+            signatures=tx.signatures,
+        )
+        tx_bytes = tx_raw.SerializeToString()
+        data = {
+            'tx': '0x' + tx_bytes.hex(),
+        }
+        await self._conn.send_rpc_message('check_tx', data)
 
     async def broadcast_tx(self, tx: Tx, mode: BroadcastMode = BROADCAST_MODE_SYNC):
         tx_raw = TxRaw(

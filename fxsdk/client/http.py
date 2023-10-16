@@ -179,6 +179,9 @@ class HttpRpcClient(BaseRpcClient):
     def get_consensus_state(self):
         return self._request('consensus_state')
 
+    def dump_consensus_state(self):
+        return self._request('dump_consensus_state')
+
     def get_genesis(self):
         return self._request('genesis')
 
@@ -187,6 +190,9 @@ class HttpRpcClient(BaseRpcClient):
 
     def get_num_unconfirmed_txs(self):
         return self._request('num_unconfirmed_txs')
+
+    def get_unconfirmed_txs(self):
+        return self._request('unconfirmed_txs')
 
     def get_status(self):
         return self._request('status')
@@ -225,12 +231,33 @@ class HttpRpcClient(BaseRpcClient):
 
         return self._request('abci_query', data=data)
 
+    def get_block_header(self, height: Optional[int] = None):
+        data = {
+            'height': str(height) if height else None
+        }
+
+        return self._request('header', data=data)
+
     def get_block(self, height: Optional[int] = None):
         data = {
             'height': str(height) if height else None
         }
 
         return self._request('block', data=data)
+
+    def block_search(self, query: str, prove: Optional[bool] = None,
+                     page: Optional[int] = None, limit: Optional[int] = None):
+        data = {
+            'query': query
+        }
+        if prove:
+            data['prove'] = str(prove)
+        if page:
+            data['page'] = str(page)
+        if limit:
+            data['limit'] = str(limit)
+
+        return self._request('block_search', data=data)
 
     def get_block_results(self, height: int):
         data = {
@@ -255,6 +282,17 @@ class HttpRpcClient(BaseRpcClient):
         }
 
         return self._request('blockchain', data=data)
+
+    def check_tx(self, tx: Tx):
+        tx_raw = TxRaw(body_bytes=tx.body.SerializeToString(),
+                       auth_info_bytes=tx.auth_info.SerializeToString(),
+                       signatures=tx.signatures)
+        tx_bytes = tx_raw.SerializeToString()
+        data = {
+            'tx': '0x' + tx_bytes.hex(),
+        }
+
+        return self._request('check_tx', data=data)
 
     def broadcast_tx(self, tx: Tx, mode: BroadcastMode = BROADCAST_MODE_SYNC):
         tx_raw = TxRaw(body_bytes=tx.body.SerializeToString(),
@@ -423,11 +461,31 @@ class AsyncHttpRpcClient(BaseRpcClient):
 
         return await self._request('abci_query', data=data)
 
+    async def get_block_header(self, height: Optional[int] = None):
+        data = {
+            'height': str(height) if height else None
+        }
+        return await self._request('header', data=data)
+
     async def get_block(self, height: Optional[int] = None):
         data = {
             'height': str(height) if height else None
         }
         return await self._request('block', data=data)
+
+    async def block_search(self, query: str, prove: Optional[bool] = None,
+                           page: Optional[int] = None, limit: Optional[int] = None):
+        data = {
+            'query': query
+        }
+        if prove:
+            data['prove'] = str(prove)
+        if page:
+            data['page'] = str(page)
+        if limit:
+            data['limit'] = str(limit)
+
+        return await self._request('block_search', data=data)
 
     async def get_block_results(self, height: int):
         data = {
@@ -450,6 +508,17 @@ class AsyncHttpRpcClient(BaseRpcClient):
         }
 
         return await self._request('blockchain', data=data)
+
+    async def check_tx(self, tx: Tx):
+        tx_raw = TxRaw(body_bytes=tx.body.SerializeToString(),
+                       auth_info_bytes=tx.auth_info.SerializeToString(),
+                       signatures=tx.signatures)
+        tx_bytes = tx_raw.SerializeToString()
+        data = {
+            'tx': '0x' + tx_bytes.hex(),
+        }
+
+        return await self._request('check_tx', data=data)
 
     async def broadcast_tx(self, tx: Tx, mode: BroadcastMode = BROADCAST_MODE_SYNC):
         tx_raw = TxRaw(body_bytes=tx.body.SerializeToString(),
