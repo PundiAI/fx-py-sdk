@@ -30,7 +30,8 @@ class TestWebsocketRpcClient(unittest.IsolatedAsyncioTestCase):
 
     async def test_get_block_result(self):
         logging.config.dictConfig(yaml.safe_load(open('../.logging.yaml', 'r')))
-        ws_client = await WebsocketRpcClient.create(endpoint_url=rpc_url, callback=self.callback)
+        loop = asyncio.get_event_loop()
+        ws_client = await WebsocketRpcClient.create(endpoint_url=rpc_url, loop=loop, callback=self.callback)
         await ws_client.get_status()
         await ws_client.subscribe(event.EVENT_NEW_BLOCK)
         await asyncio.sleep(5)

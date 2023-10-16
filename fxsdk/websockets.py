@@ -15,8 +15,8 @@ class ReconnectingWebsocket:
     TIMEOUT: int = 10
     PROTOCOL_VERSION: str = '1.0.0'
 
-    def __init__(self, endpoint_url: str, recv, retry_count: int = 5, loop=None):
-        self._loop = loop if loop else asyncio.get_event_loop()
+    def __init__(self, endpoint_url: str, loop, recv, retry_count: int = 5):
+        self._loop = loop
         self._log = logging.getLogger(__name__)
         self._recv = recv
         self._reconnect_attempts: int = 0
@@ -57,17 +57,14 @@ class ReconnectingWebsocket:
                         else:
                             try:
                                 evt_obj = json.loads(evt)
-                            except ValueError:
-                                pass
-                            else:
                                 await self._recv(evt_obj)
+                            except ValueError:
+                                self._log.error("invalid json: {}".format(evt))
                 except websockets.ConnectionClosed as e:
                     self._log.debug('conn closed:{}'.format(e))
-                    keep_waiting = False
                     await self._reconnect()
                 except Exception as e:
                     self._log.debug('ws exception:{}'.format(e))
-                    keep_waiting = False
                     await self._reconnect()
         except Exception as e:
             self._log.info(f"websocket error: {e}")
@@ -122,13 +119,12 @@ class ReconnectingWebsocket:
 
 class WebsocketManagerBase:
 
-    def __init__(self, endpoint_url: str):
-        self.endpoint_url = endpoint_url
+    def __init__(self):
         self._conn = None
         self._log = logging.getLogger(__name__)
 
     @classmethod
-    async def create(cls, endpoint_url: str, callback=None, loop=None):
+    async def create(cls, endpoint_url: str, loop, callback=None):
         """Create a WebsocketManagerBase instance
 
         :param endpoint_url: node endpoint url
@@ -136,14 +132,14 @@ class WebsocketManagerBase:
         :param callback: async callback function to receive messages
         :return:
         """
-        self = WebsocketManagerBase(endpoint_url)
-        loop = loop if loop else asyncio.get_event_loop()
+        self = WebsocketManagerBase()
+        loop = loop
         callback = callback if callback else self.receive
         self._conn = ReconnectingWebsocket(endpoint_url, recv=callback, loop=loop)
         return self
 
-    def receive(self, data: Dict):
-        self._log.info(f"received data: {data}")
+    async def receive(self, data: Dict):
+        self._log.debug(f"received data: {data}")
 
     async def close(self):
         await self._conn.cancel()
