@@ -53,9 +53,13 @@ class PublicKey:
 
 class PrivateKey:
 
-    def __init__(self, priv_key: bytes, key_type: str = ETHSECP256K1_KEY_TYPE) -> None:
+    def __init__(self, priv_key: bytes, key_type: str = ETHSECP256K1_KEY_TYPE):
         self._priv_key = priv_key
         self._key_type = key_type
+
+    @classmethod
+    def from_hex(cls, priv_key: str, key_type: str = ETHSECP256K1_KEY_TYPE) -> 'PrivateKey':
+        return cls(priv_key=bytes.fromhex(priv_key), key_type=key_type)
 
     def with_key_type(self, key_type):
         self._key_type = key_type

@@ -35,6 +35,19 @@ class TxBuilder:
         private_key = mnemonic_to_privkey(mnemonic=mnemonic, path=path, key_type=key_type)
         return cls(private_key=private_key, chain_id=chain_id, gas_price=gas_price, prefix=prefix)
 
+    @classmethod
+    def from_mnemonic_with_index(cls, mnemonic: str, index: int = 0,
+                                 chain_id: str = '',
+                                 gas_price: Coin = Coin(amount='0', denom=''),
+                                 prefix: str = DEFAULT_BECH32_PREFIX,
+                                 key_type: str = ETHSECP256K1_KEY_TYPE):
+        if key_type == ETHSECP256K1_KEY_TYPE:
+            path = "m/44'/60'/0'/0/{}".format(index)
+        else:
+            path = "m/44'/118'/0'/0/{}".format(index)
+        private_key = mnemonic_to_privkey(mnemonic=mnemonic, path=path, key_type=key_type)
+        return cls(private_key=private_key, chain_id=chain_id, gas_price=gas_price, prefix=prefix)
+
     def with_memo(self, memo: str):
         self._memo = memo
 
