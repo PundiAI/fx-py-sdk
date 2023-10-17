@@ -6,6 +6,7 @@ import aiohttp
 import requests
 import ujson
 
+from datetime import datetime
 from typing import Optional, Dict
 from requests.sessions import HTTPAdapter
 from urllib3.util.retry import Retry
@@ -122,6 +123,21 @@ class HttpRpcClient(BaseRpcClient):
             return res
         except ValueError:
             raise RPCException('Invalid Response: %s' % response.text)
+
+    def avg_block_time_interval(self, block_interval: int = 2000) -> float:
+        latest_block = self.get_block()
+        latest_block_time = latest_block.get('block', {}).get('header', {}).get('time', None)
+        latest_block_height = int(latest_block.get('block', {}).get('header', {}).get('height', None))
+        if latest_block_height > block_interval:
+            block = self.get_block(latest_block_height - block_interval)
+        else:
+            block = self.get_block(1)
+            block_interval = latest_block_height - 1
+        block_time = block.get('block', {}).get('header', {}).get('time', None)
+        latest_block_time = datetime.fromisoformat(latest_block_time)
+        block_time = datetime.fromisoformat(block_time)
+        block_time_interval = (latest_block_time.timestamp() - block_time.timestamp()) / block_interval
+        return float(format(block_time_interval, '.3f'))
 
     def get_abci_info(self) -> Dict:
         return self._request('abci_info')

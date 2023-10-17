@@ -44,6 +44,18 @@ class TestGrpcClientQuery(unittest.TestCase):
         res = grpc_cli.query_node_info()
         print(res)
 
+    def test_query_latest_block(self):
+        res = grpc_cli.query_latest_block()
+        print(res)
+
+    def test_query_block_by_height(self):
+        res = grpc_cli.query_block_by_height(height=1)
+        print(res)
+
+    def test_avg_block_time_interval(self):
+        res = grpc_cli.avg_block_time_interval()
+        print(res)
+
 
 if __name__ == '__main__':
     unittest.main()

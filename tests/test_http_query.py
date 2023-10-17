@@ -1,10 +1,7 @@
 import asyncio
 import json
-import logging.config
 import unittest
 from typing import Dict
-
-import yaml
 
 from fxsdk.client.http import HttpRpcClient, AsyncHttpRpcClient
 from fxsdk.client.websockets import WebsocketRpcClient
@@ -21,6 +18,16 @@ class TestHttpRpcClient(unittest.TestCase):
         print(block_res)
         assert block_res
 
+    def test_get_block(self):
+        block = rpc_client.get_block()
+        print(json.dumps(block, indent=2))
+        assert block
+
+    def test_avg_block_time_interval(self):
+        res = rpc_client.avg_block_time_interval()
+        print(res)
+        assert res
+
 
 class TestWebsocketRpcClient(unittest.IsolatedAsyncioTestCase):
 
@@ -29,7 +36,6 @@ class TestWebsocketRpcClient(unittest.IsolatedAsyncioTestCase):
         print("msg", json.dumps(msg))
 
     async def test_get_block_result(self):
-        logging.config.dictConfig(yaml.safe_load(open('../.logging.yaml', 'r')))
         loop = asyncio.get_event_loop()
         ws_client = await WebsocketRpcClient.create(endpoint_url=rpc_url, loop=loop, callback=self.callback)
         await ws_client.get_status()

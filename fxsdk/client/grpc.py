@@ -106,7 +106,7 @@ class Client:
         return parse_coins(response.minimum_gas_price)
 
     def query_block_by_height(self, height: int) -> Block:
-        response = TendermintClient(self.channel).GetBlockByHeight(GetBlockByHeightRequest(height))
+        response = TendermintClient(self.channel).GetBlockByHeight(GetBlockByHeightRequest(height=height))
         return response.block
 
     def query_latest_block(self) -> Block:
@@ -123,6 +123,19 @@ class Client:
     def query_node_info(self) -> DefaultNodeInfo:
         response = TendermintClient(self.channel).GetNodeInfo(GetNodeInfoRequest())
         return response.default_node_info
+
+    def avg_block_time_interval(self, block_interval: int = 2000) -> float:
+        latest_block = self.query_latest_block()
+        latest_block_height = latest_block.header.height
+        latest_block_time = latest_block.header.time.seconds
+        if latest_block_height > block_interval:
+            block = self.query_block_by_height(latest_block_height - block_interval)
+        else:
+            block = self.query_block_by_height(1)
+            block_interval = latest_block_height - 1
+        block_time = block.header.time.seconds
+        block_time_interval = (latest_block_time - block_time) / block_interval
+        return float(format(block_time_interval, '.3f'))
 
     def query_tx(self, tx_hash: str) -> GetTxResponse:
         return TxClient(self.channel).GetTx(GetTxRequest(hash=tx_hash))
