@@ -141,3 +141,10 @@ class PairPrice(NamedTuple):
 class DecCoin(NamedTuple):
     denom: str
     amount: Decimal
+
+
+class AssetValue(NamedTuple):
+    balances: [DecCoin]
+    order_margin: Decimal
+    position_margin: Decimal
+    unrealized_pnl: Decimal

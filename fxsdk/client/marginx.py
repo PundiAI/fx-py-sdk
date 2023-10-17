@@ -1,10 +1,14 @@
 from decimal import Decimal
 from typing import Optional
 
+from grpc import StatusCode
+from grpc._channel import _InactiveRpcError
+
 from fxsdk.client.grpc import Client, GRPCBlockHeightHeader
 from fxsdk.dec import dec_from_str
 from fxsdk.msg.marginx import new_position_from_proto, new_order_from_proto, Order, Position, \
-    new_pair_funding_rate_from_proto, PairFundingRate, OrderDepths, PairPrice, new_order_depths_from_proto, DecCoin
+    new_pair_funding_rate_from_proto, PairFundingRate, OrderDepths, PairPrice, new_order_depths_from_proto, DecCoin, \
+    AssetValue
 
 from fxsdk.x.marginx.oracle.v1.query_pb2 import QueryPriceRequest, QueryMarketRequest
 from fxsdk.x.marginx.oracle.v1.types_pb2 import Market
@@ -12,8 +16,8 @@ from fxsdk.x.marginx.oracle.v1.query_pb2_grpc import QueryStub as OracleClient
 
 from fxsdk.x.fx.dex.v1.funding_pb2 import Funding
 from fxsdk.x.fx.dex.v1.query_pb2_grpc import QueryStub as DexClient
-from fxsdk.x.fx.dex.v1.query_pb2 import QueryPositionReq, QueryOrderRequest, QueryOrdersRequest, QueryFundingReq, \
-    QueryPairFundingRatesReq, QueryOrderbookReq, QueryMarkPriceReq
+from fxsdk.x.fx.dex.v1.query_pb2 import QueryOrderRequest, QueryOrdersRequest, QueryFundingReq, \
+    QueryPairFundingRatesReq, QueryOrderbookReq, QueryMarkPriceReq, QueryPositionsReq
 
 
 class MarginXClient(Client):
@@ -31,6 +35,28 @@ class MarginXClient(Client):
         for balance in balances:
             coins.append(DecCoin(balance.denom, dec_from_str(balance.amount)))
         return coins
+
+    def query_values(self, owner: str, pair_id: str, height: Optional[int] = 0) -> AssetValue:
+        balances = self.query_all_dec_balances(owner, height)
+        order_margin = Decimal(0)
+        try:
+            orders = self.query_orders(owner=owner, pair_id=pair_id, height=height)
+            for order in orders:
+                order_margin += (order.quote_quantity + order.locked_fee - order.cost_fee)
+        except _InactiveRpcError as e:
+            if e.code() != StatusCode.UNKNOWN:
+                raise e
+        position_margin = Decimal(0)
+        unrealized_pnl = Decimal(0)
+        try:
+            positions = self.query_positions(owner=owner, pair_id=pair_id, height=height)
+            for position in positions:
+                position_margin += position.margin
+                unrealized_pnl += position.unrealized_pnl
+        except _InactiveRpcError as e:
+            if e.code() != StatusCode.UNKNOWN:
+                raise e
+        return AssetValue(balances, order_margin, position_margin, unrealized_pnl)
 
     def query_oracle_price(self, pair_id: str, height: Optional[int] = 0) -> Decimal:
         metadata = [(GRPCBlockHeightHeader, str(height))]
@@ -57,8 +83,8 @@ class MarginXClient(Client):
 
     def query_positions(self, owner: str, pair_id: str, height: Optional[int] = 0) -> [Position]:
         metadata = [(GRPCBlockHeightHeader, str(height))]
-        response = DexClient(self.channel).QueryPosition(QueryPositionReq(owner=owner, pair_id=pair_id),
-                                                         metadata=metadata)
+        response = DexClient(self.channel).QueryPositions(QueryPositionsReq(owner=owner, pair_id=pair_id),
+                                                          metadata=metadata)
         positions = []
         for position in response.positions:
             positions.append(new_position_from_proto(position))
