@@ -1,10 +1,10 @@
 from google.api import annotations_pb2 as _annotations_pb2
-from fx.dex.v1 import order_pb2 as _order_pb2
-from fx.dex.v1 import match_pb2 as _match_pb2
-from fx.dex.v1 import position_pb2 as _position_pb2
-from fx.dex.v1 import params_pb2 as _params_pb2
-from fx.dex.v1 import funding_pb2 as _funding_pb2
-from gogoproto import gogo_pb2 as _gogo_pb2
+from fxsdk.x.fx.dex.v1 import order_pb2 as _order_pb2
+from fxsdk.x.fx.dex.v1 import match_pb2 as _match_pb2
+from fxsdk.x.fx.dex.v1 import position_pb2 as _position_pb2
+from fxsdk.x.fx.dex.v1 import params_pb2 as _params_pb2
+from fxsdk.x.fx.dex.v1 import funding_pb2 as _funding_pb2
+from fxsdk.x.gogoproto import gogo_pb2 as _gogo_pb2
 from google.protobuf.internal import containers as _containers
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message

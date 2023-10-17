@@ -1,5 +1,5 @@
-from ibc.applications.interchain_accounts.controller.v1 import controller_pb2 as _controller_pb2
-from gogoproto import gogo_pb2 as _gogo_pb2
+from fxsdk.x.ibc.applications.interchain_accounts.controller.v1 import controller_pb2 as _controller_pb2
+from fxsdk.x.gogoproto import gogo_pb2 as _gogo_pb2
 from google.api import annotations_pb2 as _annotations_pb2
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message

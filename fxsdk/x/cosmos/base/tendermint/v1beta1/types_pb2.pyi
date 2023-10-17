@@ -1,7 +1,7 @@
-from gogoproto import gogo_pb2 as _gogo_pb2
-from tendermint.types import types_pb2 as _types_pb2
-from tendermint.types import evidence_pb2 as _evidence_pb2
-from tendermint.version import types_pb2 as _types_pb2_1
+from fxsdk.x.gogoproto import gogo_pb2 as _gogo_pb2
+from fxsdk.x.tendermint.types import types_pb2 as _types_pb2
+from fxsdk.x.tendermint.types import evidence_pb2 as _evidence_pb2
+from fxsdk.x.tendermint.version import types_pb2 as _types_pb2_1
 from google.protobuf import timestamp_pb2 as _timestamp_pb2
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message

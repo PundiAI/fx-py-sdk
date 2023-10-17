@@ -1,6 +1,6 @@
-from fx.legacy.gravity.v1 import tx_pb2 as _tx_pb2
-from fx.legacy.gravity.v1 import types_pb2 as _types_pb2
-from gogoproto import gogo_pb2 as _gogo_pb2
+from fxsdk.x.fx.legacy.gravity.v1 import tx_pb2 as _tx_pb2
+from fxsdk.x.fx.legacy.gravity.v1 import types_pb2 as _types_pb2
+from fxsdk.x.gogoproto import gogo_pb2 as _gogo_pb2
 from google.protobuf.internal import containers as _containers
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
