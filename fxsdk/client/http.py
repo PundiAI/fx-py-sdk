@@ -22,6 +22,7 @@ def _get_headers():
     return {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
+        'User-Agent': 'fx-py-sdk',
     }
 
 
@@ -87,26 +88,6 @@ class BaseRpcClient:
         rpc_request = RpcRequest(path, next(self.id_generator), kwargs.get('data', None))
         return str(rpc_request)
 
-    def request_kwargs(self, method, **kwargs):
-        # set default requests timeout
-        kwargs['timeout'] = 10
-
-        # add our global requests params
-        if self._requests_params:
-            kwargs.update(self._requests_params)
-
-        kwargs['data'] = kwargs.get('data', {})
-        kwargs['headers'] = kwargs.get('headers', {})
-
-        if kwargs['data'] and method == 'get':
-            kwargs['params'] = kwargs['data']
-            del (kwargs['data'])
-
-        if method == 'post':
-            kwargs['headers']['content-type'] = 'text/plain'
-
-        return kwargs
-
 
 class HttpRpcClient(BaseRpcClient):
     __doc__ = """
@@ -121,23 +102,13 @@ class HttpRpcClient(BaseRpcClient):
                             status_forcelist=[500, 502, 503, 504])
             self.session.mount('http://', HTTPAdapter(max_retries=retries))
 
-    def _request(self, path, **kwargs):
+    def _request(self, path, **kwargs) -> Dict:
         rpc_request = self._get_rpc_request(path, **kwargs)
         response = self.session.post(self._endpoint_url, data=rpc_request.encode(), headers=_get_headers())
         return self._handle_response(response)
 
-    def _request_session(self, path, params=None):
-        kwargs = {
-            'params': params,
-            'headers': _get_headers()
-        }
-
-        response = self.session.get(f"{self._endpoint_url}/{path}", **kwargs)
-
-        return self._handle_session_response(response)
-
     @staticmethod
-    def _handle_response(response):
+    def _handle_response(response) -> Dict:
         try:
             res = response.json()
 
@@ -152,59 +123,34 @@ class HttpRpcClient(BaseRpcClient):
         except ValueError:
             raise RPCException('Invalid Response: %s' % response.text)
 
-    @staticmethod
-    def _handle_session_response(response):
-        if not str(response.status_code).startswith('2'):
-            raise RPCException(response)
-        try:
-            res = response.json()
-
-            if 'code' in res and res['code'] != "200000":
-                raise RPCException(response)
-
-            if 'success' in res and not res['success']:
-                raise RPCException(response)
-
-            # by default return full response
-            # if it's a normal response we have a data attribute, return that
-            if 'result' in res:
-                res = res['result']
-            return res
-        except ValueError:
-            raise Exception('Invalid Response: %s' % response.text)
-
-    def get_path_list(self):
-        res = self._request(self._endpoint_url, method="get")
-        return res.content
-
-    def get_abci_info(self):
+    def get_abci_info(self) -> Dict:
         return self._request('abci_info')
 
-    def get_consensus_state(self):
+    def get_consensus_state(self) -> Dict:
         return self._request('consensus_state')
 
-    def dump_consensus_state(self):
+    def dump_consensus_state(self) -> Dict:
         return self._request('dump_consensus_state')
 
-    def get_genesis(self):
+    def get_genesis(self) -> Dict:
         return self._request('genesis')
 
-    def get_net_info(self):
+    def get_net_info(self) -> Dict:
         return self._request('net_info')
 
-    def get_num_unconfirmed_txs(self):
+    def get_num_unconfirmed_txs(self) -> Dict:
         return self._request('num_unconfirmed_txs')
 
-    def get_unconfirmed_txs(self):
+    def get_unconfirmed_txs(self) -> Dict:
         return self._request('unconfirmed_txs')
 
-    def get_status(self):
+    def get_status(self) -> Dict:
         return self._request('status')
 
-    def get_health(self):
+    def get_health(self) -> Dict:
         return self._request('health')
 
-    def get_validators(self, height: int, page: int = 1):
+    def get_validators(self, height: int, page: int = 1) -> Dict:
         data = {
             'height': str(height),
             'page': str(page),
@@ -212,7 +158,7 @@ class HttpRpcClient(BaseRpcClient):
         }
         return self._request('validators', data=data)
 
-    def get_consensus_params(self, height: Optional[int] = None):
+    def get_consensus_params(self, height: Optional[int] = None) -> Dict:
         data = {
             'height': str(height) if height else None
         }
@@ -222,7 +168,7 @@ class HttpRpcClient(BaseRpcClient):
     def abci_query(self, data: str,
                    path: Optional[str] = None,
                    prove: Optional[bool] = None,
-                   height: Optional[int] = None):
+                   height: Optional[int] = None) -> Dict:
         data = {
             'data': data
         }
@@ -235,14 +181,14 @@ class HttpRpcClient(BaseRpcClient):
 
         return self._request('abci_query', data=data)
 
-    def get_block_header(self, height: Optional[int] = None):
+    def get_block_header(self, height: Optional[int] = None) -> Dict:
         data = {
             'height': str(height) if height else None
         }
 
         return self._request('header', data=data)
 
-    def get_block(self, height: Optional[int] = None):
+    def get_block(self, height: Optional[int] = None) -> Dict:
         data = {
             'height': str(height) if height else None
         }
@@ -251,7 +197,7 @@ class HttpRpcClient(BaseRpcClient):
 
     def block_search(self, query: str, prove: Optional[bool] = None,
                      page: Optional[int] = None, per_page: Optional[int] = None,
-                     order_by: Optional[str] = None):
+                     order_by: Optional[str] = None) -> Dict:
         data = {
             'query': query
         }
@@ -266,21 +212,21 @@ class HttpRpcClient(BaseRpcClient):
 
         return self._request('block_search', data=data)
 
-    def get_block_results(self, height: int):
+    def get_block_results(self, height: int) -> Dict:
         data = {
             'height': str(height)
         }
 
         return self._request('block_results', data=data)
 
-    def get_block_commit(self, height: int):
+    def get_block_commit(self, height: int) -> Dict:
         data = {
             'height': str(height)
         }
 
         return self._request('commit', data=data)
 
-    def get_blockchain_info(self, min_height: int, max_height: int):
+    def get_blockchain_info(self, min_height: int, max_height: int) -> Dict:
         assert max_height > min_height
 
         data = {
@@ -290,7 +236,7 @@ class HttpRpcClient(BaseRpcClient):
 
         return self._request('blockchain', data=data)
 
-    def check_tx(self, tx: Tx):
+    def check_tx(self, tx: Tx) -> Dict:
         tx_raw = TxRaw(body_bytes=tx.body.SerializeToString(),
                        auth_info_bytes=tx.auth_info.SerializeToString(),
                        signatures=tx.signatures)
@@ -301,7 +247,7 @@ class HttpRpcClient(BaseRpcClient):
 
         return self._request('check_tx', data=data)
 
-    def broadcast_tx(self, tx: Tx, mode: BroadcastMode = BROADCAST_MODE_SYNC):
+    def broadcast_tx(self, tx: Tx, mode: BroadcastMode = BROADCAST_MODE_SYNC) -> Dict:
         tx_raw = TxRaw(body_bytes=tx.body.SerializeToString(),
                        auth_info_bytes=tx.auth_info.SerializeToString(),
                        signatures=tx.signatures)
@@ -316,16 +262,16 @@ class HttpRpcClient(BaseRpcClient):
         elif mode == BROADCAST_MODE_BLOCK:
             return self._broadcast_tx_commit(data)
 
-    def _broadcast_tx_async(self, tx_data: Dict):
-        return self._request_session("broadcast_tx_async", params=tx_data)
+    def _broadcast_tx_async(self, data: Dict) -> Dict:
+        return self._request("broadcast_tx_async", data=data)
 
-    def _broadcast_tx_commit(self, tx_data: Dict):
-        return self._request_session("broadcast_tx_commit", params=tx_data)
+    def _broadcast_tx_commit(self, data: Dict) -> Dict:
+        return self._request("broadcast_tx_commit", data=data)
 
-    def _broadcast_tx_sync(self, tx_data: Dict):
-        return self._request_session("broadcast_tx_sync", params=tx_data)
+    def _broadcast_tx_sync(self, data: Dict) -> Dict:
+        return self._request("broadcast_tx_sync", data=data)
 
-    def get_tx(self, tx_hash: str, prove: Optional[bool] = None):
+    def get_tx(self, tx_hash: str, prove: Optional[bool] = None) -> Dict:
         data = {
             'hash': tx_hash
         }
@@ -336,7 +282,7 @@ class HttpRpcClient(BaseRpcClient):
 
     def tx_search(self, query: str, prove: Optional[bool] = None,
                   page: Optional[int] = None, per_page: Optional[int] = None,
-                  order_by: Optional[str] = None):
+                  order_by: Optional[str] = None) -> Dict:
         data = {
             'query': query
         }
@@ -356,7 +302,7 @@ class AsyncHttpRpcClient(BaseRpcClient):
     __doc__ = HttpRpcClient.__doc__
 
     @classmethod
-    async def create(cls, endpoint_url):
+    async def create(cls, endpoint_url) -> 'AsyncHttpRpcClient':
         return AsyncHttpRpcClient(endpoint_url)
 
     def _init_session(self, **kwargs):
@@ -368,21 +314,13 @@ class AsyncHttpRpcClient(BaseRpcClient):
         )
         return session
 
-    async def _request(self, path, **kwargs):
+    async def _request(self, path, **kwargs) -> Dict:
         rpc_request = self._get_rpc_request(path, **kwargs)
         response = await self.session.post(self._endpoint_url, data=rpc_request.encode(), headers=_get_headers())
         return await self._handle_response(response)
 
-    async def _request_session(self, path, params=None):
-        kwargs = {
-            'params': params,
-            'headers': _get_headers()
-        }
-        response = await self.session.get(f"{self._endpoint_url}/{path}", **kwargs)
-        return await self._handle_session_response(response)
-
     @staticmethod
-    async def _handle_response(response):
+    async def _handle_response(response) -> Dict:
         try:
             res = await response.json()
 
@@ -395,61 +333,36 @@ class AsyncHttpRpcClient(BaseRpcClient):
                 res = res['result']
             return res
         except ValueError:
-            raise Exception('Invalid Response: %s' % response.text)
+            raise RPCException('Invalid Response: %s' % await response.text())
 
-    @staticmethod
-    async def _handle_session_response(response):
-        if not str(response.status).startswith('2'):
-            raise RPCException(response)
-        try:
-            res = await response.json()
-
-            if 'code' in res and res['code'] != "200000":
-                raise RPCException(response)
-
-            if 'success' in res and not res['success']:
-                raise RPCException(response)
-
-            # by default return full response
-            # if it's a normal response we have a data attribute, return that
-            if 'result' in res:
-                res = res['result']
-            return res
-        except ValueError:
-            raise Exception('Invalid Response: %s' % await response.text())
-
-    async def get_path_list(self):
-        res = await self.session.get(self._endpoint_url)
-        return await res.text()
-
-    async def get_abci_info(self):
+    async def get_abci_info(self) -> Dict:
         return await self._request('abci_info')
 
-    async def get_consensus_state(self):
+    async def get_consensus_state(self) -> Dict:
         return await self._request('consensus_state')
 
-    async def dump_consensus_state(self):
+    async def dump_consensus_state(self) -> Dict:
         return await self._request('dump_consensus_state')
 
-    async def get_genesis(self):
+    async def get_genesis(self) -> Dict:
         return await self._request('genesis')
 
-    async def get_net_info(self):
+    async def get_net_info(self) -> Dict:
         return await self._request('net_info')
 
-    async def get_num_unconfirmed_txs(self):
+    async def get_num_unconfirmed_txs(self) -> Dict:
         return await self._request('num_unconfirmed_txs')
 
-    async def get_status(self):
+    async def get_status(self) -> Dict:
         return await self._request('status')
 
-    async def get_health(self):
+    async def get_health(self) -> Dict:
         return await self._request('health')
 
-    async def get_unconfirmed_txs(self):
+    async def get_unconfirmed_txs(self) -> Dict:
         return await self._request('unconfirmed_txs')
 
-    async def get_validators(self, height: int, page: int = 1):
+    async def get_validators(self, height: int, page: int = 1) -> Dict:
         data = {
             'height': str(height),
             'page': str(page),
@@ -458,7 +371,7 @@ class AsyncHttpRpcClient(BaseRpcClient):
         return await self._request('validators', data=data)
 
     async def abci_query(self, data: str, path: Optional[str] = None,
-                         prove: Optional[bool] = None, height: Optional[int] = None):
+                         prove: Optional[bool] = None, height: Optional[int] = None) -> Dict:
         data = {
             'data': data
         }
@@ -471,13 +384,13 @@ class AsyncHttpRpcClient(BaseRpcClient):
 
         return await self._request('abci_query', data=data)
 
-    async def get_block_header(self, height: Optional[int] = None):
+    async def get_block_header(self, height: Optional[int] = None) -> Dict:
         data = {
             'height': str(height) if height else None
         }
         return await self._request('header', data=data)
 
-    async def get_block(self, height: Optional[int] = None):
+    async def get_block(self, height: Optional[int] = None) -> Dict:
         data = {
             'height': str(height) if height else None
         }
@@ -485,7 +398,7 @@ class AsyncHttpRpcClient(BaseRpcClient):
 
     async def block_search(self, query: str, prove: Optional[bool] = None,
                            page: Optional[int] = None, per_page: Optional[int] = None,
-                           order_by: Optional[str] = None):
+                           order_by: Optional[str] = None) -> Dict:
         data = {
             'query': query
         }
@@ -500,19 +413,19 @@ class AsyncHttpRpcClient(BaseRpcClient):
 
         return await self._request('block_search', data=data)
 
-    async def get_block_results(self, height: int):
+    async def get_block_results(self, height: int) -> Dict:
         data = {
             'height': str(height)
         }
         return await self._request('block_results', data=data)
 
-    async def get_block_commit(self, height: int):
+    async def get_block_commit(self, height: int) -> Dict:
         data = {
             'height': str(height)
         }
         return await self._request('commit', data=data)
 
-    async def get_blockchain_info(self, min_height: int, max_height: int):
+    async def get_blockchain_info(self, min_height: int, max_height: int) -> Dict:
         assert max_height > min_height
 
         data = {
@@ -522,7 +435,7 @@ class AsyncHttpRpcClient(BaseRpcClient):
 
         return await self._request('blockchain', data=data)
 
-    async def check_tx(self, tx: Tx):
+    async def check_tx(self, tx: Tx) -> Dict:
         tx_raw = TxRaw(body_bytes=tx.body.SerializeToString(),
                        auth_info_bytes=tx.auth_info.SerializeToString(),
                        signatures=tx.signatures)
@@ -533,7 +446,7 @@ class AsyncHttpRpcClient(BaseRpcClient):
 
         return await self._request('check_tx', data=data)
 
-    async def broadcast_tx(self, tx: Tx, mode: BroadcastMode = BROADCAST_MODE_SYNC):
+    async def broadcast_tx(self, tx: Tx, mode: BroadcastMode = BROADCAST_MODE_SYNC) -> Dict:
         tx_raw = TxRaw(body_bytes=tx.body.SerializeToString(),
                        auth_info_bytes=tx.auth_info.SerializeToString(),
                        signatures=tx.signatures)
@@ -548,23 +461,23 @@ class AsyncHttpRpcClient(BaseRpcClient):
         elif mode == BROADCAST_MODE_BLOCK:
             return await self._broadcast_tx_commit(data)
 
-    async def _broadcast_tx_async(self, tx_data: Dict):
-        return await self._request_session('broadcast_tx_async', params=tx_data)
+    async def _broadcast_tx_async(self, data: Dict) -> Dict:
+        return await self._request('broadcast_tx_async', data=data)
 
-    async def _broadcast_tx_commit(self, tx_data: Dict):
-        return await self._request_session('broadcast_tx_commit', params=tx_data)
+    async def _broadcast_tx_commit(self, data: Dict) -> Dict:
+        return await self._request('broadcast_tx_commit', data=data)
 
-    async def _broadcast_tx_sync(self, tx_data: Dict):
-        return await self._request_session('broadcast_tx_sync', params=tx_data)
+    async def _broadcast_tx_sync(self, data: Dict) -> Dict:
+        return await self._request('broadcast_tx_sync', data=data)
 
-    async def get_consensus_params(self, height: Optional[int] = None):
+    async def get_consensus_params(self, height: Optional[int] = None) -> Dict:
         data = {
             'height': str(height) if height else None
         }
 
         return await self._request('consensus_params', data=data)
 
-    async def get_tx(self, tx_hash: str, prove: Optional[bool] = None):
+    async def get_tx(self, tx_hash: str, prove: Optional[bool] = None) -> Dict:
         data = {
             'hash': tx_hash
         }
@@ -575,7 +488,7 @@ class AsyncHttpRpcClient(BaseRpcClient):
 
     async def tx_search(self, query: str, prove: Optional[bool] = None,
                         page: Optional[int] = None, per_page: Optional[int] = None,
-                        order_by: Optional[str] = None):
+                        order_by: Optional[str] = None) -> Dict:
         data = {
             'query': query
         }
