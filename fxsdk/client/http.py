@@ -1,5 +1,6 @@
 import asyncio
 import itertools
+import logging
 
 import aiohttp
 import requests
@@ -73,7 +74,7 @@ class BaseRpcClient:
     def __init__(self, endpoint_url, requests_params: Optional[Dict] = None):
         self._endpoint_url = endpoint_url
         self._requests_params = requests_params
-
+        self._log = logging.getLogger(__name__)
         self.session = self._init_session()
 
     @staticmethod
