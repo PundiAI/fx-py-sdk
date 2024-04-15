@@ -1,16 +1,16 @@
 from google.protobuf.any_pb2 import Any
 
-from fxpysdk.fxsdk.wallet.address import DEFAULT_BECH32_PREFIX, Address
-from fxpysdk.fxsdk.wallet.key import PrivateKey, ETH_DERIVATION_PATH, mnemonic_to_privkey, ETHSECP256K1_KEY_TYPE
-from fxpysdk.fxsdk.x.cosmos.base.v1beta1.coin_pb2 import Coin
-from fxpysdk.fxsdk.x.cosmos.tx.signing.v1beta1.signing_pb2 import SIGN_MODE_DIRECT
-from fxpysdk.fxsdk.x.cosmos.tx.v1beta1.tx_pb2 import AuthInfo
-from fxpysdk.fxsdk.x.cosmos.tx.v1beta1.tx_pb2 import Fee
-from fxpysdk.fxsdk.x.cosmos.tx.v1beta1.tx_pb2 import ModeInfo
-from fxpysdk.fxsdk.x.cosmos.tx.v1beta1.tx_pb2 import SignDoc
-from fxpysdk.fxsdk.x.cosmos.tx.v1beta1.tx_pb2 import SignerInfo
-from fxpysdk.fxsdk.x.cosmos.tx.v1beta1.tx_pb2 import Tx
-from fxpysdk.fxsdk.x.cosmos.tx.v1beta1.tx_pb2 import TxBody
+from fxsdk.wallet.address import DEFAULT_BECH32_PREFIX, Address
+from fxsdk.wallet.key import PrivateKey, ETH_DERIVATION_PATH, mnemonic_to_privkey, ETHSECP256K1_KEY_TYPE
+from fxsdk.x.cosmos.base.v1beta1.coin_pb2 import Coin
+from fxsdk.x.cosmos.tx.signing.v1beta1.signing_pb2 import SIGN_MODE_DIRECT
+from fxsdk.x.cosmos.tx.v1beta1.tx_pb2 import AuthInfo
+from fxsdk.x.cosmos.tx.v1beta1.tx_pb2 import Fee
+from fxsdk.x.cosmos.tx.v1beta1.tx_pb2 import ModeInfo
+from fxsdk.x.cosmos.tx.v1beta1.tx_pb2 import SignDoc
+from fxsdk.x.cosmos.tx.v1beta1.tx_pb2 import SignerInfo
+from fxsdk.x.cosmos.tx.v1beta1.tx_pb2 import Tx
+from fxsdk.x.cosmos.tx.v1beta1.tx_pb2 import TxBody
 
 
 class TxBuilder:

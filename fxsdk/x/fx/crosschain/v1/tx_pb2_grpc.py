@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from fxpysdk.fxsdk.x.fx.crosschain.v1 import tx_pb2 as fx_dot_crosschain_dot_v1_dot_tx__pb2
+from fxsdk.x.fx.crosschain.v1 import tx_pb2 as fx_dot_crosschain_dot_v1_dot_tx__pb2
 
 
 class MsgStub(object):

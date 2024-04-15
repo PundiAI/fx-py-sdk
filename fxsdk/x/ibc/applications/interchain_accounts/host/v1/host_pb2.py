@@ -11,7 +11,7 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from fxpysdk.fxsdk.x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from fxsdk.x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n7ibc/applications/interchain_accounts/host/v1/host.proto\x12,ibc.applications.interchain_accounts.host.v1\x1a\x14gogoproto/gogo.proto\"j\n\x06Params\x12-\n\x0chost_enabled\x18\x01 \x01(\x08\x42\x17\xf2\xde\x1f\x13yaml:\"host_enabled\"\x12\x31\n\x0e\x61llow_messages\x18\x02 \x03(\tB\x19\xf2\xde\x1f\x15yaml:\"allow_messages\"BLZJgithub.com/cosmos/ibc-go/v6/modules/apps/27-interchain-accounts/host/typesb\x06proto3')

@@ -11,7 +11,7 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from fxpysdk.fxsdk.x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from fxsdk.x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 import proofs_pb2 as proofs__pb2
 
 

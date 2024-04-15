@@ -1,7 +1,7 @@
-from fxpysdk.fxsdk.x.gogoproto import gogo_pb2 as _gogo_pb2
+from fxsdk.x.gogoproto import gogo_pb2 as _gogo_pb2
 from google.protobuf import any_pb2 as _any_pb2
-from fxpysdk.fxsdk.x.ibc.core.client.v1 import client_pb2 as _client_pb2
-from fxpysdk.fxsdk.x.ibc.core.connection.v1 import connection_pb2 as _connection_pb2
+from fxsdk.x.ibc.core.client.v1 import client_pb2 as _client_pb2
+from fxsdk.x.ibc.core.connection.v1 import connection_pb2 as _connection_pb2
 from google.protobuf.internal import containers as _containers
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message

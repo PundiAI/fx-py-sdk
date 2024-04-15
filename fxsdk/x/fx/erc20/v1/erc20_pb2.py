@@ -11,8 +11,8 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from fxpysdk.fxsdk.x.cosmos.bank.v1beta1 import bank_pb2 as cosmos_dot_bank_dot_v1beta1_dot_bank__pb2
-from fxpysdk.fxsdk.x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from fxsdk.x.cosmos.bank.v1beta1 import bank_pb2 as cosmos_dot_bank_dot_v1beta1_dot_bank__pb2
+from fxsdk.x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x17\x66x/erc20/v1/erc20.proto\x12\x0b\x66x.erc20.v1\x1a\x1e\x63osmos/bank/v1beta1/bank.proto\x1a\x14gogoproto/gogo.proto\"t\n\tTokenPair\x12\x15\n\rerc20_address\x18\x01 \x01(\t\x12\r\n\x05\x64\x65nom\x18\x02 \x01(\t\x12\x0f\n\x07\x65nabled\x18\x03 \x01(\x08\x12*\n\x0e\x63ontract_owner\x18\x04 \x01(\x0e\x32\x12.fx.erc20.v1.Owner:\x04\xe8\xa0\x1f\x01\"w\n\x14RegisterCoinProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x35\n\x08metadata\x18\x03 \x01(\x0b\x32\x1d.cosmos.bank.v1beta1.MetadataB\x04\xc8\xde\x1f\x00:\x04\xe8\xa0\x1f\x00\"h\n\x15RegisterERC20Proposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x14\n\x0c\x65rc20address\x18\x03 \x01(\t\x12\x0f\n\x07\x61liases\x18\x04 \x03(\t:\x04\xe8\xa0\x1f\x00\"X\n\x1dToggleTokenConversionProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\r\n\x05token\x18\x03 \x01(\t:\x04\xe8\xa0\x1f\x01\"b\n\x18UpdateDenomAliasProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\r\n\x05\x64\x65nom\x18\x03 \x01(\t\x12\r\n\x05\x61lias\x18\x04 \x01(\t:\x04\xe8\xa0\x1f\x00*J\n\x05Owner\x12\x15\n\x11OWNER_UNSPECIFIED\x10\x00\x12\x10\n\x0cOWNER_MODULE\x10\x01\x12\x12\n\x0eOWNER_EXTERNAL\x10\x02\x1a\x04\x88\xa3\x1e\x00\x42,Z*github.com/functionx/fx-core/x/erc20/typesb\x06proto3')

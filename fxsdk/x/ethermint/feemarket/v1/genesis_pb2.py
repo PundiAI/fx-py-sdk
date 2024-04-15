@@ -11,8 +11,8 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from fxpysdk.fxsdk.x.ethermint.feemarket.v1 import feemarket_pb2 as ethermint_dot_feemarket_dot_v1_dot_feemarket__pb2
-from fxpysdk.fxsdk.x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from fxsdk.x.ethermint.feemarket.v1 import feemarket_pb2 as ethermint_dot_feemarket_dot_v1_dot_feemarket__pb2
+from fxsdk.x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n$ethermint/feemarket/v1/genesis.proto\x12\x16\x65thermint.feemarket.v1\x1a&ethermint/feemarket/v1/feemarket.proto\x1a\x14gogoproto/gogo.proto\"g\n\x0cGenesisState\x12\x34\n\x06params\x18\x01 \x01(\x0b\x32\x1e.ethermint.feemarket.v1.ParamsB\x04\xc8\xde\x1f\x00\x12\x11\n\tblock_gas\x18\x03 \x01(\x04J\x04\x08\x02\x10\x03R\x08\x62\x61se_feeB.Z,github.com/evmos/ethermint/x/feemarket/typesb\x06proto3')

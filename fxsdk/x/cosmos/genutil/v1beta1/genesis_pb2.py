@@ -11,7 +11,7 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from fxpysdk.fxsdk.x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from fxsdk.x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n$cosmos/genutil/v1beta1/genesis.proto\x12\x16\x63osmos.genutil.v1beta1\x1a\x14gogoproto/gogo.proto\"G\n\x0cGenesisState\x12\x37\n\x07gen_txs\x18\x01 \x03(\x0c\x42&\xea\xde\x1f\x06gentxs\xfa\xde\x1f\x18\x65ncoding/json.RawMessageB.Z,github.com/cosmos/cosmos-sdk/x/genutil/typesb\x06proto3')

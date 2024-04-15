@@ -11,8 +11,8 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from fxpysdk.fxsdk.x.fx.erc20.v1 import erc20_pb2 as fx_dot_erc20_dot_v1_dot_erc20__pb2
-from fxpysdk.fxsdk.x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from fxsdk.x.fx.erc20.v1 import erc20_pb2 as fx_dot_erc20_dot_v1_dot_erc20__pb2
+from fxsdk.x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 from google.protobuf import duration_pb2 as google_dot_protobuf_dot_duration__pb2
 
 

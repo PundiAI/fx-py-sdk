@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from fxpysdk.fxsdk.x.marginx.oracle.v1 import query_pb2 as marginx_dot_oracle_dot_v1_dot_query__pb2
+from fxsdk.x.marginx.oracle.v1 import query_pb2 as marginx_dot_oracle_dot_v1_dot_query__pb2
 
 
 class QueryStub(object):

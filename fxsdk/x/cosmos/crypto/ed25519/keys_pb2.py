@@ -11,7 +11,7 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from fxpysdk.fxsdk.x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from fxsdk.x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n cosmos/crypto/ed25519/keys.proto\x12\x15\x63osmos.crypto.ed25519\x1a\x14gogoproto/gogo.proto\"9\n\x06PubKey\x12)\n\x03key\x18\x01 \x01(\x0c\x42\x1c\xfa\xde\x1f\x18\x63rypto/ed25519.PublicKey:\x04\x98\xa0\x1f\x00\"5\n\x07PrivKey\x12*\n\x03key\x18\x01 \x01(\x0c\x42\x1d\xfa\xde\x1f\x19\x63rypto/ed25519.PrivateKeyB2Z0github.com/cosmos/cosmos-sdk/crypto/keys/ed25519b\x06proto3')
