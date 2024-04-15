@@ -1,7 +1,7 @@
-from fxsdk.x.gogoproto import gogo_pb2 as _gogo_pb2
-from fxsdk.x.fx.dex.v1 import funding_pb2 as _funding_pb2
-from fxsdk.x.fx.dex.v1 import margin_pb2 as _margin_pb2
-from fxsdk.x.cosmos.base.v1beta1 import coin_pb2 as _coin_pb2
+from fxpysdk.fxsdk.x.gogoproto import gogo_pb2 as _gogo_pb2
+from fxpysdk.fxsdk.x.fx.dex.v1 import funding_pb2 as _funding_pb2
+from fxpysdk.fxsdk.x.fx.dex.v1 import margin_pb2 as _margin_pb2
+from fxpysdk.fxsdk.x.cosmos.base.v1beta1 import coin_pb2 as _coin_pb2
 from google.protobuf.internal import containers as _containers
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message

@@ -1,7 +1,7 @@
-from fxsdk.x.fx.legacy.gravity.v1 import genesis_pb2 as _genesis_pb2
-from fxsdk.x.fx.legacy.gravity.v1 import tx_pb2 as _tx_pb2
-from fxsdk.x.fx.legacy.gravity.v1 import types_pb2 as _types_pb2
-from fxsdk.x.gogoproto import gogo_pb2 as _gogo_pb2
+from fxpysdk.fxsdk.x.fx.legacy.gravity.v1 import genesis_pb2 as _genesis_pb2
+from fxpysdk.fxsdk.x.fx.legacy.gravity.v1 import tx_pb2 as _tx_pb2
+from fxpysdk.fxsdk.x.fx.legacy.gravity.v1 import types_pb2 as _types_pb2
+from fxpysdk.fxsdk.x.gogoproto import gogo_pb2 as _gogo_pb2
 from google.api import annotations_pb2 as _annotations_pb2
 from google.protobuf.internal import containers as _containers
 from google.protobuf import descriptor as _descriptor

@@ -11,7 +11,7 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from fxsdk.x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from fxpysdk.fxsdk.x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n$ethermint/types/v1/dynamic_fee.proto\x12\x12\x65thermint.types.v1\x1a\x14gogoproto/gogo.proto\"i\n\x1b\x45xtensionOptionDynamicFeeTx\x12J\n\x12max_priority_price\x18\x01 \x01(\tB.\xc8\xde\x1f\x00\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.IntB\"Z github.com/evmos/ethermint/typesb\x06proto3')

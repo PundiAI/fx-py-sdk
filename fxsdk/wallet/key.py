@@ -7,9 +7,9 @@ from mnemonic import Mnemonic
 from eth_hash.auto import keccak as keccak_256
 from google.protobuf.any_pb2 import Any
 
-from fxsdk.x.cosmos.crypto.secp256k1.keys_pb2 import PubKey as secp256k1PubKey
-from fxsdk.x.ethermint.crypto.v1.ethsecp256k1.keys_pb2 import PubKey as ethsecp256k1PubKey
-from fxsdk.wallet.address import DEFAULT_BECH32_PREFIX, Address
+from fxpysdk.fxsdk.x.cosmos.crypto.secp256k1.keys_pb2 import PubKey as secp256k1PubKey
+from fxpysdk.fxsdk.x.ethermint.crypto.v1.ethsecp256k1.keys_pb2 import PubKey as ethsecp256k1PubKey
+from fxpysdk.fxsdk.wallet.address import DEFAULT_BECH32_PREFIX, Address
 
 ETH_DERIVATION_PATH = "m/44'/60'/0'/0/0"
 ETHSECP256K1_KEY_TYPE = 'eth_secp256k1'

@@ -11,7 +11,7 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from fxsdk.x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from fxpysdk.fxsdk.x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n+ethermint/crypto/v1/ethsecp256k1/keys.proto\x12 ethermint.crypto.v1.ethsecp256k1\x1a\x14gogoproto/gogo.proto\"\x1b\n\x06PubKey\x12\x0b\n\x03key\x18\x01 \x01(\x0c:\x04\x98\xa0\x1f\x00\"\x16\n\x07PrivKey\x12\x0b\n\x03key\x18\x01 \x01(\x0c\x42\x30Z.github.com/evmos/ethermint/crypto/ethsecp256k1b\x06proto3')

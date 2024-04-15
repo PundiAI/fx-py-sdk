@@ -1,6 +1,6 @@
-from fxsdk.x.gogoproto import gogo_pb2 as _gogo_pb2
-from fxsdk.x.cosmos.base.query.v1beta1 import pagination_pb2 as _pagination_pb2
-from fxsdk.x.ibc.applications.transfer.v1 import transfer_pb2 as _transfer_pb2
+from fxpysdk.fxsdk.x.gogoproto import gogo_pb2 as _gogo_pb2
+from fxpysdk.fxsdk.x.cosmos.base.query.v1beta1 import pagination_pb2 as _pagination_pb2
+from fxpysdk.fxsdk.x.ibc.applications.transfer.v1 import transfer_pb2 as _transfer_pb2
 from google.api import annotations_pb2 as _annotations_pb2
 from google.protobuf.internal import containers as _containers
 from google.protobuf import descriptor as _descriptor

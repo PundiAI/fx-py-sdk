@@ -4,19 +4,19 @@ from typing import Optional
 from grpc import StatusCode
 from grpc._channel import _InactiveRpcError
 
-from fxsdk.client.grpc import Client, GRPCBlockHeightHeader
-from fxsdk.dec import dec_from_str
-from fxsdk.msg.marginx import new_position_from_proto, new_order_from_proto, Order, Position, \
+from fxpysdk.fxsdk.client.grpc import Client, GRPCBlockHeightHeader
+from fxpysdk.fxsdk.dec import dec_from_str
+from fxpysdk.fxsdk.msg.marginx import new_position_from_proto, new_order_from_proto, Order, Position, \
     new_pair_funding_rate_from_proto, PairFundingRate, OrderDepths, PairPrice, new_order_depths_from_proto, DecCoin, \
     AssetValue
 
-from fxsdk.x.marginx.oracle.v1.query_pb2 import QueryPriceRequest, QueryMarketRequest
-from fxsdk.x.marginx.oracle.v1.types_pb2 import Market
-from fxsdk.x.marginx.oracle.v1.query_pb2_grpc import QueryStub as OracleClient
+from fxpysdk.fxsdk.x.marginx.oracle.v1.query_pb2 import QueryPriceRequest, QueryMarketRequest
+from fxpysdk.fxsdk.x.marginx.oracle.v1.types_pb2 import Market
+from fxpysdk.fxsdk.x.marginx.oracle.v1.query_pb2_grpc import QueryStub as OracleClient
 
-from fxsdk.x.fx.dex.v1.funding_pb2 import Funding
-from fxsdk.x.fx.dex.v1.query_pb2_grpc import QueryStub as DexClient
-from fxsdk.x.fx.dex.v1.query_pb2 import QueryOrderRequest, QueryOrdersRequest, QueryFundingReq, \
+from fxpysdk.fxsdk.x.fx.dex.v1.funding_pb2 import Funding
+from fxpysdk.fxsdk.x.fx.dex.v1.query_pb2_grpc import QueryStub as DexClient
+from fxpysdk.fxsdk.x.fx.dex.v1.query_pb2 import QueryOrderRequest, QueryOrdersRequest, QueryFundingReq, \
     QueryPairFundingRatesReq, QueryOrderbookReq, QueryMarkPriceReq, QueryPositionsReq
 
 

@@ -11,10 +11,10 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from fxsdk.x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
-from fxsdk.x.marginx.oracle.v1 import types_pb2 as marginx_dot_oracle_dot_v1_dot_types__pb2
-from fxsdk.x.cosmos.msg.v1 import msg_pb2 as cosmos_dot_msg_dot_v1_dot_msg__pb2
-from fxsdk.x.cosmos_proto import cosmos_pb2 as cosmos__proto_dot_cosmos__pb2
+from fxpysdk.fxsdk.x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from fxpysdk.fxsdk.x.marginx.oracle.v1 import types_pb2 as marginx_dot_oracle_dot_v1_dot_types__pb2
+from fxpysdk.fxsdk.x.cosmos.msg.v1 import msg_pb2 as cosmos_dot_msg_dot_v1_dot_msg__pb2
+from fxpysdk.fxsdk.x.cosmos_proto import cosmos_pb2 as cosmos__proto_dot_cosmos__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1amarginx/oracle/v1/tx.proto\x12\x11marginx.oracle.v1\x1a\x14gogoproto/gogo.proto\x1a\x1dmarginx/oracle/v1/types.proto\x1a\x17\x63osmos/msg/v1/msg.proto\x1a\x19\x63osmos_proto/cosmos.proto\"\x86\x01\n\x1bMsgBatchSubmitOracleAnswers\x12\x14\n\x0c\x66rom_address\x18\x01 \x01(\t\x12\x36\n\x07\x61nswers\x18\x02 \x03(\x0b\x32\x1f.marginx.oracle.v1.OracleAnswerB\x04\xc8\xde\x1f\x00:\x19\x88\xa0\x1f\x00\xe8\xa0\x1f\x00\x82\xe7\xb0*\x0c\x66rom_address\"%\n#MsgBatchSubmitOracleAnswersResponse\"\x84\x01\n\x0cOracleAnswer\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x0e\n\x06height\x18\x02 \x01(\x03\x12\x41\n\x06\x61nswer\x18\x03 \x01(\tB1\xc8\xde\x1f\x00\xda\xde\x1f\x1b\x63osmossdk.io/math.LegacyDec\xd2\xb4-\ncosmos.Dec\x12\x11\n\tsignature\x18\x04 \x01(\x0c\"\x93\x01\n\x13MsgUpdateAggregator\x12+\n\tauthority\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12\x37\n\naggregator\x18\x02 \x01(\x0b\x32\x1d.marginx.oracle.v1.AggregatorB\x04\xc8\xde\x1f\x00:\x16\x88\xa0\x1f\x00\xe8\xa0\x1f\x00\x82\xe7\xb0*\tauthority\"\x1d\n\x1bMsgUpdateAggregatorResponse\"\xea\x01\n\x0fMsgPresetOracle\x12+\n\tauthority\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12\x30\n\x07markets\x18\x02 \x03(\x0b\x32\x19.marginx.oracle.v1.MarketB\x04\xc8\xde\x1f\x00\x12.\n\x06prices\x18\x03 \x03(\x0b\x32\x18.marginx.oracle.v1.PriceB\x04\xc8\xde\x1f\x00\x12\x38\n\x0b\x61ggregators\x18\x04 \x03(\x0b\x32\x1d.marginx.oracle.v1.AggregatorB\x04\xc8\xde\x1f\x00:\x0e\x82\xe7\xb0*\tauthority\"\x19\n\x17MsgPresetOracleResponse2\xd6\x02\n\x03Msg\x12\x82\x01\n\x18\x42\x61tchSubmitOracleAnswers\x12..marginx.oracle.v1.MsgBatchSubmitOracleAnswers\x1a\x36.marginx.oracle.v1.MsgBatchSubmitOracleAnswersResponse\x12j\n\x10UpdateAggregator\x12&.marginx.oracle.v1.MsgUpdateAggregator\x1a..marginx.oracle.v1.MsgUpdateAggregatorResponse\x12^\n\x0cPresetOracle\x12\".marginx.oracle.v1.MsgPresetOracle\x1a*.marginx.oracle.v1.MsgPresetOracleResponseB-Z+github.com/marginxio/marginx/x/oracle/typesb\x06proto3')

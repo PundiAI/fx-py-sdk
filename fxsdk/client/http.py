@@ -12,9 +12,9 @@ from requests.sessions import HTTPAdapter
 from urllib3.util.retry import Retry
 from collections import OrderedDict
 
-from fxsdk.x.cosmos.tx.v1beta1.service_pb2 import BroadcastMode, BROADCAST_MODE_SYNC, BROADCAST_MODE_ASYNC, \
+from fxpysdk.fxsdk.x.cosmos.tx.v1beta1.service_pb2 import BroadcastMode, BROADCAST_MODE_SYNC, BROADCAST_MODE_ASYNC, \
     BROADCAST_MODE_BLOCK
-from fxsdk.x.cosmos.tx.v1beta1.tx_pb2 import Tx, TxRaw
+from fxpysdk.fxsdk.x.cosmos.tx.v1beta1.tx_pb2 import Tx, TxRaw
 
 requests.models.json = ujson
 

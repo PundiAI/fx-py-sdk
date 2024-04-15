@@ -4,14 +4,14 @@ from typing import Optional
 import requests
 from eth_utils import is_hex_address
 
-from fxsdk.client.grpc import Client, GRPCBlockHeightHeader
-from fxsdk.msg import new_ibc_fx_msg_transfer
-from fxsdk.wallet.builder import TxBuilder
-from fxsdk.x.cosmos.base.v1beta1.coin_pb2 import Coin
-from fxsdk.x.cosmos.tx.v1beta1.service_pb2 import BroadcastMode, BROADCAST_MODE_UNSPECIFIED
-from fxsdk.x.ibc.core.channel.v1.channel_pb2 import Channel, IdentifiedChannel
-from fxsdk.x.ibc.core.channel.v1.query_pb2 import QueryChannelRequest, QueryChannelsRequest
-from fxsdk.x.ibc.core.channel.v1.query_pb2_grpc import QueryStub as IbcChannelClient
+from fxpysdk.fxsdk.client.grpc import Client, GRPCBlockHeightHeader
+from fxpysdk.fxsdk.msg import new_ibc_fx_msg_transfer
+from fxpysdk.fxsdk.wallet.builder import TxBuilder
+from fxpysdk.fxsdk.x.cosmos.base.v1beta1.coin_pb2 import Coin
+from fxpysdk.fxsdk.x.cosmos.tx.v1beta1.service_pb2 import BroadcastMode, BROADCAST_MODE_UNSPECIFIED
+from fxpysdk.fxsdk.x.ibc.core.channel.v1.channel_pb2 import Channel, IdentifiedChannel
+from fxpysdk.fxsdk.x.ibc.core.channel.v1.query_pb2 import QueryChannelRequest, QueryChannelsRequest
+from fxpysdk.fxsdk.x.ibc.core.channel.v1.query_pb2_grpc import QueryStub as IbcChannelClient
 
 
 class CrossChainTarget(Enum):

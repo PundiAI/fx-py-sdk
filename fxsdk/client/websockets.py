@@ -3,11 +3,11 @@ import itertools
 from urllib.parse import urlparse
 from typing import Callable, Awaitable, Optional, Dict
 
-from fxsdk.client.http import RpcRequest, HttpRpcClient
-from fxsdk.websockets import ReconnectingWebsocket, WebsocketManagerBase
-from fxsdk.x.cosmos.tx.v1beta1.service_pb2 import BroadcastMode, BROADCAST_MODE_SYNC, BROADCAST_MODE_ASYNC, \
+from fxpysdk.fxsdk.client.http import RpcRequest, HttpRpcClient
+from fxpysdk.fxsdk.websockets import ReconnectingWebsocket, WebsocketManagerBase
+from fxpysdk.fxsdk.x.cosmos.tx.v1beta1.service_pb2 import BroadcastMode, BROADCAST_MODE_SYNC, BROADCAST_MODE_ASYNC, \
     BROADCAST_MODE_BLOCK
-from fxsdk.x.cosmos.tx.v1beta1.tx_pb2 import Tx, TxRaw
+from fxpysdk.fxsdk.x.cosmos.tx.v1beta1.tx_pb2 import Tx, TxRaw
 
 
 class WebsocketException(Exception):

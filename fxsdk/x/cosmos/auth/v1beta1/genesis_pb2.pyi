@@ -1,6 +1,6 @@
 from google.protobuf import any_pb2 as _any_pb2
-from fxsdk.x.gogoproto import gogo_pb2 as _gogo_pb2
-from fxsdk.x.cosmos.auth.v1beta1 import auth_pb2 as _auth_pb2
+from fxpysdk.fxsdk.x.gogoproto import gogo_pb2 as _gogo_pb2
+from fxpysdk.fxsdk.x.cosmos.auth.v1beta1 import auth_pb2 as _auth_pb2
 from google.protobuf.internal import containers as _containers
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message

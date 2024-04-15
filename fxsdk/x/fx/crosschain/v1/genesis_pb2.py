@@ -11,9 +11,9 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from fxsdk.x.fx.crosschain.v1 import tx_pb2 as fx_dot_crosschain_dot_v1_dot_tx__pb2
-from fxsdk.x.fx.crosschain.v1 import types_pb2 as fx_dot_crosschain_dot_v1_dot_types__pb2
-from fxsdk.x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from fxpysdk.fxsdk.x.fx.crosschain.v1 import tx_pb2 as fx_dot_crosschain_dot_v1_dot_tx__pb2
+from fxpysdk.fxsdk.x.fx.crosschain.v1 import types_pb2 as fx_dot_crosschain_dot_v1_dot_types__pb2
+from fxpysdk.fxsdk.x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1e\x66x/crosschain/v1/genesis.proto\x12\x18\x66x.gravity.crosschain.v1\x1a\x19\x66x/crosschain/v1/tx.proto\x1a\x1c\x66x/crosschain/v1/types.proto\x1a\x14gogoproto/gogo.proto\"\xd3\x07\n\x0cGenesisState\x12\x36\n\x06params\x18\x01 \x01(\x0b\x32 .fx.gravity.crosschain.v1.ParamsB\x04\xc8\xde\x1f\x00\x12!\n\x19last_observed_event_nonce\x18\x02 \x01(\x04\x12[\n\x1alast_observed_block_height\x18\x03 \x01(\x0b\x32\x31.fx.gravity.crosschain.v1.LastObservedBlockHeightB\x04\xc8\xde\x1f\x00\x12\x37\n\x07oracles\x18\x04 \x03(\x0b\x32 .fx.gravity.crosschain.v1.OracleB\x04\xc8\xde\x1f\x00\x12>\n\x0boracle_sets\x18\x05 \x03(\x0b\x32#.fx.gravity.crosschain.v1.OracleSetB\x04\xc8\xde\x1f\x00\x12\x42\n\rbridge_tokens\x18\x06 \x03(\x0b\x32%.fx.gravity.crosschain.v1.BridgeTokenB\x04\xc8\xde\x1f\x00\x12O\n\x13unbatched_transfers\x18\x07 \x03(\x0b\x32,.fx.gravity.crosschain.v1.OutgoingTransferTxB\x04\xc8\xde\x1f\x00\x12@\n\x07\x62\x61tches\x18\x08 \x03(\x0b\x32).fx.gravity.crosschain.v1.OutgoingTxBatchB\x04\xc8\xde\x1f\x00\x12P\n\x13oracle_set_confirms\x18\t \x03(\x0b\x32-.fx.gravity.crosschain.v1.MsgOracleSetConfirmB\x04\xc8\xde\x1f\x00\x12G\n\x0e\x62\x61tch_confirms\x18\n \x03(\x0b\x32).fx.gravity.crosschain.v1.MsgConfirmBatchB\x04\xc8\xde\x1f\x00\x12\x41\n\x0c\x61ttestations\x18\x0b \x03(\x0b\x32%.fx.gravity.crosschain.v1.AttestationB\x04\xc8\xde\x1f\x00\x12G\n\x0fproposal_oracle\x18\x0c \x01(\x0b\x32(.fx.gravity.crosschain.v1.ProposalOracleB\x04\xc8\xde\x1f\x00\x12K\n\x18last_observed_oracle_set\x18\r \x01(\x0b\x32#.fx.gravity.crosschain.v1.OracleSetB\x04\xc8\xde\x1f\x00\x12 \n\x18last_slashed_batch_block\x18\x0e \x01(\x04\x12%\n\x1dlast_slashed_oracle_set_nonce\x18\x0f \x01(\x04\x42\x31Z/github.com/functionx/fx-core/x/crosschain/typesb\x06proto3')

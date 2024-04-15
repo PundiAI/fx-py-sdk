@@ -1,4 +1,4 @@
-from fxsdk.x.cosmos.nft.v1beta1 import nft_pb2 as _nft_pb2
+from fxpysdk.fxsdk.x.cosmos.nft.v1beta1 import nft_pb2 as _nft_pb2
 from google.protobuf.internal import containers as _containers
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message

@@ -1,5 +1,5 @@
-from fxsdk.x.fx.gov.v1 import params_pb2 as _params_pb2
-from fxsdk.x.gogoproto import gogo_pb2 as _gogo_pb2
+from fxpysdk.fxsdk.x.fx.gov.v1 import params_pb2 as _params_pb2
+from fxpysdk.fxsdk.x.gogoproto import gogo_pb2 as _gogo_pb2
 from google.api import annotations_pb2 as _annotations_pb2
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message

@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from fxsdk.x.ibc.applications.fee.v1 import tx_pb2 as ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2
+from fxpysdk.fxsdk.x.ibc.applications.fee.v1 import tx_pb2 as ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2
 
 
 class MsgStub(object):

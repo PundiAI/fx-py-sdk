@@ -1,5 +1,5 @@
-from fxsdk.x.gogoproto import gogo_pb2 as _gogo_pb2
-from fxsdk.x.ibc.applications.interchain_accounts.v1 import packet_pb2 as _packet_pb2
+from fxpysdk.fxsdk.x.gogoproto import gogo_pb2 as _gogo_pb2
+from fxpysdk.fxsdk.x.ibc.applications.interchain_accounts.v1 import packet_pb2 as _packet_pb2
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
 from typing import ClassVar as _ClassVar, Mapping as _Mapping, Optional as _Optional, Union as _Union

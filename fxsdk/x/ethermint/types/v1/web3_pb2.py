@@ -11,7 +11,7 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from fxsdk.x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from fxpysdk.fxsdk.x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1d\x65thermint/types/v1/web3.proto\x12\x12\x65thermint.types.v1\x1a\x14gogoproto/gogo.proto\"\xcc\x01\n\x16\x45xtensionOptionsWeb3Tx\x12O\n\x13typed_data_chain_id\x18\x01 \x01(\x04\x42\x32\xe2\xde\x1f\x10TypedDataChainID\xea\xde\x1f\x1atypedDataChainID,omitempty\x12)\n\tfee_payer\x18\x02 \x01(\tB\x16\xea\xde\x1f\x12\x66\x65\x65Payer,omitempty\x12\x30\n\rfee_payer_sig\x18\x03 \x01(\x0c\x42\x19\xea\xde\x1f\x15\x66\x65\x65PayerSig,omitempty:\x04\x88\xa0\x1f\x00\x42\"Z github.com/evmos/ethermint/typesb\x06proto3')
