@@ -1,9 +1,9 @@
 import time
 from typing import Dict
 
-from fxpysdk.fxsdk.client.http import HttpRpcClient, RPCException
-from fxpysdk.fxsdk.msg import new_tx_from_base64
-from fxpysdk.fxsdk.x.cosmos.tx.v1beta1.tx_pb2 import Tx
+from fxsdk.client.http import HttpRpcClient, RPCException
+from fxsdk.msg import new_tx_from_base64
+from fxsdk.x.cosmos.tx.v1beta1.tx_pb2 import Tx
 
 
 class ScanException(Exception):

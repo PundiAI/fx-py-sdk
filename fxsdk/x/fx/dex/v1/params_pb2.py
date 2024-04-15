@@ -11,8 +11,8 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from fxpysdk.fxsdk.x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
-from fxpysdk.fxsdk.x.cosmos.base.v1beta1 import coin_pb2 as cosmos_dot_base_dot_v1beta1_dot_coin__pb2
+from fxsdk.x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from fxsdk.x.cosmos.base.v1beta1 import coin_pb2 as cosmos_dot_base_dot_v1beta1_dot_coin__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x16\x66x/dex/v1/params.proto\x12\tfx.dex.v1\x1a\x14gogoproto/gogo.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\"\xdc\x03\n\x06Params\x12\x35\n\x08\x66\x65\x65_rate\x18\x01 \x01(\tB#\xc8\xde\x1f\x00\xda\xde\x1f\x1b\x63osmossdk.io/math.LegacyDec\x12/\n\'force_liquidation_margin_rate_threshold\x18\x02 \x01(\x03\x12\x1b\n\x13max_deals_per_block\x18\x03 \x01(\x03\x12\x1e\n\x16max_orders_per_account\x18\x04 \x01(\x03\x12\x1e\n\x16permitted_max_leverage\x18\x05 \x01(\x03\x12=\n\x10lock_coin_factor\x18\x06 \x01(\tB#\xc8\xde\x1f\x00\xda\xde\x1f\x1b\x63osmossdk.io/math.LegacyDec\x12\x38\n\x0b\x66x_discount\x18\x07 \x01(\tB#\xc8\xde\x1f\x00\xda\xde\x1f\x1b\x63osmossdk.io/math.LegacyDec\x12\x16\n\x0e\x64iscount_denom\x18\x08 \x01(\t\x12=\n\x10min_funding_rate\x18\t \x01(\tB#\xc8\xde\x1f\x00\xda\xde\x1f\x1b\x63osmossdk.io/math.LegacyDec\x12=\n\x10max_funding_rate\x18\n \x01(\tB#\xc8\xde\x1f\x00\xda\xde\x1f\x1b\x63osmossdk.io/math.LegacyDec\"\x8b\x03\n\x07Reserve\x12\x65\n\x10\x61\x63\x63umulative_fee\x18\x01 \x03(\x0b\x32\x19.cosmos.base.v1beta1.CoinB0\xc8\xde\x1f\x00\xaa\xdf\x1f(github.com/cosmos/cosmos-sdk/types.Coins\x12\x39\n\x0crisk_reserve\x18\x02 \x01(\tB#\xc8\xde\x1f\x00\xda\xde\x1f\x1b\x63osmossdk.io/math.LegacyDec\x12\x61\n\x0clocked_funds\x18\x03 \x03(\x0b\x32\x19.cosmos.base.v1beta1.CoinB0\xc8\xde\x1f\x00\xaa\xdf\x1f(github.com/cosmos/cosmos-sdk/types.Coins\x12=\n\x10short_pay_margin\x18\x04 \x01(\tB#\xc8\xde\x1f\x00\xda\xde\x1f\x1b\x63osmossdk.io/math.LegacyDec\x12<\n\x0flong_pay_margin\x18\x05 \x01(\tB#\xc8\xde\x1f\x00\xda\xde\x1f\x1b\x63osmossdk.io/math.LegacyDecB-Z+github.com/marginxio/marginx/x/dex/v1/typesb\x06proto3')

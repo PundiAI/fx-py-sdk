@@ -11,10 +11,10 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from fxpysdk.fxsdk.x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
-from fxpysdk.fxsdk.x.tendermint.types import types_pb2 as tendermint_dot_types_dot_types__pb2
-from fxpysdk.fxsdk.x.tendermint.types import evidence_pb2 as tendermint_dot_types_dot_evidence__pb2
-from fxpysdk.fxsdk.x.tendermint.version import types_pb2 as tendermint_dot_version_dot_types__pb2
+from fxsdk.x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from fxsdk.x.tendermint.types import types_pb2 as tendermint_dot_types_dot_types__pb2
+from fxsdk.x.tendermint.types import evidence_pb2 as tendermint_dot_types_dot_evidence__pb2
+from fxsdk.x.tendermint.version import types_pb2 as tendermint_dot_version_dot_types__pb2
 from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
 
 

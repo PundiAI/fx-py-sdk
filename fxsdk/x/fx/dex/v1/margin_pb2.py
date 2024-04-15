@@ -11,7 +11,7 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from fxpysdk.fxsdk.x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from fxsdk.x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x16\x66x/dex/v1/margin.proto\x12\tfx.dex.v1\x1a\x14gogoproto/gogo.proto\"\xfc\x02\n\x0fMarginRateTable\x12\x0f\n\x07pair_id\x18\x01 \x01(\t\x12\x10\n\x08leverage\x18\x02 \x01(\x04\x12=\n\x10nominal_position\x18\x03 \x03(\tB#\xc8\xde\x1f\x00\xda\xde\x1f\x1b\x63osmossdk.io/math.LegacyDec\x12>\n\x11maint_margin_rate\x18\x04 \x03(\tB#\xc8\xde\x1f\x00\xda\xde\x1f\x1b\x63osmossdk.io/math.LegacyDec\x12\x39\n\x0cmaint_amount\x18\x05 \x03(\tB#\xc8\xde\x1f\x00\xda\xde\x1f\x1b\x63osmossdk.io/math.LegacyDec\x12\x11\n\tLeverages\x18\x06 \x03(\r\x12\x32\n\x05Rates\x18\x07 \x03(\tB#\xc8\xde\x1f\x00\xda\xde\x1f\x1b\x63osmossdk.io/math.LegacyDec\x12\x45\n\x18impact_price_base_amount\x18\x08 \x01(\tB#\xc8\xde\x1f\x00\xda\xde\x1f\x1b\x63osmossdk.io/math.LegacyDecB-Z+github.com/marginxio/marginx/x/dex/v1/typesb\x06proto3')

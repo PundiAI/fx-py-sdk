@@ -5,15 +5,15 @@ import datetime
 from google.protobuf.any_pb2 import Any
 from decimal import Decimal
 
-from fxpysdk.fxsdk.dec import dec_to_str
-from fxpysdk.fxsdk.x.cosmos.bank.v1beta1.tx_pb2 import MsgSend
-from fxpysdk.fxsdk.x.cosmos.base.v1beta1.coin_pb2 import Coin
-from fxpysdk.fxsdk.x.cosmos.tx.v1beta1.tx_pb2 import Tx, TxRaw, TxBody, AuthInfo
-from fxpysdk.fxsdk.x.fx.dex.v1.order_pb2 import Direction
-from fxpysdk.fxsdk.x.fx.dex.v1.tx_pb2 import MsgCreateOrder, MsgCancelOrder, MsgClosePosition, MsgAddMargin
-from fxpysdk.fxsdk.x.ibc.applications.transfer.v1.tx_pb2 import MsgTransfer
-from fxpysdk.fxsdk.x.ibc.core.client.v1.client_pb2 import Height
-from fxpysdk.fxsdk.x.fx.ibc.applications.transfer.v1.tx_pb2 import MsgTransfer as FxMsgTransfer
+from fxsdk.dec import dec_to_str
+from fxsdk.x.cosmos.bank.v1beta1.tx_pb2 import MsgSend
+from fxsdk.x.cosmos.base.v1beta1.coin_pb2 import Coin
+from fxsdk.x.cosmos.tx.v1beta1.tx_pb2 import Tx, TxRaw, TxBody, AuthInfo
+from fxsdk.x.fx.dex.v1.order_pb2 import Direction
+from fxsdk.x.fx.dex.v1.tx_pb2 import MsgCreateOrder, MsgCancelOrder, MsgClosePosition, MsgAddMargin
+from fxsdk.x.ibc.applications.transfer.v1.tx_pb2 import MsgTransfer
+from fxsdk.x.ibc.core.client.v1.client_pb2 import Height
+from fxsdk.x.fx.ibc.applications.transfer.v1.tx_pb2 import MsgTransfer as FxMsgTransfer
 
 
 def calculate_future_timestamp(seconds: int) -> int:

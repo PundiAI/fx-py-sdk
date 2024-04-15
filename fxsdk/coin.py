@@ -1,6 +1,6 @@
 import re
 
-from fxpysdk.fxsdk.x.cosmos.base.v1beta1.coin_pb2 import Coin
+from fxsdk.x.cosmos.base.v1beta1.coin_pb2 import Coin
 
 
 def parse_coins(value: str) -> [Coin]:

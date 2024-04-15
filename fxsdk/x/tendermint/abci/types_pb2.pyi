@@ -1,9 +1,9 @@
-from fxpysdk.fxsdk.x.tendermint.crypto import proof_pb2 as _proof_pb2
-from fxpysdk.fxsdk.x.tendermint.types import types_pb2 as _types_pb2
-from fxpysdk.fxsdk.x.tendermint.crypto import keys_pb2 as _keys_pb2
-from fxpysdk.fxsdk.x.tendermint.types import params_pb2 as _params_pb2
+from fxsdk.x.tendermint.crypto import proof_pb2 as _proof_pb2
+from fxsdk.x.tendermint.types import types_pb2 as _types_pb2
+from fxsdk.x.tendermint.crypto import keys_pb2 as _keys_pb2
+from fxsdk.x.tendermint.types import params_pb2 as _params_pb2
 from google.protobuf import timestamp_pb2 as _timestamp_pb2
-from fxpysdk.fxsdk.x.gogoproto import gogo_pb2 as _gogo_pb2
+from fxsdk.x.gogoproto import gogo_pb2 as _gogo_pb2
 from google.protobuf.internal import containers as _containers
 from google.protobuf.internal import enum_type_wrapper as _enum_type_wrapper
 from google.protobuf import descriptor as _descriptor

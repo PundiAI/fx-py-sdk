@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from fxpysdk.fxsdk.x.fx.legacy.other import query_pb2 as fx_dot_legacy_dot_other_dot_query__pb2
+from fxsdk.x.fx.legacy.other import query_pb2 as fx_dot_legacy_dot_other_dot_query__pb2
 
 
 class QueryStub(object):

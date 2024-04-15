@@ -1,7 +1,7 @@
-from fxpysdk.fxsdk.x.gogoproto import gogo_pb2 as _gogo_pb2
-from fxpysdk.fxsdk.x.ibc.core.client.v1 import genesis_pb2 as _genesis_pb2
-from fxpysdk.fxsdk.x.ibc.core.connection.v1 import genesis_pb2 as _genesis_pb2_1
-from fxpysdk.fxsdk.x.ibc.core.channel.v1 import genesis_pb2 as _genesis_pb2_1_1
+from fxsdk.x.gogoproto import gogo_pb2 as _gogo_pb2
+from fxsdk.x.ibc.core.client.v1 import genesis_pb2 as _genesis_pb2
+from fxsdk.x.ibc.core.connection.v1 import genesis_pb2 as _genesis_pb2_1
+from fxsdk.x.ibc.core.channel.v1 import genesis_pb2 as _genesis_pb2_1_1
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
 from typing import ClassVar as _ClassVar, Mapping as _Mapping, Optional as _Optional, Union as _Union

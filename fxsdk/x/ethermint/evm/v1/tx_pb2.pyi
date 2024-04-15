@@ -1,6 +1,6 @@
-from fxpysdk.fxsdk.x.cosmos_proto import cosmos_pb2 as _cosmos_pb2
-from fxpysdk.fxsdk.x.ethermint.evm.v1 import evm_pb2 as _evm_pb2
-from fxpysdk.fxsdk.x.gogoproto import gogo_pb2 as _gogo_pb2
+from fxsdk.x.cosmos_proto import cosmos_pb2 as _cosmos_pb2
+from fxsdk.x.ethermint.evm.v1 import evm_pb2 as _evm_pb2
+from fxsdk.x.gogoproto import gogo_pb2 as _gogo_pb2
 from google.api import annotations_pb2 as _annotations_pb2
 from google.protobuf import any_pb2 as _any_pb2
 from google.protobuf.internal import containers as _containers

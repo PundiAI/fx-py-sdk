@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from fxpysdk.fxsdk.x.ethermint.feemarket.v1 import query_pb2 as ethermint_dot_feemarket_dot_v1_dot_query__pb2
+from fxsdk.x.ethermint.feemarket.v1 import query_pb2 as ethermint_dot_feemarket_dot_v1_dot_query__pb2
 
 
 class QueryStub(object):

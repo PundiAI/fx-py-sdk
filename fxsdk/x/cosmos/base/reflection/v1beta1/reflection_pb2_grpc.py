@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from fxpysdk.fxsdk.x.cosmos.base.reflection.v1beta1 import reflection_pb2 as cosmos_dot_base_dot_reflection_dot_v1beta1_dot_reflection__pb2
+from fxsdk.x.cosmos.base.reflection.v1beta1 import reflection_pb2 as cosmos_dot_base_dot_reflection_dot_v1beta1_dot_reflection__pb2
 
 
 class ReflectionServiceStub(object):
