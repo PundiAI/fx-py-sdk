@@ -11,8 +11,8 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from fxsdk.x.ethermint.evm.v1 import evm_pb2 as ethermint_dot_evm_dot_v1_dot_evm__pb2
-from fxsdk.x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from fxpysdk.fxsdk.x.ethermint.evm.v1 import evm_pb2 as ethermint_dot_evm_dot_v1_dot_evm__pb2
+from fxpysdk.fxsdk.x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1e\x65thermint/evm/v1/genesis.proto\x12\x10\x65thermint.evm.v1\x1a\x1a\x65thermint/evm/v1/evm.proto\x1a\x14gogoproto/gogo.proto\"x\n\x0cGenesisState\x12\x38\n\x08\x61\x63\x63ounts\x18\x01 \x03(\x0b\x32 .ethermint.evm.v1.GenesisAccountB\x04\xc8\xde\x1f\x00\x12.\n\x06params\x18\x02 \x01(\x0b\x32\x18.ethermint.evm.v1.ParamsB\x04\xc8\xde\x1f\x00\"j\n\x0eGenesisAccount\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\x12\x0c\n\x04\x63ode\x18\x02 \x01(\t\x12\x39\n\x07storage\x18\x03 \x03(\x0b\x32\x17.ethermint.evm.v1.StateB\x0f\xc8\xde\x1f\x00\xaa\xdf\x1f\x07StorageB(Z&github.com/evmos/ethermint/x/evm/typesb\x06proto3')

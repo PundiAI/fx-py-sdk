@@ -11,8 +11,8 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from fxsdk.x.fx.gov.v1 import params_pb2 as fx_dot_gov_dot_v1_dot_params__pb2
-from fxsdk.x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from fxpysdk.fxsdk.x.fx.gov.v1 import params_pb2 as fx_dot_gov_dot_v1_dot_params__pb2
+from fxpysdk.fxsdk.x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 from google.api import annotations_pb2 as google_dot_api_dot_annotations__pb2
 
 

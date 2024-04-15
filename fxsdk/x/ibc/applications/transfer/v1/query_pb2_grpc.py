@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from fxsdk.x.ibc.applications.transfer.v1 import query_pb2 as ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2
+from fxpysdk.fxsdk.x.ibc.applications.transfer.v1 import query_pb2 as ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2
 
 
 class QueryStub(object):
@@ -15,15 +15,15 @@ class QueryStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.DenomTrace = channel.unary_unary(
-                '/ibc.applications.transfer.v1.Query/DenomTrace',
-                request_serializer=ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomTraceRequest.SerializeToString,
-                response_deserializer=ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomTraceResponse.FromString,
-                )
         self.DenomTraces = channel.unary_unary(
                 '/ibc.applications.transfer.v1.Query/DenomTraces',
                 request_serializer=ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomTracesRequest.SerializeToString,
                 response_deserializer=ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomTracesResponse.FromString,
+                )
+        self.DenomTrace = channel.unary_unary(
+                '/ibc.applications.transfer.v1.Query/DenomTrace',
+                request_serializer=ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomTraceRequest.SerializeToString,
+                response_deserializer=ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomTraceResponse.FromString,
                 )
         self.Params = channel.unary_unary(
                 '/ibc.applications.transfer.v1.Query/Params',
@@ -46,15 +46,15 @@ class QueryServicer(object):
     """Query provides defines the gRPC querier service.
     """
 
-    def DenomTrace(self, request, context):
-        """DenomTrace queries a denomination trace information.
+    def DenomTraces(self, request, context):
+        """DenomTraces queries all denomination traces.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def DenomTraces(self, request, context):
-        """DenomTraces queries all denomination traces.
+    def DenomTrace(self, request, context):
+        """DenomTrace queries a denomination trace information.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -84,15 +84,15 @@ class QueryServicer(object):
 
 def add_QueryServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'DenomTrace': grpc.unary_unary_rpc_method_handler(
-                    servicer.DenomTrace,
-                    request_deserializer=ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomTraceRequest.FromString,
-                    response_serializer=ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomTraceResponse.SerializeToString,
-            ),
             'DenomTraces': grpc.unary_unary_rpc_method_handler(
                     servicer.DenomTraces,
                     request_deserializer=ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomTracesRequest.FromString,
                     response_serializer=ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomTracesResponse.SerializeToString,
+            ),
+            'DenomTrace': grpc.unary_unary_rpc_method_handler(
+                    servicer.DenomTrace,
+                    request_deserializer=ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomTraceRequest.FromString,
+                    response_serializer=ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomTraceResponse.SerializeToString,
             ),
             'Params': grpc.unary_unary_rpc_method_handler(
                     servicer.Params,
@@ -121,23 +121,6 @@ class Query(object):
     """
 
     @staticmethod
-    def DenomTrace(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.applications.transfer.v1.Query/DenomTrace',
-            ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomTraceRequest.SerializeToString,
-            ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomTraceResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
     def DenomTraces(request,
             target,
             options=(),
@@ -151,6 +134,23 @@ class Query(object):
         return grpc.experimental.unary_unary(request, target, '/ibc.applications.transfer.v1.Query/DenomTraces',
             ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomTracesRequest.SerializeToString,
             ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomTracesResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def DenomTrace(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/ibc.applications.transfer.v1.Query/DenomTrace',
+            ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomTraceRequest.SerializeToString,
+            ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomTraceResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

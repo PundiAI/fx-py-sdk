@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from fxsdk.x.cosmos.feegrant.v1beta1 import query_pb2 as cosmos_dot_feegrant_dot_v1beta1_dot_query__pb2
+from fxpysdk.fxsdk.x.cosmos.feegrant.v1beta1 import query_pb2 as cosmos_dot_feegrant_dot_v1beta1_dot_query__pb2
 
 
 class QueryStub(object):

@@ -11,7 +11,7 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from fxsdk.x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from fxpysdk.fxsdk.x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\nCibc/applications/interchain_accounts/controller/v1/controller.proto\x12\x32ibc.applications.interchain_accounts.controller.v1\x1a\x14gogoproto/gogo.proto\"C\n\x06Params\x12\x39\n\x12\x63ontroller_enabled\x18\x01 \x01(\x08\x42\x1d\xf2\xde\x1f\x19yaml:\"controller_enabled\"BRZPgithub.com/cosmos/ibc-go/v6/modules/apps/27-interchain-accounts/controller/typesb\x06proto3')

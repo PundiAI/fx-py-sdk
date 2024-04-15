@@ -11,8 +11,8 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from fxsdk.x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
-from fxsdk.x.cosmos.capability.v1beta1 import capability_pb2 as cosmos_dot_capability_dot_v1beta1_dot_capability__pb2
+from fxpysdk.fxsdk.x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from fxpysdk.fxsdk.x.cosmos.capability.v1beta1 import capability_pb2 as cosmos_dot_capability_dot_v1beta1_dot_capability__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\'cosmos/capability/v1beta1/genesis.proto\x12\x19\x63osmos.capability.v1beta1\x1a\x14gogoproto/gogo.proto\x1a*cosmos/capability/v1beta1/capability.proto\"g\n\rGenesisOwners\x12\r\n\x05index\x18\x01 \x01(\x04\x12G\n\x0cindex_owners\x18\x02 \x01(\x0b\x32+.cosmos.capability.v1beta1.CapabilityOwnersB\x04\xc8\xde\x1f\x00\"]\n\x0cGenesisState\x12\r\n\x05index\x18\x01 \x01(\x04\x12>\n\x06owners\x18\x02 \x03(\x0b\x32(.cosmos.capability.v1beta1.GenesisOwnersB\x04\xc8\xde\x1f\x00\x42\x31Z/github.com/cosmos/cosmos-sdk/x/capability/typesb\x06proto3')

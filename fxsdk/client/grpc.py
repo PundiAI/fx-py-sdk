@@ -5,36 +5,36 @@ from google.protobuf.any_pb2 import Any
 from urllib.parse import urlparse
 from typing import Optional
 
-from fxsdk.msg import new_msg_send
-from fxsdk.wallet.builder import TxBuilder
-from fxsdk.coin import parse_coins
+from fxpysdk.fxsdk.msg import new_msg_send
+from fxpysdk.fxsdk.wallet.builder import TxBuilder
+from fxpysdk.fxsdk.coin import parse_coins
 
-from fxsdk.x.cosmos.auth.v1beta1.auth_pb2 import BaseAccount, ModuleAccount
-from fxsdk.x.cosmos.auth.v1beta1.query_pb2 import QueryAccountRequest, Bech32PrefixRequest, QueryModuleAccountsRequest
-from fxsdk.x.cosmos.auth.v1beta1.query_pb2_grpc import QueryStub as AuthClient
-from fxsdk.x.cosmos.bank.v1beta1.bank_pb2 import Supply
-from fxsdk.x.cosmos.bank.v1beta1.query_pb2 import (QueryBalanceRequest, QueryAllBalancesRequest,
+from fxpysdk.fxsdk.x.cosmos.auth.v1beta1.auth_pb2 import BaseAccount, ModuleAccount
+from fxpysdk.fxsdk.x.cosmos.auth.v1beta1.query_pb2 import QueryAccountRequest, Bech32PrefixRequest, QueryModuleAccountsRequest
+from fxpysdk.fxsdk.x.cosmos.auth.v1beta1.query_pb2_grpc import QueryStub as AuthClient
+from fxpysdk.fxsdk.x.cosmos.bank.v1beta1.bank_pb2 import Supply
+from fxpysdk.fxsdk.x.cosmos.bank.v1beta1.query_pb2 import (QueryBalanceRequest, QueryAllBalancesRequest,
                                                    QueryTotalSupplyRequest, QuerySupplyOfRequest)
-from fxsdk.x.cosmos.bank.v1beta1.query_pb2_grpc import QueryStub as BankClient
-from fxsdk.x.cosmos.base.abci.v1beta1.abci_pb2 import GasInfo, TxResponse
-from fxsdk.x.cosmos.base.tendermint.v1beta1.query_pb2 import GetBlockByHeightRequest, GetLatestBlockRequest, \
+from fxpysdk.fxsdk.x.cosmos.bank.v1beta1.query_pb2_grpc import QueryStub as BankClient
+from fxpysdk.fxsdk.x.cosmos.base.abci.v1beta1.abci_pb2 import GasInfo, TxResponse
+from fxpysdk.fxsdk.x.cosmos.base.tendermint.v1beta1.query_pb2 import GetBlockByHeightRequest, GetLatestBlockRequest, \
     GetSyncingRequest, GetNodeInfoRequest
-from fxsdk.x.cosmos.base.tendermint.v1beta1.query_pb2_grpc import ServiceStub as TendermintClient
-from fxsdk.x.cosmos.base.v1beta1.coin_pb2 import Coin
-from fxsdk.x.cosmos.staking.v1beta1.query_pb2 import QueryValidatorsRequest
-from fxsdk.x.cosmos.staking.v1beta1.query_pb2 import QueryParamsRequest as QueryStakingParamsRequest
-from fxsdk.x.cosmos.staking.v1beta1.query_pb2_grpc import QueryStub as StakingClient
-from fxsdk.x.cosmos.staking.v1beta1.staking_pb2 import Validator
-from fxsdk.x.cosmos.staking.v1beta1.staking_pb2 import Params as StakingParams
-from fxsdk.x.cosmos.tx.v1beta1.service_pb2 import BROADCAST_MODE_SYNC, BroadcastMode, BroadcastTxRequest, \
+from fxpysdk.fxsdk.x.cosmos.base.tendermint.v1beta1.query_pb2_grpc import ServiceStub as TendermintClient
+from fxpysdk.fxsdk.x.cosmos.base.v1beta1.coin_pb2 import Coin
+from fxpysdk.fxsdk.x.cosmos.staking.v1beta1.query_pb2 import QueryValidatorsRequest
+from fxpysdk.fxsdk.x.cosmos.staking.v1beta1.query_pb2 import QueryParamsRequest as QueryStakingParamsRequest
+from fxpysdk.fxsdk.x.cosmos.staking.v1beta1.query_pb2_grpc import QueryStub as StakingClient
+from fxpysdk.fxsdk.x.cosmos.staking.v1beta1.staking_pb2 import Validator
+from fxpysdk.fxsdk.x.cosmos.staking.v1beta1.staking_pb2 import Params as StakingParams
+from fxpysdk.fxsdk.x.cosmos.tx.v1beta1.service_pb2 import BROADCAST_MODE_SYNC, BroadcastMode, BroadcastTxRequest, \
     SimulateRequest, \
     GetTxRequest, GetTxResponse, OrderBy, GetTxsEventRequest, GetTxsEventResponse
-from fxsdk.x.cosmos.tx.v1beta1.service_pb2_grpc import ServiceStub as TxClient
-from fxsdk.x.cosmos.tx.v1beta1.tx_pb2 import Fee, Tx, TxRaw
-from fxsdk.x.cosmos.base.node.v1beta1.query_pb2_grpc import ServiceStub as CosmosNodeClient
-from fxsdk.x.cosmos.base.node.v1beta1.query_pb2 import ConfigRequest
-from fxsdk.x.tendermint.p2p.types_pb2 import DefaultNodeInfo
-from fxsdk.x.tendermint.types.block_pb2 import Block
+from fxpysdk.fxsdk.x.cosmos.tx.v1beta1.service_pb2_grpc import ServiceStub as TxClient
+from fxpysdk.fxsdk.x.cosmos.tx.v1beta1.tx_pb2 import Fee, Tx, TxRaw
+from fxpysdk.fxsdk.x.cosmos.base.node.v1beta1.query_pb2_grpc import ServiceStub as CosmosNodeClient
+from fxpysdk.fxsdk.x.cosmos.base.node.v1beta1.query_pb2 import ConfigRequest
+from fxpysdk.fxsdk.x.tendermint.p2p.types_pb2 import DefaultNodeInfo
+from fxpysdk.fxsdk.x.tendermint.types.block_pb2 import Block
 
 GRPCBlockHeightHeader = 'x-cosmos-block-height'
 DefGasLimit = 200_000

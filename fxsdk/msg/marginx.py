@@ -2,13 +2,13 @@ from datetime import datetime
 from decimal import Decimal
 from typing import NamedTuple
 
-from fxsdk.coin import parse_coin
-from fxsdk.dec import dec_from_str
-from fxsdk.wallet.address import Address
-from fxsdk.x.fx.dex.v1.funding_pb2 import PairFundingRate as PairFundingRateProto
-from fxsdk.x.fx.dex.v1.order_pb2 import Order as OrderProto
-from fxsdk.x.fx.dex.v1.position_pb2 import Position as PositionProto
-from fxsdk.x.fx.dex.v1.match_pb2 import OrderDepth as OrderDepthProto
+from fxpysdk.fxsdk.coin import parse_coin
+from fxpysdk.fxsdk.dec import dec_from_str
+from fxpysdk.fxsdk.wallet.address import Address
+from fxpysdk.fxsdk.x.fx.dex.v1.funding_pb2 import PairFundingRate as PairFundingRateProto
+from fxpysdk.fxsdk.x.fx.dex.v1.order_pb2 import Order as OrderProto
+from fxpysdk.fxsdk.x.fx.dex.v1.position_pb2 import Position as PositionProto
+from fxpysdk.fxsdk.x.fx.dex.v1.match_pb2 import OrderDepth as OrderDepthProto
 
 
 class Position(NamedTuple):

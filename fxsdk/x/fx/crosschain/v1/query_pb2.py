@@ -11,10 +11,10 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from fxsdk.x.cosmos.base.v1beta1 import coin_pb2 as cosmos_dot_base_dot_v1beta1_dot_coin__pb2
-from fxsdk.x.fx.crosschain.v1 import tx_pb2 as fx_dot_crosschain_dot_v1_dot_tx__pb2
-from fxsdk.x.fx.crosschain.v1 import types_pb2 as fx_dot_crosschain_dot_v1_dot_types__pb2
-from fxsdk.x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from fxpysdk.fxsdk.x.cosmos.base.v1beta1 import coin_pb2 as cosmos_dot_base_dot_v1beta1_dot_coin__pb2
+from fxpysdk.fxsdk.x.fx.crosschain.v1 import tx_pb2 as fx_dot_crosschain_dot_v1_dot_tx__pb2
+from fxpysdk.fxsdk.x.fx.crosschain.v1 import types_pb2 as fx_dot_crosschain_dot_v1_dot_types__pb2
+from fxpysdk.fxsdk.x.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 from google.api import annotations_pb2 as google_dot_api_dot_annotations__pb2
 
 

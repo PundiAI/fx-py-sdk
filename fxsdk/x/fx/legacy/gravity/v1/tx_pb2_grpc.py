@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from fxsdk.x.fx.legacy.gravity.v1 import tx_pb2 as fx_dot_legacy_dot_gravity_dot_v1_dot_tx__pb2
+from fxpysdk.fxsdk.x.fx.legacy.gravity.v1 import tx_pb2 as fx_dot_legacy_dot_gravity_dot_v1_dot_tx__pb2
 
 
 class MsgStub(object):

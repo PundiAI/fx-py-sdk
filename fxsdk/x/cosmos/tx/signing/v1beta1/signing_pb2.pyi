@@ -1,4 +1,4 @@
-from fxsdk.x.cosmos.crypto.multisig.v1beta1 import multisig_pb2 as _multisig_pb2
+from fxpysdk.fxsdk.x.cosmos.crypto.multisig.v1beta1 import multisig_pb2 as _multisig_pb2
 from google.protobuf import any_pb2 as _any_pb2
 from google.protobuf.internal import containers as _containers
 from google.protobuf.internal import enum_type_wrapper as _enum_type_wrapper
